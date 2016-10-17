@@ -9,6 +9,10 @@ p {
     padding: 5px;
 }
 
+.row {
+    margin: 15px auto;
+}
+
 .download-file {
     display: block;
 }
