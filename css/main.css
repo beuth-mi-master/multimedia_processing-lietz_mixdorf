@@ -21,7 +21,7 @@ figure {
     margin: 5px auto 15px auto;
 }
 
-figure > embed {
+figure > pre {
     width: 100%;
     height: 300px;
 }
