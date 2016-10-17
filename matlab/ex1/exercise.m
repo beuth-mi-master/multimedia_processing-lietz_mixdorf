@@ -1,5 +1,5 @@
 currentfolder = fileparts(which(mfilename));
-outputfile = strcat(currentfolder, '/sine11.wav');
+outputfile = strcat(currentfolder, '/sine.wav');
 
 % sample rate (16kHz)
 sampleRate = 16000;
@@ -26,7 +26,7 @@ xlabel('t_s');
 ylabel('x_t'); 
 
 % save plot as jpg
-saveas(gcf, 'plot11', 'jpg')
+saveas(gcf, 'plot', 'jpg')
 
 % write to wav-file
 audiowrite(outputfile, sinemix, sampleRate)
