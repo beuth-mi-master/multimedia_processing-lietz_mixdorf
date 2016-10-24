@@ -20,7 +20,7 @@ for i = 1:numel(sounds_list)
     for j = 1:numel(framelength_list)
         current_frame_length = framelength_list(j);
         ft_sound = fft(current_sound, current_frame_length);
-        delta_f = sampleRate / current_frame_length;
+        delta_f = sampleRate/current_frame_length;
         f = (0:delta_f:sampleRate-delta_f);
         p = j + ((i - 1) * numel(sounds_list));
         subplot(numel(sounds_list),numel(framelength_list),p)
