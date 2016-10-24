@@ -7,8 +7,11 @@ sampleRate = 16000;
 % sampling period (0.0000625s) 
 samplePeriod = 1/sampleRate;
 
+% time
+timeInMS = 5000;
+
 % length of signal (5s) 
-time = (0:samplePeriod:5-samplePeriod);
+time = (0:timeInMS-1)*samplePeriod;
 
 % create sine vibrations
 vibration1 = calculateVibration(1, 100, 0, time);
@@ -19,14 +22,8 @@ vibration3 = calculateVibration(0.5, 400, pi, time);
 sinemix = vibration1 + vibration2 + vibration3;
 sinemix = sinemix/max(abs(sinemix));
 
-% plotting sinemix
-plot(time, sinemix);
-axis([0 0.02 -1 1]);
-xlabel('t_s'); 
-ylabel('x_t'); 
+% call exercise 1.1
+%ex1(sampleRate, sinemix, time, outputfile);
 
-% save plot as jpg
-saveas(gcf, 'plot', 'jpg')
-
-% write to wav-file
-audiowrite(outputfile, sinemix, sampleRate)
+% call exercise 1.2
+ex2(sampleRate, sinemix);
