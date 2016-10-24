@@ -8,10 +8,10 @@ sampleRate = 16000;
 samplePeriod = 1/sampleRate;
 
 % time
-timeInMS = 5000;
+timeInMS = 5;
 
 % length of signal (5s) 
-time = (0:timeInMS-1)*samplePeriod;
+time = (0:samplePeriod:timeInMS-samplePeriod);
 
 % create sine vibrations
 vibration1 = calculateVibration(1, 100, 0, time);
@@ -23,7 +23,7 @@ sinemix = vibration1 + vibration2 + vibration3;
 sinemix = sinemix/max(abs(sinemix));
 
 % call exercise 1.1
-%ex1(sampleRate, sinemix, time, outputfile);
+ex1(sampleRate, sinemix, time, outputfile);
 
 % call exercise 1.2
-ex2(sampleRate, sinemix);
+%ex2(sampleRate, sinemix);
