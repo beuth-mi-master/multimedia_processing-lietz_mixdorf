@@ -31,29 +31,6 @@
                 <em>Lösungen von Felix Maulwurf und Michael Duve</em>
             </p>
         </div>
-
-        <div class="container panel-group">
-            <div class="panel panel-default">
-                <div class="row">
-                    <p class="col-md-12">
-                        Der Teil des Codes, der für alle Teilaufgaben von Übung 1 benötigt wird.
-                    </p>
-                    <figure class="col-md-6">
-                        <pre data-embed="matlab/ex1/exercise.m"></pre>
-                        <figcaption>Datei:
-                            <a href="matlab/ex1/exercise.m" target="_new">exercise.m</a>
-                        </figcaption>
-                    </figure>
-                    <figure class="col-md-6">
-                        <pre data-embed="matlab/ex1/calculateVibration.m"></pre>
-                        <figcaption>Datei:
-                            <a href="matlab/ex1/calculateVibration.m" target="_new">calculateVibration.m</a>
-                        </figcaption>
-                    </figure>
-                </div>
-            </div>
-        </div>
-
         <div id="accordion" class="container panel-group">
             <div class="panel panel-default">
                 <div class="panel-heading">
@@ -66,12 +43,32 @@
                 </div>
                 <div id="collapseOne" class="panel-collapse collapse in">
                     <div class="panel-body">
+                        <h4>Aufgabenbeschreibung:</h4>
+                        <p>
+                            In dieser Übung geht es um die Fouriersynthese und -analyse. Erzeuge mit Matlab ein Sinusgemisch mit den folgenden Eigenschaften (f: Frequenz, A: Amplitude, phi Phasenwinkel):
+                        </p>
+                        <ul>
+                            <li>f1=100Hz A1=1 phi1=0</li>
+                            <li>f2=200Hz A2=0,5 phi2=-pi/2</li>
+                            <li>f3=400Hz A3=0,5 phi3=pi</li>
+                        </ul>
+                        <p>
+                            und einer Dauer von 5 s. Zeichne das Sinusgemisch mit plot im Bereich t=0-20ms. Dabei soll auf der x-Achse die Zeit in ms abgetragen sein. Gibt die Schwingung als Wave-Datei mit wavwrite aus, und zwar mit einer Abtastfrequenz von 16kHz und einer Auflösung
+                            von 16bit. Dabei skalieren, um Clipping zu vermeiden.
+                        </p>
                         <!-- content -->
+                        <h4>Aufgabenlösung:</h4>
                         <div class="row">
-                            <figure class="col-md-12">
+                            <figure class="col-md-6">
                                 <pre data-embed="matlab/ex1/ex1.m"></pre>
                                 <figcaption>Datei:
                                     <a href="matlab/ex1/ex1.m" target="_new">ex1.m</a>
+                                </figcaption>
+                            </figure>
+                            <figure class="col-md-6">
+                                <pre data-embed="matlab/ex1/calculateVibration.m"></pre>
+                                <figcaption>Datei:
+                                    <a href="matlab/ex1/calculateVibration.m" target="_new">calculateVibration.m</a>
                                 </figcaption>
                             </figure>
                         </div>
@@ -87,7 +84,7 @@
                         </div>
                         <div class="row">
                             <figure class="col-md-12">
-                                <img src="matlab/ex1/plot.jpg" alt="" />
+                                <img src="matlab/ex1/plot_11.jpg" alt="" />
                                 <figcaption>
                                     Plot des Sinusgemisch
                                 </figcaption>
@@ -107,18 +104,33 @@
                 </div>
                 <div id="collapseTwo" class="panel-collapse collapse in">
                     <div class="panel-body">
+                        <h4>Aufgabenbeschreibung:</h4>
+                        <p>
+                            Berechne die Fouriertransformation der Sinusschwingung mit fft und stelle das ermittelte Amplitudenspektrum mit plot dar. Variiere dabei die Framelänge zwischen 50ms, 100ms, 500ms, 1 s und 5 s. Welche Frequenzauflösung delta f erhältst du für die verschiedenen
+                            Framelängen?
+                        </p>
+                        <p>
+                            Auf der x-Achse soll dabei die Frequenz in Hertz abgetragen werden! Was fällt beim Spektrum bei der Variation der Framelänge auf? Wie kann man sich diesen Unterschied erklären?
+                        </p>
                         <!-- content -->
+                        <h4>Aufgabenlösung:</h4>
                         <div class="row">
-                            <figure class="col-md-12">
+                            <figure class="col-md-6">
                                 <pre data-embed="matlab/ex1/ex2.m"></pre>
                                 <figcaption>Datei:
                                     <a href="matlab/ex1/ex2.m" target="_new">ex2.m</a>
                                 </figcaption>
                             </figure>
+                            <figure class="col-md-6">
+                                <pre data-embed="matlab/ex1/calculateVibration.m"></pre>
+                                <figcaption>Datei:
+                                    <a href="matlab/ex1/calculateVibration.m" target="_new">calculateVibration.m</a>
+                                </figcaption>
+                            </figure>
                         </div>
                         <div class="row">
                             <figure class="col-md-12">
-                                <img src="matlab/ex1/plot_ft.jpg" alt="" />
+                                <img src="matlab/ex1/plot_12.jpg" alt="" />
                                 <figcaption>
                                     Plot der Fouriertransformationen
                                 </figcaption>
@@ -180,7 +192,13 @@
             </div>
             <div id="collapseThree" class="panel-collapse collapse in">
                 <div class="panel-body">
+                    <h4>Aufgabenbeschreibung:</h4>
+                    <p>
+                        Nimm nun in Praat den Vokal ‚a‘ und den Vokal ‚i‘ mit 16kHz mono auf, und zwar für jedes Gruppenmitglied. Lies die Datei mit wavread in deinem Matlab-Programm ein. Berechne auch von diesem Signal die Fouriertransformation, diesmal mit Framebreiten von
+                        50ms, 100ms, 500ms, 1 s. Wie unterscheiden sich die Vokale in ihrem Spektrum vom Sinusgemisch und wie unterscheiden sie sich voneinander?
+                    </p>
                     <!-- content -->
+                    <h4>Aufgabenlösung:</h4>
                     <div class="row">
                         <figure class="col-md-6">
                             <audio controls>
@@ -227,7 +245,7 @@
                     </div>
                     <div class="row">
                         <figure class="col-md-12">
-                            <img src="matlab/ex1/plot13.jpg" alt="" />
+                            <img src="matlab/ex1/plot_13.jpg" alt="" />
                             <figcaption>
                                 Plot der Aufnahmen
                             </figcaption>

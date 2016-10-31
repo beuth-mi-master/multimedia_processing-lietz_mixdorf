@@ -1,5 +1,3 @@
-currentfolder = fileparts(which(mfilename));
-
 sampleRate = 16000;
 
 hFig = figure(1);
@@ -10,7 +8,7 @@ fm_i_file = 'fmaulwurf-i.wav';
 md_a_file = 'mduve-a.wav';
 md_i_file = 'mduve-i.wav';
 
-sounds_list = {fm_a_file, fm_i_file, md_a_file, md_i_file};
+sounds_list = {fm_a_file, md_a_file, fm_i_file, md_i_file};
 framelength_list = [50 100 500 1000];
 
 for i = 1:numel(sounds_list)
@@ -25,6 +23,7 @@ for i = 1:numel(sounds_list)
         p = j + ((i - 1) * numel(sounds_list));
         subplot(numel(sounds_list),numel(framelength_list),p)
         plot(f, abs(ft_sound));
+        axis([0 sampleRate 0 20]);
         current_title = strcat('frame length= ', int2str(current_frame_length), ', delta f= ', int2str(delta_f));
         title(current_title);
         legend(current_file);
@@ -33,6 +32,6 @@ for i = 1:numel(sounds_list)
     end
     
     % save plot as jpg
-    saveas(gcf, 'plot13', 'jpg')
+    saveas(gcf, 'plot_13', 'jpg')
     
 end
