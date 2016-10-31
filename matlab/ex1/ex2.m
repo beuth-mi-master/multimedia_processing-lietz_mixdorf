@@ -38,6 +38,7 @@ for i = 1:numel(framelength_list)
 end
 
 % save plot as jpg
-saveas(gcf, 'plot_12', 'jpg')
+saveas(hFig, 'plot_12', 'jpg');
 
-
+% close figure
+close(hFig);
