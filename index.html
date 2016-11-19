@@ -21,6 +21,7 @@
                 <div>
                     <ul class="nav navbar-nav">
                         <li class="active"><a href="index.html">Übung 1</a></li>
+                        <li><a href="ex2.html">Übung 2</a></li>
                     </ul>
                 </div>
             </div>
@@ -97,7 +98,7 @@
                 <div class="panel-heading">
                     <h3 class="panel-title">
                         <a data-toggle="collapse" data-parent="#accordion" data-target="#collapseTwo"
-                           href="#collapseOne">
+                           href="#collapseTwo">
                             Teilaufgabe 2
                         </a>
                     </h3>
@@ -180,115 +181,114 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
                         <a data-toggle="collapse" data-parent="#accordion" data-target="#collapseThree"
-                           href="#collapseOne">
+                           href="#collapseThree">
                             Teilaufgabe 3
                         </a>
                     </h3>
-            </div>
-            <div id="collapseThree" class="panel-collapse collapse in">
-                <div class="panel-body">
-                    <h4>Aufgabenbeschreibung:</h4>
-                    <p>
-                        Nimm nun in Praat den Vokal ‚a‘ und den Vokal ‚i‘ mit 16kHz mono auf, und zwar für jedes Gruppenmitglied. Lies die Datei mit wavread in deinem Matlab-Programm ein. Berechne auch von diesem Signal die Fouriertransformation, diesmal mit Framebreiten von
-                        50ms, 100ms, 500ms, 1 s. Wie unterscheiden sich die Vokale in ihrem Spektrum vom Sinusgemisch und wie unterscheiden sie sich voneinander?
-                    </p>
-                    <!-- content -->
-                    <h4>Aufgabenlösung:</h4>
-                    <div class="row">
-                        <figure class="col-md-6">
-                            <audio controls>
+                </div>
+                <div id="collapseThree" class="panel-collapse collapse in">
+                    <div class="panel-body">
+                        <h4>Aufgabenbeschreibung:</h4>
+                        <p>
+                            Nimm nun in Praat den Vokal ‚a‘ und den Vokal ‚i‘ mit 16kHz mono auf, und zwar für jedes Gruppenmitglied. Lies die Datei mit wavread in deinem Matlab-Programm ein. Berechne auch von diesem Signal die Fouriertransformation, diesmal mit Framebreiten von
+                            50ms, 100ms, 500ms, 1 s. Wie unterscheiden sich die Vokale in ihrem Spektrum vom Sinusgemisch und wie unterscheiden sie sich voneinander?
+                        </p>
+                        <!-- content -->
+                        <h4>Aufgabenlösung:</h4>
+                        <div class="row">
+                            <figure class="col-md-6">
+                                <audio controls>
                                 <source src="matlab/ex1/fmaulwurf-a.wav" type="audio/wav">
                             </audio>
-                            <figcaption>
-                                Vokal 'a' von Felix
-                            </figcaption>
-                        </figure>
-                        <figure class="col-md-6">
-                            <audio controls>
+                                <figcaption>
+                                    Vokal 'a' von Felix
+                                </figcaption>
+                            </figure>
+                            <figure class="col-md-6">
+                                <audio controls>
                                 <source src="matlab/ex1/fmaulwurf-i.wav" type="audio/wav">
                             </audio>
-                            <figcaption>
-                                Vokal 'i' von Felix
-                            </figcaption>
-                        </figure>
-                    </div>
-                    <div class="row">
-                        <figure class="col-md-6">
-                            <audio controls>
+                                <figcaption>
+                                    Vokal 'i' von Felix
+                                </figcaption>
+                            </figure>
+                        </div>
+                        <div class="row">
+                            <figure class="col-md-6">
+                                <audio controls>
                                 <source src="matlab/ex1/mduve-a.wav" type="audio/wav">
                             </audio>
-                            <figcaption>
-                                Vokal 'a' von Michael
-                            </figcaption>
-                        </figure>
-                        <figure class="col-md-6">
-                            <audio controls>
+                                <figcaption>
+                                    Vokal 'a' von Michael
+                                </figcaption>
+                            </figure>
+                            <figure class="col-md-6">
+                                <audio controls>
                                 <source src="matlab/ex1/mduve-i.wav" type="audio/wav">
                             </audio>
-                            <figcaption>
-                                Vokal 'i' von Michael
-                            </figcaption>
-                        </figure>
-                    </div>
-                    <div class="row">
-                        <figure class="col-md-12">
-                            <pre data-embed="matlab/ex1/ex3.m"></pre>
-                            <figcaption>Datei:
-                                <a href="matlab/ex1/ex3.m" target="_new">ex3.m</a>
-                            </figcaption>
-                        </figure>
-                    </div>
-                    <div class="row">
-                        <h5>Unterschied zum Sinusgemisch</h5>
-                        <p>
-                            Vorab festzuhalten ist, dass die gesprochenen Vokale, im Gegensatz zum erzeugten Sinusgemisch, höchstwahrscheinlich Störgeräusche enthalten. Die gesprochenen Vokale enthalten allgemein gesagt mehr Frequenzen, als das Sinusgemisch. Eine leichte Ähnlichkeit
-                            zwischen den Vokalen und dem Sinusgemisch ist vorhanden.
-                        </p>
-                        <h5>Unterschied der Vokale untereinander</h5>
-                        <p>
-                            Die beiden Vokale 'a' und 'i' enthalten eine unterschiedliche Anzahl von Frequenzen. Auf der einen Seite hat das 'i' eine ähnliche Grundfrequenz, wie das 'a', auf der anderen Seite besitzt das 'i' jedoch eine höhere Amplitude. Generell kann die Aussage
-                            getroffen werden, dass das 'a' deutlich mehr Frequenzen enthält.
-                        </p>
-                    </div>
-                    <div class="row">
-                        <h5 class="text-center">Plot der Aufnahmen des Vokals 'a'</h5>
-                        <figure class="col-md-6">
-                            <img src="matlab/ex1/plot_13_mduve-a.jpg" alt="" />
-                            <figcaption>
-                                Michael Duve
-                            </figcaption>
-                        </figure>
-                        <figure class="col-md-6">
-                            <img src="matlab/ex1/plot_13_fmaulwurf-a.jpg" alt="" />
-                            <figcaption>
-                                Felix Maulwurf
-                            </figcaption>
-                        </figure>
-                    </div>
-                    <div class="row">
-                        <h5 class="text-center">Plot der Aufnahmen des Vokals 'i'</h5>
-                        <figure class="col-md-6">
-                            <img src="matlab/ex1/plot_13_mduve-i.jpg" alt="" />
-                            <figcaption>
-                                Michael Duve
-                            </figcaption>
-                        </figure>
-                        <figure class="col-md-6">
-                            <img src="matlab/ex1/plot_13_fmaulwurf-i.jpg" alt="" />
-                            <figcaption>
-                                Felix Maulwurf
-                            </figcaption>
-                        </figure>
+                                <figcaption>
+                                    Vokal 'i' von Michael
+                                </figcaption>
+                            </figure>
+                        </div>
+                        <div class="row">
+                            <figure class="col-md-12">
+                                <pre data-embed="matlab/ex1/ex3.m"></pre>
+                                <figcaption>Datei:
+                                    <a href="matlab/ex1/ex3.m" target="_new">ex3.m</a>
+                                </figcaption>
+                            </figure>
+                        </div>
+                        <div class="row">
+                            <h5>Unterschied zum Sinusgemisch</h5>
+                            <p>
+                                Vorab festzuhalten ist, dass die gesprochenen Vokale, im Gegensatz zum erzeugten Sinusgemisch, höchstwahrscheinlich Störgeräusche enthalten. Die gesprochenen Vokale enthalten allgemein gesagt mehr Frequenzen, als das Sinusgemisch. Eine leichte Ähnlichkeit
+                                zwischen den Vokalen und dem Sinusgemisch ist vorhanden.
+                            </p>
+                            <h5>Unterschied der Vokale untereinander</h5>
+                            <p>
+                                Die beiden Vokale 'a' und 'i' enthalten eine unterschiedliche Anzahl von Frequenzen. Auf der einen Seite hat das 'i' eine ähnliche Grundfrequenz, wie das 'a', auf der anderen Seite besitzt das 'i' jedoch eine höhere Amplitude. Generell kann die Aussage
+                                getroffen werden, dass das 'a' deutlich mehr Frequenzen enthält.
+                            </p>
+                        </div>
+                        <div class="row">
+                            <h5 class="text-center">Plot der Aufnahmen des Vokals 'a'</h5>
+                            <figure class="col-md-6">
+                                <img src="matlab/ex1/plot_13_mduve-a.jpg" alt="" />
+                                <figcaption>
+                                    Michael Duve
+                                </figcaption>
+                            </figure>
+                            <figure class="col-md-6">
+                                <img src="matlab/ex1/plot_13_fmaulwurf-a.jpg" alt="" />
+                                <figcaption>
+                                    Felix Maulwurf
+                                </figcaption>
+                            </figure>
+                        </div>
+                        <div class="row">
+                            <h5 class="text-center">Plot der Aufnahmen des Vokals 'i'</h5>
+                            <figure class="col-md-6">
+                                <img src="matlab/ex1/plot_13_mduve-i.jpg" alt="" />
+                                <figcaption>
+                                    Michael Duve
+                                </figcaption>
+                            </figure>
+                            <figure class="col-md-6">
+                                <img src="matlab/ex1/plot_13_fmaulwurf-i.jpg" alt="" />
+                                <figcaption>
+                                    Felix Maulwurf
+                                </figcaption>
+                            </figure>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <script src="js/app.js"></script>
+            <script src="js/app.js"></script>
     </body>
 
 </html>

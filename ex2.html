@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="de">
+
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Multimedia Processing</title>
+        <link rel="stylesheet" href="css/bootstrap.min.css" />
+        <link rel="stylesheet" href="css/main.css" />
+        <script src="js/jquery-2.1.4.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+    </head>
+
+    <body>
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">Multimedia Processing</a>
+                </div>
+                <div>
+                    <ul class="nav navbar-nav">
+                        <li><a href="index.html">Übung 1</a></li>
+                        <li class="active"><a href="ex2.html">Übung 2</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <div class="row container">
+            <p class="lead">
+                <em>Lösungen von Felix Maulwurf und Michael Duve</em>
+            </p>
+        </div>
+        <div id="accordion" class="container panel-group">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" data-target="#collapseOne"
+                           href="#collapseOne">
+                            Teilaufgabe 1
+                        </a>
+                    </h3>
+                </div>
+                <div id="collapseOne" class="panel-collapse collapse in">
+                    <div class="panel-body">
+                        <h4>Aufgabenbeschreibung:</h4>
+                        <p>
+                            Mit dem Headset und PRAAT soll von jedem Gruppenmitglied ein anderes dreisilbiges Wort aufgezeichnet werden. Das Wavesignal kann dann im Edit-Fenster angezeigt werden. Nun soll zunächst die phonetische Transkription nach der folgenden SAMPA-Notation erfolgen:
+                        </p>
+                        <pre>
+    SAMPA	EXAMPLES (orthographic)
+    _	(silence, no signal)
+    p	Pier, aB
+    b	Bier, KraBBe
+    t	Tier, GraD
+    d	Dir, eDel
+    k	Kasse, taG
+    g	Gasse, eGal
+    f	Vogel, schlaF
+    v	Wasser, eVentuell
+    s	aSt, haSS
+    z	Sieb, beSen
+    S	Spät, aSCHe
+    Z	Genie, DSCHungel
+    x	naCH, doCH
+    C	diCH, honiG
+    h	Hut, aHorn
+    pf	PFerd, toPF
+    ts	Zwei, plaTZ
+    tS	kuTSCHe, Cello
+    m	Mut, haMMer
+    n	Nase, kaNNe
+    N	eNG, baNGe
+    l	Liebe, haLLe
+    R	Riese, kRaut
+    6	opER, deR
+    j	Jetzt, Jagd
+    aI	EIns, kAIser
+    OY	ÄUßerung, nEU
+    aU	AUf, schAU
+    @	sehEn, bEsagt
+    i:	Igel, bIEten
+    I	In, bItten
+    y:	Übung, hÜten
+    Y	Ypsilon, hÜtten
+    e:	bEten, schnEE
+    E	bEtten, gÄste
+    E:	Äsen, geblÄse
+    2:	Öfen, mÖgen
+    9	Öffnen, kÖnnen
+    u:	bUHlen, gUt
+    U	lUstig, bUtter
+    o:	Ofen, kOHl
+    O	Offen, tOpf
+    a:	wAr, wAHr
+    a	An, kAnn
+    Only rudimentary implemented:
+
+    E^ (= E~:)	bulletIN
+    a^ (= a~:)	pendANT
+    9^ (= 9~:)	parfUM
+    o^ (= o~:) 	feuilletON
+    E~		IMpair
+    a~		pENdant
+    o~		nONchalant
+                        </pre>
+                        <p>
+                            Das heißt zum Beispiel, daß das Wort "Sprachlabor" wie folgt transkribiert wird: [SpRa:xlabo:6] (eckige Klammern sollen die Transkription kennzeichnen). Nun soll im Editor durch Anwahl mit der Maus die Länge der einzelnen Laute im aufgezeichneten Wort
+                            bestimmt werden. Dazu wählt man mit linkem Mausklick den Beginn des gewünschten Bereichs an und zieht mit der Maus nach rechts, so daß sich das rosaumrandete Fenster in der gewünschten Breite öffnet. Über dem rosa Rahmen erscheinen
+                            links und rechts Anfangs- und Endzeitpunkt des gewählten Bereichs, in der Mitte die Länge in Sekunden. Durch Abspielen (Button über Rahmen drücken) kann der Bereich nun wiedergegeben werden.
+                        </p>
+                        <p>
+                            Darauf achten, daß in gesprochener Sprache oft Verschleifungen und Reduktionen auftreten ! Laute, die nicht gesprochen wurden, können auch nicht ausgemessen werden.
+                        </p>
+                        <!-- content -->
+                        <h4>Aufgabenlösung:</h4>
+                        <div class="row">
+                            <p>
+                                Transkribiert: [hamst@6Ra:d]
+                            </p>
+                            <figure class="col-md-12">
+                                <audio controls>
+                                    <source src="praat/ex2/hamsterrad.wav" type="audio/wav">
+                                </audio>
+                                <figcaption>
+                                    Aufnahme Hams|ter|rad
+                                </figcaption>
+                            </figure>
+                        </div>
+                        <div class="row">
+                            <figure class="col-md-12">
+                                <img src="praat/ex2/screen-hamsterrad.png" alt="" />
+                                <figcaption>
+                                    Screenshot aus Praat vom Wort Hamsterrad
+                                </figcaption>
+                            </figure>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" data-target="#collapseTwo"
+                           href="#collapseTwo">
+                            Teilaufgabe 2
+                        </a>
+                    </h3>
+                </div>
+                <div id="collapseTwo" class="panel-collapse collapse in">
+                    <div class="panel-body">
+                        <h4>Aufgabenbeschreibung:</h4>
+                        <p>
+                            Wir legen eine Tabelle in der folgenden Form an:
+                        </p>
+                        <pre>
+    SAMPA		Anfang	[s]	Ende [s]	Dauer [s]	Grundfrequenz (F0) [Hz]
+    S		1.5		1.7		0.2		-
+    p		1.7		1.8		0.1		-
+    R		1.8		2.0		0.2		150
+    ...
+    ...
+                        </pre>
+                        <p>
+                            Bei der Grundfrequenz handelt es sich um die Frequenz der Stimmbandschwingungen, die natürlich nur bei stimmhaften Lauten (stimmhafte Konsonanten und Vokale) existiert. Um sie zu bestimmen, geht man in die Mitte eines stimmhaften Lautes und zoomt so weit
+                            hinein, daß die Periodizität gut zu erkennen ist. Zur Orientierung kann man z.B. auffällige Amplitudenminima im Sprachsignal wählen und den Abstand zwischen zwei solchen charakteristischen Minima messen. Die Grundfrequenz ergibt
+                            sich dann aus dem Kehrwert (Beispiel: gemessener Abstand 4 ms -> Grundfrequenz: 1/(0.004 s)= 250 Hz).
+                        </p>
+                        <!-- content -->
+                        <h4>Aufgabenlösung:</h4>
+                        <div class="row">
+                            <p>
+                                Wort: Hamsterrad
+                            </p>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>SAMPA</th>
+                                        <th>Anfang [s]</th>
+                                        <th>Ende [s]</th>
+                                        <th>Dauer [s]</th>
+                                        <th>Grundfrequenz [Hz]</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>h</td>
+                                        <td>0,00</td>
+                                        <td>0,08663882192871258</td>
+                                        <td>0,08663882192871258</td>
+                                        <td>-</td>
+                                    </tr>
+                                    <tr>
+                                        <td>a</td>
+                                        <td>0,08663882192871258</td>
+                                        <td>0,1569879545190589</td>
+                                        <td>0,07034913259035</td>
+                                        <td>102,492</td>
+                                    </tr>
+                                    <tr>
+                                        <td>m</td>
+                                        <td>0,1569879545190589</td>
+                                        <td>0,278714104667535</td>
+                                        <td>0,12172615014848</td>
+                                        <td>-</td>
+                                    </tr>
+                                    <tr>
+                                        <td>s</td>
+                                        <td>0,278714104667535</td>
+                                        <td>0,7227516988929231</td>
+                                        <td>0,44403759422539</td>
+                                        <td>-</td>
+                                    </tr>
+                                    <tr>
+                                        <td>t</td>
+                                        <td>0,7227516988929231</td>
+                                        <td>0,8007840375265548</td>
+                                        <td>0,07803233863363</td>
+                                        <td>-</td>
+                                    </tr>
+                                    <tr>
+                                        <td>@</td>
+                                        <td>0,8007840375265548</td>
+                                        <td>0,9189764218107445 </td>
+                                        <td>0,11819238428419</td>
+                                        <td>109,107</td>
+                                    </tr>
+                                    <tr>
+                                        <td>6</td>
+                                        <td>0,9189764218107445</td>
+                                        <td>1,4275666799163718</td>
+                                        <td>0,50859025810563</td>
+                                        <td>-</td>
+                                    </tr>
+                                    <tr>
+                                        <td>R</td>
+                                        <td>1,4275666799163718</td>
+                                        <td>1,5465878036133076</td>
+                                        <td>0,11902112369694</td>
+                                        <td>-</td>
+                                    </tr>
+                                    <tr>
+                                        <td>a:</td>
+                                        <td>1,5465878036133076</td>
+                                        <td>1,731882053005128</td>
+                                        <td>0,18529424939182</td>
+                                        <td>95,778</td>
+                                    </tr>
+                                    <tr>
+                                        <td>d</td>
+                                        <td>1,731882053005128</td>
+                                        <td>2,00</td>
+                                        <td>0,26811794699487</td>
+                                        <td>-</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" data-target="#collapseThree"
+                           href="#collapseThree">
+                            Teilaufgabe 3
+                        </a>
+                    </h3>
+                </div>
+                <div id="collapseThree" class="panel-collapse collapse in">
+                    <div class="panel-body">
+                        <h4>Aufgabenbeschreibung:</h4>
+
+                        <!-- content -->
+                        <h4>Aufgabenlösung:</h4>
+
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" data-target="#collapseFour"
+                           href="#collapseFour">
+                            Teilaufgabe 4
+                        </a>
+                    </h3>
+                </div>
+                <div id="collapseFour" class="panel-collapse collapse in">
+                    <div class="panel-body">
+                        <h4>Aufgabenbeschreibung:</h4>
+
+                        <!-- content -->
+                        <h4>Aufgabenlösung:</h4>
+
+                    </div>
+                </div>
+            </div>
+            <script src="js/app.js"></script>
+    </body>
+
+</html>
