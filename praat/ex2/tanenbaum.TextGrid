@@ -1,0 +1,50 @@
+File type = "ooTextFile"
+Object class = "TextGrid"
+
+xmin = 0 
+xmax = 1.43 
+tiers? <exists> 
+size = 1 
+item []: 
+    item [1]:
+        class = "IntervalTier" 
+        name = "tan@nbaUm" 
+        xmin = 0 
+        xmax = 1.43 
+        intervals: size = 9 
+        intervals [1]:
+            xmin = 0 
+            xmax = 0.04892655477759471 
+            text = "t" 
+        intervals [2]:
+            xmin = 0.04892655477759471 
+            xmax = 0.17948178542009882 
+            text = "a" 
+        intervals [3]:
+            xmin = 0.17948178542009882 
+            xmax = 0.5735651668039539 
+            text = "n" 
+        intervals [4]:
+            xmin = 0.5735651668039539 
+            xmax = 0.6992850185337727 
+            text = "@" 
+        intervals [5]:
+            xmin = 0.6992850185337727 
+            xmax = 1.0667738158978584 
+            text = "n" 
+        intervals [6]:
+            xmin = 1.0667738158978584 
+            xmax = 1.0861153315485996 
+            text = "b" 
+        intervals [7]:
+            xmin = 1.0861153315485996 
+            xmax = 1.1731521519769357 
+            text = "a" 
+        intervals [8]:
+            xmin = 1.1731521519769357 
+            xmax = 1.2746951091433278 
+            text = "U" 
+        intervals [9]:
+            xmin = 1.2746951091433278 
+            xmax = 1.43 
+            text = "m" 
