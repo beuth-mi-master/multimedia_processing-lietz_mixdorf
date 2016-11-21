@@ -1,0 +1,6 @@
+SAMPA		Anfang	[s]	Ende [s]	Dauer [s]	Grundfrequenz (F0) [Hz]
+S		1.5		1.7		0.2		-
+p		1.7		1.8		0.1		-
+R		1.8		2.0		0.2		150
+...
+...

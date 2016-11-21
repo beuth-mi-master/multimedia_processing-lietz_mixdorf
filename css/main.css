@@ -26,6 +26,11 @@ figure > pre {
     height: 300px;
 }
 
+
+figure > pre.short {
+    height: auto;
+}
+
 figure > audio {
     width: 100%;
 }

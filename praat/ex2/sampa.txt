@@ -1,0 +1,55 @@
+    SAMPA	EXAMPLES (orthographic)
+    _	(silence, no signal)
+    p	Pier, aB
+    b	Bier, KraBBe
+    t	Tier, GraD
+    d	Dir, eDel
+    k	Kasse, taG
+    g	Gasse, eGal
+    f	Vogel, schlaF
+    v	Wasser, eVentuell
+    s	aSt, haSS
+    z	Sieb, beSen
+    S	Spät, aSCHe
+    Z	Genie, DSCHungel
+    x	naCH, doCH
+    C	diCH, honiG
+    h	Hut, aHorn
+    pf	PFerd, toPF
+    ts	Zwei, plaTZ
+    tS	kuTSCHe, Cello
+    m	Mut, haMMer
+    n	Nase, kaNNe
+    N	eNG, baNGe
+    l	Liebe, haLLe
+    R	Riese, kRaut
+    6	opER, deR
+    j	Jetzt, Jagd
+    aI	EIns, kAIser
+    OY	ÄUßerung, nEU
+    aU	AUf, schAU
+    @	sehEn, bEsagt
+    i:	Igel, bIEten
+    I	In, bItten
+    y:	Übung, hÜten
+    Y	Ypsilon, hÜtten
+    e:	bEten, schnEE
+    E	bEtten, gÄste
+    E:	Äsen, geblÄse
+    2:	Öfen, mÖgen
+    9	Öffnen, kÖnnen
+    u:	bUHlen, gUt
+    U	lUstig, bUtter
+    o:	Ofen, kOHl
+    O	Offen, tOpf
+    a:	wAr, wAHr
+    a	An, kAnn
+    Only rudimentary implemented:
+
+    E^ (= E~:)	bulletIN
+    a^ (= a~:)	pendANT
+    9^ (= 9~:)	parfUM
+    o^ (= o~:) 	feuilletON
+    E~		IMpair
+    a~		pENdant
+    o~		nONchalant

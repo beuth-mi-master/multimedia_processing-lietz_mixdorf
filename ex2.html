@@ -48,63 +48,9 @@
                         <p>
                             Mit dem Headset und PRAAT soll von jedem Gruppenmitglied ein anderes dreisilbiges Wort aufgezeichnet werden. Das Wavesignal kann dann im Edit-Fenster angezeigt werden. Nun soll zunächst die phonetische Transkription nach der folgenden SAMPA-Notation erfolgen:
                         </p>
-                        <pre>
-    SAMPA	EXAMPLES (orthographic)
-    _	(silence, no signal)
-    p	Pier, aB
-    b	Bier, KraBBe
-    t	Tier, GraD
-    d	Dir, eDel
-    k	Kasse, taG
-    g	Gasse, eGal
-    f	Vogel, schlaF
-    v	Wasser, eVentuell
-    s	aSt, haSS
-    z	Sieb, beSen
-    S	Spät, aSCHe
-    Z	Genie, DSCHungel
-    x	naCH, doCH
-    C	diCH, honiG
-    h	Hut, aHorn
-    pf	PFerd, toPF
-    ts	Zwei, plaTZ
-    tS	kuTSCHe, Cello
-    m	Mut, haMMer
-    n	Nase, kaNNe
-    N	eNG, baNGe
-    l	Liebe, haLLe
-    R	Riese, kRaut
-    6	opER, deR
-    j	Jetzt, Jagd
-    aI	EIns, kAIser
-    OY	ÄUßerung, nEU
-    aU	AUf, schAU
-    @	sehEn, bEsagt
-    i:	Igel, bIEten
-    I	In, bItten
-    y:	Übung, hÜten
-    Y	Ypsilon, hÜtten
-    e:	bEten, schnEE
-    E	bEtten, gÄste
-    E:	Äsen, geblÄse
-    2:	Öfen, mÖgen
-    9	Öffnen, kÖnnen
-    u:	bUHlen, gUt
-    U	lUstig, bUtter
-    o:	Ofen, kOHl
-    O	Offen, tOpf
-    a:	wAr, wAHr
-    a	An, kAnn
-    Only rudimentary implemented:
-
-    E^ (= E~:)	bulletIN
-    a^ (= a~:)	pendANT
-    9^ (= 9~:)	parfUM
-    o^ (= o~:) 	feuilletON
-    E~		IMpair
-    a~		pENdant
-    o~		nONchalant
-                        </pre>
+                        <figure class="col-md-12">
+                            <pre data-embed="praat/ex2/sampa.txt"></pre>
+                        </figure>
                         <p>
                             Das heißt zum Beispiel, daß das Wort "Sprachlabor" wie folgt transkribiert wird: [SpRa:xlabo:6] (eckige Klammern sollen die Transkription kennzeichnen). Nun soll im Editor durch Anwahl mit der Maus die Länge der einzelnen Laute im aufgezeichneten Wort
                             bestimmt werden. Dazu wählt man mit linkem Mausklick den Beginn des gewünschten Bereichs an und zieht mit der Maus nach rechts, so daß sich das rosaumrandete Fenster in der gewünschten Breite öffnet. Über dem rosa Rahmen erscheinen
@@ -117,7 +63,7 @@
                         <h4>Aufgabenlösung:</h4>
                         <div class="row">
                             <p>
-                                Transkribiert: [hamst@6Ra:d]
+                                Transkribiert: [hamst@6Ra:t]
                             </p>
                             <figure class="col-md-12">
                                 <audio controls>
@@ -175,14 +121,9 @@
                         <p>
                             Wir legen eine Tabelle in der folgenden Form an:
                         </p>
-                        <pre>
-    SAMPA		Anfang	[s]	Ende [s]	Dauer [s]	Grundfrequenz (F0) [Hz]
-    S		1.5		1.7		0.2		-
-    p		1.7		1.8		0.1		-
-    R		1.8		2.0		0.2		150
-    ...
-    ...
-                        </pre>
+                        <figure class="col-md-12">
+                            <pre class="short" data-embed="praat/ex2/table.txt"></pre>
+                        </figure>
                         <p>
                             Bei der Grundfrequenz handelt es sich um die Frequenz der Stimmbandschwingungen, die natürlich nur bei stimmhaften Lauten (stimmhafte Konsonanten und Vokale) existiert. Um sie zu bestimmen, geht man in die Mitte eines stimmhaften Lautes und zoomt so weit
                             hinein, daß die Periodizität gut zu erkennen ist. Zur Orientierung kann man z.B. auffällige Amplitudenminima im Sprachsignal wählen und den Abstand zwischen zwei solchen charakteristischen Minima messen. Die Grundfrequenz ergibt
@@ -191,9 +132,9 @@
                         <!-- content -->
                         <h4>Aufgabenlösung:</h4>
                         <div class="row">
-                            <p>
+                            <h5>
                                 Wort: Hamsterrad
-                            </p>
+                            </h5>
                             <table class="table">
                                 <thead>
                                     <tr>
@@ -201,7 +142,9 @@
                                         <th>Anfang [s]</th>
                                         <th>Ende [s]</th>
                                         <th>Dauer [s]</th>
-                                        <th>Grundfrequenz [Hz]</th>
+                                        <th>Stütze 1 (25%) [Hz]</th>
+                                        <th>Stütze 2 (50%) [Hz]</th>
+                                        <th>Stütze 3 (75%) [Hz]</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -211,13 +154,17 @@
                                         <td>0,08663882192871258</td>
                                         <td>0,08663882192871258</td>
                                         <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
                                     </tr>
                                     <tr>
                                         <td>a</td>
                                         <td>0,08663882192871258</td>
                                         <td>0,1569879545190589</td>
                                         <td>0,07034913259035</td>
-                                        <td>102,492</td>
+                                        <td>99</td>
+                                        <td>102</td>
+                                        <td>107</td>
                                     </tr>
                                     <tr>
                                         <td>m</td>
@@ -225,19 +172,25 @@
                                         <td>0,278714104667535</td>
                                         <td>0,12172615014848</td>
                                         <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
                                     </tr>
                                     <tr>
                                         <td>s</td>
                                         <td>0,278714104667535</td>
-                                        <td>0,7227516988929231</td>
-                                        <td>0,44403759422539</td>
+                                        <td>0,5607538399421919</td>
+                                        <td>0,28203973527466</td>
+                                        <td>-</td>
+                                        <td>-</td>
                                         <td>-</td>
                                     </tr>
                                     <tr>
                                         <td>t</td>
-                                        <td>0,7227516988929231</td>
-                                        <td>0,8007840375265548</td>
+                                        <td>0,5607538399421919</td>
+                                        <td>0,24003019758436</td>
                                         <td>0,07803233863363</td>
+                                        <td>-</td>
+                                        <td>-</td>
                                         <td>-</td>
                                     </tr>
                                     <tr>
@@ -245,20 +198,26 @@
                                         <td>0,8007840375265548</td>
                                         <td>0,9189764218107445 </td>
                                         <td>0,11819238428419</td>
-                                        <td>109,107</td>
+                                        <td>108</td>
+                                        <td>109</td>
+                                        <td>115</td>
                                     </tr>
                                     <tr>
                                         <td>6</td>
                                         <td>0,9189764218107445</td>
-                                        <td>1,4275666799163718</td>
-                                        <td>0,50859025810563</td>
+                                        <td>1,3139925267965076</td>
+                                        <td>0,39501610498576</td>
+                                        <td>-</td>
+                                        <td>-</td>
                                         <td>-</td>
                                     </tr>
                                     <tr>
                                         <td>R</td>
-                                        <td>1,4275666799163718</td>
+                                        <td>1,3139925267965076</td>
                                         <td>1,5465878036133076</td>
-                                        <td>0,11902112369694</td>
+                                        <td>0,2325952768168</td>
+                                        <td>-</td>
+                                        <td>-</td>
                                         <td>-</td>
                                     </tr>
                                     <tr>
@@ -266,94 +225,118 @@
                                         <td>1,5465878036133076</td>
                                         <td>1,731882053005128</td>
                                         <td>0,18529424939182</td>
-                                        <td>95,778</td>
+                                        <td>91</td>
+                                        <td>95</td>
+                                        <td>71</td>
                                     </tr>
                                     <tr>
-                                        <td>d</td>
+                                        <td>t</td>
                                         <td>1,731882053005128</td>
                                         <td>2,00</td>
                                         <td>0,26811794699487</td>
                                         <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
                                     </tr>
                                 </tbody>
                             </table>
-                            <p>
+                            <h5>
                                 Wort: Tannenbaum
-                            </p>
+                            </h5>
                             <table class="table">
                                 <thead>
-                                <tr>
-                                    <th>SAMPA</th>
-                                    <th>Anfang [s]</th>
-                                    <th>Ende [s]</th>
-                                    <th>Dauer [s]</th>
-                                    <th>Grundfrequenz [Hz]</th>
-                                </tr>
+                                    <tr>
+                                        <th>SAMPA</th>
+                                        <th>Anfang [s]</th>
+                                        <th>Ende [s]</th>
+                                        <th>Dauer [s]</th>
+                                        <th>Stütze 1 (25%) [Hz]</th>
+                                        <th>Stütze 2 (50%) [Hz]</th>
+                                        <th>Stütze 3 (75%) [Hz]</th>
+                                    </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td>t</td>
-                                    <td>0,00</td>
-                                    <td>0.04892655477759471</td>
-                                    <td>0.04892655477759471</td>
-                                    <td>-</td>
-                                </tr>
-                                <tr>
-                                    <td>a</td>
-                                    <td>0.04892655477759471</td>
-                                    <td>0.17948178542009882</td>
-                                    <td>0.1305552306425041</td>
-                                    <td>117</td>
-                                </tr>
-                                <tr>
-                                    <td>n</td>
-                                    <td>0.17948178542009882</td>
-                                    <td>0.57356516680395391</td>
-                                    <td>0.3940833813838551</td>
-                                    <td>-</td>
-                                </tr>
-                                <tr>
-                                    <td>@</td>
-                                    <td>0.5735651668039539</td>
-                                    <td>0.6992850185337727</td>
-                                    <td>0.1257198517298188</td>
-                                    <td>105</td>
-                                </tr>
-                                <tr>
-                                    <td>n</td>
-                                    <td>0.6992850185337727</td>
-                                    <td>1.0667738158978584</td>
-                                    <td>0.3674887973640857</td>
-                                    <td>-</td>
-                                </tr>
-                                <tr>
-                                    <td>b</td>
-                                    <td>1.0667738158978584</td>
-                                    <td>1.0861153315485996</td>
-                                    <td>0.193415156507412</td>
-                                    <td>-</td>
-                                </tr>
-                                <tr>
-                                    <td>a</td>
-                                    <td>1.0861153315485996</td>
-                                    <td>1.1731521519769357</td>
-                                    <td>0.870368204283361</td>
-                                    <td>103</td>
-                                </tr>
-                                <tr>
-                                    <td>U</td>
-                                    <td>1.1731521519769357</td>
-                                    <td>1.2746951091433278</td>
-                                    <td>0.1015429571663921</td>
-                                    <td>94</td>
-                                </tr>
-                                <tr>
-                                    <td>m</td>
-                                    <td>1.2746951091433278</td>
-                                    <td>1.43</td>
-                                    <td>0.1553048908566722</td>
-                                    <td>-</td>
-                                </tr>
+                                    <tr>
+                                        <td>t</td>
+                                        <td>0,00</td>
+                                        <td>0,04892655477759471</td>
+                                        <td>0,04892655477759471</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                    </tr>
+                                    <tr>
+                                        <td>a</td>
+                                        <td>0,04892655477759471</td>
+                                        <td>0,17948178542009882</td>
+                                        <td>0,1305552306425041</td>
+                                        <td>116</td>
+                                        <td>118</td>
+                                        <td>122</td>
+                                    </tr>
+                                    <tr>
+                                        <td>n</td>
+                                        <td>0,17948178542009882</td>
+                                        <td>0,57356516680395391</td>
+                                        <td>0,3940833813838551</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                    </tr>
+                                    <tr>
+                                        <td>@</td>
+                                        <td>0,5735651668039539</td>
+                                        <td>0,6992850185337727</td>
+                                        <td>0,1257198517298188</td>
+                                        <td>104</td>
+                                        <td>104</td>
+                                        <td>102</td>
+                                    </tr>
+                                    <tr>
+                                        <td>n</td>
+                                        <td>0,6992850185337727</td>
+                                        <td>0,8999532434102142</td>
+                                        <td>0,20066822487644</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                    </tr>
+                                    <tr>
+                                        <td>b</td>
+                                        <td>0,8999532434102142</td>
+                                        <td>1,0861153315485996</td>
+                                        <td>0,18616208813839</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                    </tr>
+                                    <tr>
+                                        <td>a</td>
+                                        <td>1,0861153315485996</td>
+                                        <td>1,1731521519769357</td>
+                                        <td>0,08703682042834</td>
+                                        <td>132</td>
+                                        <td>102</td>
+                                        <td>107</td>
+                                    </tr>
+                                    <tr>
+                                        <td>U</td>
+                                        <td>1,1731521519769357</td>
+                                        <td>1,2746951091433278</td>
+                                        <td>0,1015429571663921</td>
+                                        <td>98</td>
+                                        <td>92</td>
+                                        <td>90</td>
+                                    </tr>
+                                    <tr>
+                                        <td>m</td>
+                                        <td>1,2746951091433278</td>
+                                        <td>1,43</td>
+                                        <td>0,1553048908566722</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -372,29 +355,97 @@
                 <div id="collapseThree" class="panel-collapse collapse in">
                     <div class="panel-body">
                         <h4>Aufgabenbeschreibung:</h4>
-
+                        <p>
+                            Wenn uns diese Angaben vorliegen, können wir sie verwenden, um dasselbe Wort mit MBROLA synthetisieren zu lassen. Die Notation des von MBROLA verwendeten .pho-Files sieht folgendermaßen aus:
+                        </p>
+                        <figure class="col-md-12">
+                            <pre class="short" data-embed="praat/ex2/table-1.txt"></pre>
+                        </figure>
+                        <p>
+                            Man kann im Prinzip fast beliebig viele Stützstellen für die Grundfrequenz angeben, wir beschränken uns aber zunächst auf einen in der Mitte des Lautes. Für stimmlose Laute erübrigt sich die Angabe des Grundfrequenzwertes verständlicherweise. Damit ergibt
+                            sich für das obige Beispiele die folgende pho-Notation:
+                        </p>
+                        <figure class="col-md-12">
+                            <pre class="short" data-embed="praat/ex2/table-2.txt"></pre>
+                        </figure>
+                        <p>
+                            Gib das synthetische Wort wieder und vergleiche mit dem Original. Dazu kann das synthetische in ein WAV-File exportiert werden. Sieh dir das synthetische File in PRAAT an und kontrolliere ob die Lautlängen und die Grundfrequenz korrekt realisiert wurden.
+                            Wie unterscheidet sich die Synthese-Wellenform vom Original? Wie klingt die Synthese im Vergleich zum Original?
+                        </p>
+                        <p>
+                            Es scheint einen Bug zu geben, bei dem MBROLA den letzten Laut manchmal "verschluckt". Abhilfe schafft die Einfügung einer Pause nach dem Wort ( _ 100).
+                        </p>
+                        <p>
+                            Verbessere das Ergebnis, in dem du je Laut drei Grundfrequenz-Werte mißt (am Anfang, in der Mitte und am Ende).
+                        </p>
                         <!-- content -->
                         <h4>Aufgabenlösung:</h4>
-
-                    </div>
-                </div>
-            </div>
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title">
-                        <a data-toggle="collapse" data-parent="#accordion" data-target="#collapseFour"
-                           href="#collapseFour">
-                            Teilaufgabe 4
-                        </a>
-                    </h3>
-                </div>
-                <div id="collapseFour" class="panel-collapse collapse in">
-                    <div class="panel-body">
-                        <h4>Aufgabenbeschreibung:</h4>
-
-                        <!-- content -->
-                        <h4>Aufgabenlösung:</h4>
-
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5>Hamsterrad mit einer Stützstelle</h5>
+                                <figure class="row">
+                                    <audio controls>
+                                        <source src="praat/ex2/hamsterrad-syn.wav" type="audio/wav">
+                                    </audio>
+                                    <figcaption>
+                                        Stützstelle bei 50%
+                                    </figcaption>
+                                </figure>
+                                <figure class="row">
+                                    <pre data-embed="praat/ex2/hamsterrad-pho.txt"></pre>
+                                    <figcaption>Datei:
+                                        <a href="praat/ex2/hamsterrad-pho.txt" target="_new">hamsterrad-pho.txt</a>
+                                    </figcaption>
+                                </figure>
+                                <h5>Hamsterrad mit mehreren Stützstellen</h5>
+                                <figure class="row">
+                                    <audio controls>
+                                        <source src="praat/ex2/hamsterrad-syn-more.wav" type="audio/wav">
+                                    </audio>
+                                    <figcaption>
+                                        Stützstellen bei 25%, 50%, 75%
+                                    </figcaption>
+                                </figure>
+                                <figure class="row">
+                                    <pre data-embed="praat/ex2/hamsterrad-pho-more.txt"></pre>
+                                    <figcaption>Datei:
+                                        <a href="praat/ex2/hamsterrad-pho-more.txt" target="_new">hamsterrad-pho-more.txt</a>
+                                    </figcaption>
+                                </figure>
+                            </div>
+                            <div class="col-md-6">
+                                <h5>Tannenbaum mit einer Stützstelle</h5>
+                                <figure class="row">
+                                    <audio controls>
+                                        <source src="praat/ex2/tannenbaum-syn.wav" type="audio/wav">
+                                    </audio>
+                                    <figcaption>
+                                        Stützstelle bei 50%
+                                    </figcaption>
+                                </figure>
+                                <figure class="row">
+                                    <pre data-embed="praat/ex2/tannenbaum-pho.txt"></pre>
+                                    <figcaption>Datei:
+                                        <a href="praat/ex2/tannenbaum-pho.txt" target="_new">tannenbaum-pho.txt</a>
+                                    </figcaption>
+                                </figure>
+                                <h5>Tannenbaum mit mehreren Stützstellen</h5>
+                                <figure class="row">
+                                    <audio controls>
+                                        <source src="praat/ex2/tannenbaum-syn-more.wav" type="audio/wav">
+                                    </audio>
+                                    <figcaption>
+                                        Stützstellen bei 25%, 50%, 75%
+                                    </figcaption>
+                                </figure>
+                                <figure class="row">
+                                    <pre data-embed="praat/ex2/tannenbaum-pho-more.txt"></pre>
+                                    <figcaption>Datei:
+                                        <a href="praat/ex2/tannenbaum-pho-more.txt" target="_new">tannenbaum-pho-more.txt</a>
+                                    </figcaption>
+                                </figure>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

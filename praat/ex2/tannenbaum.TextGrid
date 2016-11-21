@@ -1,6 +1,5 @@
 File type = "ooTextFile"
 Object class = "TextGrid"
-
 xmin = 0 
 xmax = 1.43 
 tiers? <exists> 
@@ -30,14 +29,14 @@ item []:
             text = "@" 
         intervals [5]:
             xmin = 0.6992850185337727 
-            xmax = 1.0667738158978584 
+            xmax = 0.8999532434102142 
             text = "n" 
         intervals [6]:
-            xmin = 1.0667738158978584 
-            xmax = 1.0861153315485996 
+            xmin = 0.8999532434102142 
+            xmax = 1.0861443925627872 
             text = "b" 
         intervals [7]:
-            xmin = 1.0861153315485996 
+            xmin = 1.0861443925627872 
             xmax = 1.1731521519769357 
             text = "a" 
         intervals [8]:
