@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="de">
+
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Multimedia Processing</title>
+        <link rel="stylesheet" href="css/bootstrap.min.css" />
+        <link rel="stylesheet" href="css/main.css" />
+        <script src="js/jquery-2.1.4.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+    </head>
+
+    <body>
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">Multimedia Processing</a>
+                </div>
+                <div>
+                    <ul class="nav navbar-nav">
+                        <li><a href="index.html">Übung 1</a></li>
+                        <li><a href="ex2.html">Übung 2</a></li>
+                        <li class="active"><a href="ex3.html">Übung 3</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <div class="row container">
+            <p class="lead">
+                <em>Lösungen von Felix Maulwurf und Michael Duve</em>
+            </p>
+        </div>
+        <div id="accordion" class="container panel-group">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" data-target="#collapseOne"
+                           href="#collapseOne">
+                            <s>Teilaufgabe 1</s>
+                        </a>
+                    </h3>
+                </div>
+                <div id="collapseOne" class="panel-collapse collapse in">
+                    <div class="panel-body">
+                        <h4>Aufgabenbeschreibung:</h4>
+                        <p>
+                            Das Tool wave_io.exe berechnet ein Histogramm für eine Sprachdatei. Zeichne für jedes Gruppenmitglied mit PRAAT ein einsilbiges Wort, einen kurzen Satz (3-4 Wörter) , einen langen Satz (>10 Wörter) und einen Absatz (>30 Wörter) auf und berechne jeweils
+                            die Histogramme (Pausen vor und hinter dem Sprachsignal mit PRAAT abschneiden). Aus den Prozentangaben aus wave_io läßt sich in etwa die Amplitudendichteverteilung (ADV) ablesen. Zeichne diese für die einzelnen Dateien graphisch
+                            in das selbe Diagramm (x-Achse: Amplituden-Wertebereiche, y-Achse: Prozentangaben). Wie unterscheiden sich die ADVs der einzelnen Dateien? Aus dem Histogramm läßt sich auch ablesen, wie gut die Aufnahmen ausgesteuert sind.
+                            Wie?
+                        </p>
+                        <!-- content -->
+                        <h4>Aufgabenlösung:</h4>
+                        <p>
+                            Wurde dieses Semester ausgelassen.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" data-target="#collapseTwo"
+                           href="#collapseTwo">
+                            Teilaufgabe 2
+                        </a>
+                    </h3>
+                </div>
+                <div id="collapseTwo" class="panel-collapse collapse in">
+                    <div class="panel-body">
+                        <h4>Aufgabenbeschreibung:</h4>
+                        <p>
+                            Phoneme sind die kleinsten bedeutungsunterscheidenden Elemente einer Sprache. In dieser Übung werden wir sogenannte Minimalpaare, d.h. Wörter, die sich genau in einem Phonem unterscheiden, suchen, diese aufzeichnen und die Oszillogramme, d.h. die Zeitsignale,
+                            segmentieren und vergleichen. Genaugenommen sind es nicht immer Minimalpaare, sondern oft Tripel und Quadrupel etc. die sich jeweils an einer Stelle unterscheiden (vgl. Anne vs. Amme vs. Affe vs. Asche etc.). Wer findet die
+                            meisten Varianten? ALLE BEISPIELE VON JEDEM GRUPPENMITGLIED SPRECHEN LASSEN!!!
+                        </p>
+                        <p>
+                            Die "Minimalpaare" sollen folgendes Aussehen haben ("C" steht hier für Konsonant, "V" für Vokal):
+                        </p>
+                        <ul>
+                            <li>
+                                einsilbig mit wechselndem Vokal: CVC (insgesamt fünf verschiedene)
+                            </li>
+                            <li>
+                                zweisilbig mit wechselndem Konsonanten: VCV (insgesamt fünf verschiedene)
+                            </li>
+                        </ul>
+                        <p>
+                            Am besten plaziert man alle Beispiele zu einem Bildungsmuster in einer Datei, das erleichtert den Vergleich.
+                        </p>
+                        <p>
+                            "Segmentieren", d.h. die Lautgrenzen markieren, werden wir mit dem Labeltool in PRAAT (Praat objects->Label &amp; segment->To TextGrid). Das Grid dann mit dem Wave-File zusammen für spätere Anwendungen abspeichern (mit dem Cursor Wave und TextGrid invertieren,
+                            unter "Write->Write to binary file" als "praat.Collection" abspeichern, eindeutigen Namen vergeben!).
+                        </p>
+                        <p>
+                            Wenn sämtliche Beispiele markiert sind, wollen wir die Unterschiede zwischen den Vokalen, bzw. Konsonanten im Oszillogramm untersuchen.
+                        </p>
+                        <p>
+                            In welchen Merkmalen unterscheiden sich die von euch gewählten Konsonanten und wie drücken sich diese im Oszillogramm aus? Beachtet besonders genau die Übergänge V->C C->V. Welche Artikulationsart, bzw. -stelle bezeichnet die von euch gewählten Konsonanten?
+                            Am besten probiert man das an sich selbst aus, d.h. die Lautfolge langsam sprechen und darauf achten, wie sich die Zungen im Rachen bewegt (vor->zurück, hoch->tief) etc.
+                        </p>
+                        <p>
+                            Wie unterscheiden sich die von euch gewählten Vokale (Zungenposition, Länge ->ausmessen, Lippenrundung +/-)? Vergleicht die Oszillogramme verschiedener Sprecher, ähneln sich diese für den gleichen Laut?
+                        </p>
+                        <!-- content -->
+                        <h4>Aufgabenlösung:</h4>
+                        <h5>Einsilbig CVC</h5>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Worte</th>
+                                    <th>Laute</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Rum</td>
+                                    <td>rUm</td>
+                                </tr>
+                                <tr>
+                                    <td>Ruhm</td>
+                                    <td>ru:m</td>
+                                </tr>
+                                <tr>
+                                    <td>Rahm</td>
+                                    <td>ra:m</td>
+                                </tr>
+                                <tr>
+                                    <td>Reim</td>
+                                    <td>raIm</td>
+                                </tr>
+                                <tr>
+                                    <td>Rom</td>
+                                    <td>ro:m</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="row">
+                            <figure class="col-md-6">
+                                <audio controls>
+                                    <source src="praat/ex3/r-m-mduve.wav" type="audio/wav">
+                                </audio>
+                                <figcaption>
+                                    Sprecher: Michael
+                                </figcaption>
+                            </figure>
+                            <figure class="col-md-6">
+                                <audio controls>
+                                    <source src="praat/ex3/r-m-fmaulwurf.wav" type="audio/wav">
+                                </audio>
+                                <figcaption>
+                                    Sprecher: Felix
+                                </figcaption>
+                            </figure>
+                        </div>
+                        <div class="row">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <script src="js/app.js"></script>
+    </body>
+
+</html>
