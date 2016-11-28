@@ -1,0 +1,100 @@
+File type = "ooTextFile"
+Object class = "TextGrid"
+
+xmin = 0 
+xmax = 2.850884 
+tiers? <exists> 
+size = 2 
+item []: 
+    item [1]:
+        class = "IntervalTier" 
+        name = "Wortgrenzen" 
+        xmin = 0 
+        xmax = 2.850884 
+        intervals: size = 5 
+        intervals [1]:
+            xmin = 0 
+            xmax = 0.535029342979874 
+            text = "Rum" 
+        intervals [2]:
+            xmin = 0.535029342979874 
+            xmax = 1.1780377315554726 
+            text = "Ruhm" 
+        intervals [3]:
+            xmin = 1.1780377315554726 
+            xmax = 1.8050211515861243 
+            text = "Rahm" 
+        intervals [4]:
+            xmin = 1.8050211515861243 
+            xmax = 2.398113575939443 
+            text = "Reim" 
+        intervals [5]:
+            xmin = 2.398113575939443 
+            xmax = 2.850884 
+            text = "Rom" 
+    item [2]:
+        class = "IntervalTier" 
+        name = "Lautgrenzen" 
+        xmin = 0 
+        xmax = 2.850884 
+        intervals: size = 15 
+        intervals [1]:
+            xmin = 0 
+            xmax = 0.09712743239659931 
+            text = "     r" 
+        intervals [2]:
+            xmin = 0.09712743239659931 
+            xmax = 0.21785413506758233 
+            text = "U" 
+        intervals [3]:
+            xmin = 0.21785413506758233 
+            xmax = 0.5347617322210414 
+            text = "m" 
+        intervals [4]:
+            xmin = 0.5347617322210414 
+            xmax = 0.7032400729673369 
+            text = "r" 
+        intervals [5]:
+            xmin = 0.7032400729673369 
+            xmax = 0.8587729480307229 
+            text = "u:" 
+        intervals [6]:
+            xmin = 0.8587729480307229 
+            xmax = 1.17755107212758 
+            text = "m" 
+        intervals [7]:
+            xmin = 1.17755107212758 
+            xmax = 1.2777073061492057 
+            text = "r " 
+        intervals [8]:
+            xmin = 1.2777073061492057 
+            xmax = 1.5360718334658527 
+            text = "a:" 
+        intervals [9]:
+            xmin = 1.5360718334658527 
+            xmax = 1.805252435720654 
+            text = "m" 
+        intervals [10]:
+            xmin = 1.805252435720654 
+            xmax = 1.9085855636926718 
+            text = "r" 
+        intervals [11]:
+            xmin = 1.9085855636926718 
+            xmax = 2.130959012283992 
+            text = "aI" 
+        intervals [12]:
+            xmin = 2.130959012283992 
+            xmax = 2.398321308856215 
+            text = "m" 
+        intervals [13]:
+            xmin = 2.398321308856215 
+            xmax = 2.4593575190655574 
+            text = "r " 
+        intervals [14]:
+            xmin = 2.4593575190655574 
+            xmax = 2.626458954423197 
+            text = "o:" 
+        intervals [15]:
+            xmin = 2.626458954423197 
+            xmax = 2.850884 
+            text = "m" 
