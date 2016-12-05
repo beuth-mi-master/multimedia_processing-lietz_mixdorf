@@ -70,7 +70,7 @@
                     <div class="panel-body">
                         <h4>Aufgabenbeschreibung:</h4>
                         <p>
-                            Als erstes lesen wir mit [Read] in PRAAT unsere Sprachdatei ein. Dann wählen wir "Formants&LPC->To LPC (autocorrelation)". Die anderen Verfahren, die PRAAT noch anbietet, unterscheiden sich nur geringfügig in der Methode der Berechnung der Filter-Koeffizienten.
+                            Als erstes lesen wir mit [Read] in PRAAT unsere Sprachdatei ein. Dann wählen wir "Formants&amp;LPC->To LPC (autocorrelation)". Die anderen Verfahren, die PRAAT noch anbietet, unterscheiden sich nur geringfügig in der Methode der Berechnung der Filter-Koeffizienten.
                             Im Einstelldialog sind besonders die Punkte "Prediction Order" (Ordnung des Filters) und "Analysis width" (Framebreite bei der Analyse) von Interesse. Diese wollen wir in dieser Aufgabe variieren. Zusätzlich zu den von PRAAT
                             angebotenen Standardwerten von Order=16/Analysis Width=25ms (kurz: 16/25) werden wir Analysen bei Ordnungen von 10, 6 und 1 durchführen, sowie Framelängen von 50 und 100 ms untersuchen. "Time step" (die "Vorschubbreite" der
                             Analyse) setzen wir auf denselben Wert wie "Analysis width", d.h. wir erlauben kein Überlappen von benachbarten Frames.
@@ -87,228 +87,283 @@
                         <!-- content -->
                         <h4>Aufgabenlösung:</h4>
                         <div class="row">
-                            <figure class="col-md-4">
-                                <audio controls>
-                                    <source src="praat/ex5/original.wav" type="audio/wav">
-                                </audio>
-                                <figcaption>
-                                    Aufnahme Original
-                                </figcaption>
-                            </figure>
-                            <figure class="col-md-4">
-                                <audio controls>
-                                    <source src="praat/ex5/residuum-16_25.wav" type="audio/wav">
-                                </audio>
-                                <figcaption>
-                                    Residuum 16_25
-                                </figcaption>
-                            </figure>
-                            <figure class="col-md-4">
-                                <audio controls>
+                            <div class="col-md-4">
+                                <figure>
+                                    <img src="praat/ex5/original.png" alt="" />
+                                    <figcaption>
+                                        Screenshot Original
+                                    </figcaption>
+                                </figure>
+                                <figure>
+                                    <audio controls>
+                                        <source src="praat/ex5/original.wav" type="audio/wav">
+                                    </audio>
+                                    <figcaption>
+                                        Aufnahme Original
+                                    </figcaption>
+                                </figure>
+                            </div>
+                            <div class="col-md-4">
+                                <figure>
+                                    <img src="praat/ex5/16_25_residuum.png" alt="" />
+                                    <figcaption>
+                                        Screenshot 16_25 Residuum
+                                    </figcaption>
+                                </figure>
+                                <figure>
+                                    <audio controls>
+                                        <source src="praat/ex5/residuum-16_25.wav" type="audio/wav">
+                                    </audio>
+                                    <figcaption>
+                                        Residuum 16_25
+                                    </figcaption>
+                                </figure>
+                            </div>
+                            <div class="col-md-4">
+                                <figure>
+                                    <img src="praat/ex5/16_25_resynthese.png" alt="" />
+                                    <figcaption>
+                                        Screenshot Resynthese 16_25
+                                    </figcaption>
+                                </figure>
+                                <figure>
+                                    <audio controls>
                                     <source src="praat/ex5/16_25-resynthese.wav" type="audio/wav">
                                 </audio>
-                                <figcaption>
-                                    Resynthese 16_25
-                                </figcaption>
-                            </figure>
+                                    <figcaption>
+                                        Resynthese 16_25
+                                    </figcaption>
+                                </figure>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">
                         <a data-toggle="collapse" data-parent="#accordion" data-target="#collapseThree"
                            href="#collapseThree">
                             Teilaufgabe 3
                         </a>
                     </h3>
-                </div>
-                <div id="collapseThree" class="panel-collapse collapse in">
-                    <div class="panel-body">
-                        <h4>Aufgabenbeschreibung:</h4>
-                        <p>
-                            Das Residual-Signal dient uns jetzt zum Testen der anderen LPC-Objekte mit den verschlechterten Parametern. Auch hier wählen wir das Residuum und das gewünschte LPC-Objekt an und filtern wieder. Vergleiche die Qualität der einzelnen Varianten mit dem
-                            Original! Wie unterscheiden sich die Beispiele, bei denen die Filter-Ordnung variiert wurde, wie solche, bei denen die Framebreite variiert wurde? Bei welcher Kombination ist die Sprachverständlichkeit nicht mehr akzeptabel?
-                        </p>
-                        <!-- content -->
-                        <h4>Aufgabenlösung:</h4>
-                        <div class="row">
-                            <figure class="col-md-4">
-                                <audio controls>
+                    </div>
+                    <div id="collapseThree" class="panel-collapse collapse in">
+                        <div class="panel-body">
+                            <h4>Aufgabenbeschreibung:</h4>
+                            <p>
+                                Das Residual-Signal dient uns jetzt zum Testen der anderen LPC-Objekte mit den verschlechterten Parametern. Auch hier wählen wir das Residuum und das gewünschte LPC-Objekt an und filtern wieder. Vergleiche die Qualität der einzelnen Varianten mit dem
+                                Original! Wie unterscheiden sich die Beispiele, bei denen die Filter-Ordnung variiert wurde, wie solche, bei denen die Framebreite variiert wurde? Bei welcher Kombination ist die Sprachverständlichkeit nicht mehr akzeptabel?
+                            </p>
+                            <!-- content -->
+                            <h4>Aufgabenlösung:</h4>
+                            <div class="row">
+                                <figure class="col-md-4">
+                                    <audio controls>
                                     <source src="praat/ex5/16_25-resynthese.wav" type="audio/wav">
                                 </audio>
-                                <figcaption>
-                                    Resynthese 16_25
-                                </figcaption>
-                            </figure>
-                            <figure class="col-md-4">
-                                <audio controls>
+                                    <figcaption>
+                                        Resynthese 16_25
+                                    </figcaption>
+                                </figure>
+                                <figure class="col-md-4">
+                                    <audio controls>
                                     <source src="praat/ex5/16_50-resynthese.wav" type="audio/wav">
                                 </audio>
-                                <figcaption>
-                                    Resynthese 16_50
-                                </figcaption>
-                            </figure>
-                            <figure class="col-md-4">
-                                <audio controls>
+                                    <figcaption>
+                                        Resynthese 16_50
+                                    </figcaption>
+                                </figure>
+                                <figure class="col-md-4">
+                                    <audio controls>
                                     <source src="praat/ex5/16_100-resynthese.wav" type="audio/wav">
                                 </audio>
-                                <figcaption>
-                                    Resynthese 16_100
-                                </figcaption>
-                            </figure>
-                        </div>
-                        <div class="row">
-                            <figure class="col-md-4">
-                                <audio controls>
+                                    <figcaption>
+                                        Resynthese 16_100
+                                    </figcaption>
+                                </figure>
+                            </div>
+                            <div class="row">
+                                <figure class="col-md-4">
+                                    <audio controls>
                                     <source src="praat/ex5/10_25-resynthese.wav" type="audio/wav">
                                 </audio>
-                                <figcaption>
-                                    Resynthese 10_25
-                                </figcaption>
-                            </figure>
-                            <figure class="col-md-4">
-                                <audio controls>
+                                    <figcaption>
+                                        Resynthese 10_25
+                                    </figcaption>
+                                </figure>
+                                <figure class="col-md-4">
+                                    <audio controls>
                                     <source src="praat/ex5/10_50-resynthese.wav" type="audio/wav">
                                 </audio>
-                                <figcaption>
-                                    Resynthese 10_50
-                                </figcaption>
-                            </figure>
-                            <figure class="col-md-4">
-                                <audio controls>
+                                    <figcaption>
+                                        Resynthese 10_50
+                                    </figcaption>
+                                </figure>
+                                <figure class="col-md-4">
+                                    <audio controls>
                                     <source src="praat/ex5/10_100-resynthese.wav" type="audio/wav">
                                 </audio>
-                                <figcaption>
-                                    Resynthese 10_100
-                                </figcaption>
-                            </figure>
-                        </div>
-                        <div class="row">
-                            <figure class="col-md-4">
-                                <audio controls>
+                                    <figcaption>
+                                        Resynthese 10_100
+                                    </figcaption>
+                                </figure>
+                            </div>
+                            <div class="row">
+                                <figure class="col-md-4">
+                                    <audio controls>
                                     <source src="praat/ex5/6_25-resynthese.wav" type="audio/wav">
                                 </audio>
-                                <figcaption>
-                                    Resynthese 6_25
-                                </figcaption>
-                            </figure>
-                            <figure class="col-md-4">
-                                <audio controls>
+                                    <figcaption>
+                                        Resynthese 6_25
+                                    </figcaption>
+                                </figure>
+                                <figure class="col-md-4">
+                                    <audio controls>
                                     <source src="praat/ex5/6_50-resynthese.wav" type="audio/wav">
                                 </audio>
-                                <figcaption>
-                                    Resynthese 6_50
-                                </figcaption>
-                            </figure>
-                            <figure class="col-md-4">
-                                <audio controls>
+                                    <figcaption>
+                                        Resynthese 6_50
+                                    </figcaption>
+                                </figure>
+                                <figure class="col-md-4">
+                                    <audio controls>
                                     <source src="praat/ex5/6_100-resynthese.wav" type="audio/wav">
                                 </audio>
-                                <figcaption>
-                                    Resynthese _100
-                                </figcaption>
-                            </figure>
-                        </div>
-                        <div class="row">
-                            <figure class="col-md-4">
-                                <audio controls>
+                                    <figcaption>
+                                        Resynthese _100
+                                    </figcaption>
+                                </figure>
+                            </div>
+                            <div class="row">
+                                <figure class="col-md-4">
+                                    <audio controls>
                                     <source src="praat/ex5/1_25-resynthese.wav" type="audio/wav">
                                 </audio>
-                                <figcaption>
-                                    Resynthese 1_25
-                                </figcaption>
-                            </figure>
-                            <figure class="col-md-4">
-                                <audio controls>
+                                    <figcaption>
+                                        Resynthese 1_25
+                                    </figcaption>
+                                </figure>
+                                <figure class="col-md-4">
+                                    <audio controls>
                                     <source src="praat/ex5/1_50-resynthese.wav" type="audio/wav">
                                 </audio>
-                                <figcaption>
-                                    Resynthese 1_50
-                                </figcaption>
-                            </figure>
-                            <figure class="col-md-4">
-                                <audio controls>
+                                    <figcaption>
+                                        Resynthese 1_50
+                                    </figcaption>
+                                </figure>
+                                <figure class="col-md-4">
+                                    <audio controls>
                                     <source src="praat/ex5/1_100-resynthese.wav" type="audio/wav">
                                 </audio>
-                                <figcaption>
-                                    Resynthese 1_100
-                                </figcaption>
-                            </figure>
+                                    <figcaption>
+                                        Resynthese 1_100
+                                    </figcaption>
+                                </figure>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">
                         <a data-toggle="collapse" data-parent="#accordion" data-target="#collapseFour"
                            href="#collapseFour">
                             Teilaufgabe 4
                         </a>
                     </h3>
-                </div>
-                <div id="collapseFour" class="panel-collapse collapse in">
-                    <div class="panel-body">
-                        <h4>Aufgabenbeschreibung:</h4>
-                        <p>
-                            Nun wollen wir die Anregung (Quelle) verändern. Dafür habe ich zwei Signale bereitgestellt, weißes Rauschen und einen 100Hz-Pulse Train, einen obertonreiches Signal mit Grundfrequenz 100Hz
-                        </p>
-                        <ul>
-                            <li><a href="praat/ex5/pulsetrain.wav" target="_blank">pulsetrain.wav</a></li>
-                            <li><a href="praat/ex5/whitenoise.wav" target="_blank">whitenoise.wav</a></li>
-                        </ul>
-                        <p>
-                            Wenn wir das Rauschen mit dem LPC-Objekt filtern (jetzt "Use LPC Gain" anwählen), bekommen wir so etwas wie Flüstersprache, beim Pulse Train eine Roboterstimme. Abschließend werden wir auch noch eine Musikdatei als Anregung benutzen, was einen Vocodereffekt
-                            bewirken sollte. Am besten eignen sich hier flächige, eher statische Sounds wie Synthesizerakkorde, da der Rhythmus vom Sprachsignal kommen soll. Für die 12 Qualitäten (also Filter-Ordnungen 16, 10, 6, 1 kombiniert mit Framebreiten
-                            25, 50 und 100ms) berechnen wir die Datenraten. Dazu machen wir uns Folgendes klar: Übertragen werden müssen mindestens je Analyseblock (also z.B. je 25ms) die Koeffizienten (Zahl entspricht der Filterordnung) und die Grundfrequenz
-                            f0. Setze hier jeweils pro Zahlenwert 16bit an. Vergleiche diese Datenrate mit der ursprünglichen PCM-Datenrate der Sprachdatei (wie in Übung 1 berechnet).
-                        </p>
-                        <!-- content -->
-                        <h4>Aufgabenlösung:</h4>
-                        <div class="row">
-                            <figure class="col-md-6">
-                                <audio controls>
-                                    <source src="praat/ex5/16_25-pulsetrain.wav" type="audio/wav">
-                                </audio>
-                                <figcaption>
-                                    16_25 Pulsetrain Resynthese
-                                </figcaption>
-                            </figure>
-                            <figure class="col-md-6">
-                                <audio controls>
-                                    <source src="praat/ex5/16_25-whitenoise.wav" type="audio/wav">
-                                </audio>
-                                <figcaption>
-                                    16_25 Whitenoise Resynthese
-                                </figcaption>
-                            </figure>
-                        </div>
-                        <div class="row">
-                            <figure class="col-md-6">
-                                <audio controls>
-                                    <source src="praat/ex5/coldplay-paradise.wav" type="audio/wav">
-                                </audio>
-                                <figcaption>
-                                    Musik Original: Coldplay - Paradise
-                                </figcaption>
-                            </figure>
-                            <figure class="col-md-6">
-                                <audio controls>
-                                    <source src="praat/ex5/16_25-vocoder.wav" type="audio/wav">
-                                </audio>
-                                <figcaption>
-                                    16_25 Vocoder Resynthese
-                                </figcaption>
-                            </figure>
+                    </div>
+                    <div id="collapseFour" class="panel-collapse collapse in">
+                        <div class="panel-body">
+                            <h4>Aufgabenbeschreibung:</h4>
+                            <p>
+                                Nun wollen wir die Anregung (Quelle) verändern. Dafür habe ich zwei Signale bereitgestellt, weißes Rauschen und einen 100Hz-Pulse Train, einen obertonreiches Signal mit Grundfrequenz 100Hz
+                            </p>
+                            <ul>
+                                <li><a href="praat/ex5/pulsetrain.wav" target="_blank">pulsetrain.wav</a></li>
+                                <li><a href="praat/ex5/whitenoise.wav" target="_blank">whitenoise.wav</a></li>
+                            </ul>
+                            <p>
+                                Wenn wir das Rauschen mit dem LPC-Objekt filtern (jetzt "Use LPC Gain" anwählen), bekommen wir so etwas wie Flüstersprache, beim Pulse Train eine Roboterstimme. Abschließend werden wir auch noch eine Musikdatei als Anregung benutzen, was einen Vocodereffekt
+                                bewirken sollte. Am besten eignen sich hier flächige, eher statische Sounds wie Synthesizerakkorde, da der Rhythmus vom Sprachsignal kommen soll. Für die 12 Qualitäten (also Filter-Ordnungen 16, 10, 6, 1 kombiniert mit
+                                Framebreiten 25, 50 und 100ms) berechnen wir die Datenraten. Dazu machen wir uns Folgendes klar: Übertragen werden müssen mindestens je Analyseblock (also z.B. je 25ms) die Koeffizienten (Zahl entspricht der Filterordnung)
+                                und die Grundfrequenz f0. Setze hier jeweils pro Zahlenwert 16bit an. Vergleiche diese Datenrate mit der ursprünglichen PCM-Datenrate der Sprachdatei (wie in Übung 1 berechnet).
+                            </p>
+                            <!-- content -->
+                            <h4>Aufgabenlösung:</h4>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <figure>
+                                        <img src="praat/ex5/pulse.png" alt="" />
+                                        <figcaption>
+                                            Screenshot Pulsetrain
+                                        </figcaption>
+                                    </figure>
+                                    <figure>
+                                        <audio controls>
+                                            <source src="praat/ex5/16_25-pulsetrain.wav" type="audio/wav">
+                                        </audio>
+                                        <figcaption>
+                                            16_25 Pulsetrain Resynthese
+                                        </figcaption>
+                                    </figure>
+                                </div>
+                                <div class="col-md-6">
+                                    <figure>
+                                        <img src="praat/ex5/whitenoise.png" alt="" />
+                                        <figcaption>
+                                            Screenshot Whitenoise
+                                        </figcaption>
+                                    </figure>
+                                    <figure>
+                                        <audio controls>
+                                            <source src="praat/ex5/16_25-whitenoise.wav" type="audio/wav">
+                                        </audio>
+                                        <figcaption>
+                                            16_25 Whitenoise Resynthese
+                                        </figcaption>
+                                    </figure>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <figure>
+                                        <img src="praat/ex5/vocoder.png" alt="" />
+                                        <figcaption>
+                                            Screenshot Vocoder
+                                        </figcaption>
+                                    </figure>
+                                    <figure>
+                                        <audio controls>
+                                            <source src="praat/ex5/coldplay-paradise.wav" type="audio/wav">
+                                        </audio>
+                                        <figcaption>
+                                            Musik Original: Coldplay - Paradise
+                                        </figcaption>
+                                    </figure>
+                                </div>
+                                <div class="col-md-6">
+                                    <figure>
+                                        <img src="praat/ex5/coldplay.png" alt="" />
+                                        <figcaption>
+                                            Screenshot Coldplay
+                                        </figcaption>
+                                    </figure>
+                                    <figure>
+                                        <audio controls>
+                                            <source src="praat/ex5/16_25-vocoder.wav" type="audio/wav">
+                                        </audio>
+                                        <figcaption>
+                                            16_25 Vocoder Resynthese
+                                        </figcaption>
+                                    </figure>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <script src="js/app.js"></script>
-        </div>
+                <script src="js/app.js"></script>
+            </div>
     </body>
 
 </html>
