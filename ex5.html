@@ -136,6 +136,9 @@
                                 </figure>
                             </div>
                         </div>
+                        <p>
+                            Es ist visuell und akustisch kein Unterschied wahrzunehmen. Marginal ist bestimmt das Signal nicht deckungsgleich, aber Ohren und Augen nehmen die Unterschiede nicht wahr.
+                        </p>
                     </div>
                 </div>
                 <div class="panel panel-default">
@@ -357,6 +360,10 @@
                                 </div>
                             </div>
                         </div>
+                        <p>
+                            Die Qualität nimmt mit Reduktion der Anzahl der Koeffizienten ab und ein Rauschen ist im Spektrum ersichtlich. Das Signal bekommt Unterbrechungen, welche mit zunehmender Framelänge länger werden, die auftreten, weil die ursprüngliche Framelänge nicht
+                            eingehalten wird. Ein akustischer Unterschied ist im Vergleich vom Original zur besten Version (Ordnung 1 und Framelänge 25ms) nicht hörbar.
+                        </p>
                     </div>
                 </div>
                 <div class="panel panel-default">
@@ -454,6 +461,60 @@
                                     </figure>
                                 </div>
                             </div>
+                            <h5>
+                                Berechnung der Datenraten
+                            </h5>
+                            <p>
+                                Formel: Anzahl der Frames pro Sekunde * (Anzahl Koeffizienten * 16bit + Grundfrequenz) = Datenrate
+                            </p>
+                            <p>
+                                Beispiel: 40 * (16 * 16bit + 16bit) = 10880 bit/s = 10.88 kbit/s
+                            </p>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th class="text-center" colspan="4">Anzahl der Koeffizienten</th>
+                                    </tr>
+                                    <tr>
+                                        <th>Frames (1/s)</th>
+                                        <th>16</th>
+                                        <th>10</th>
+                                        <th>6</th>
+                                        <th>1</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>40</td>
+                                        <td>10880 bit/s</td>
+                                        <td>7040 bit/s</td>
+                                        <td>4480 bit/s</td>
+                                        <td>1280 bit/s</td>
+                                    </tr>
+                                    <tr>
+                                        <td>20</td>
+                                        <td>5440 bit/s</td>
+                                        <td>3520 bit/s</td>
+                                        <td>2240 bit/s</td>
+                                        <td>640 bit/s</td>
+                                    </tr>
+                                    <tr>
+                                        <td>10</td>
+                                        <td>2720 bit/s</td>
+                                        <td>1760 bit/s</td>
+                                        <td>1120 bit/s</td>
+                                        <td>320 bit/s</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <p>
+                                Datenrate des Originals (Abtastfrequenz * Auflösung): 16kHz * 16bit = 256kbit/s = 256000bit/s
+                            </p>
+                            <p>
+                                Sogar die Resynthese mit der besten Qualität und den meisten Frames hat eine um ca. 23,5% reduzierte Datenrate gegenüber dem Original. Die hörbare Qualität leidet darunter kaum. Das schlechteste Signal aus der Testreihe (Ordnung 1 und Framelänge 100ms)
+                                ist zwar schwer zu verstehen, aber spart 800% in der Datenrate. Es macht also durchaus Sinn, dass Skype und andere Dienste die Datenrate reduzieren, um effizienter zu arbeiten.
+                            </p>
                         </div>
                     </div>
                 </div>
