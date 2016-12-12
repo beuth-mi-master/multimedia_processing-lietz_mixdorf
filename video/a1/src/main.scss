@@ -51,6 +51,12 @@ video {
     width: 100%;
 }
 
+#canvas2 {
+    background-size: contain;
+    background-position: top center;
+    background-repeat: no-repeat;
+}
+
 ::selection {
     color: map-get($colors, lightest);
     background: map-get($colors, highlight);

@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
     <meta name="description" lang="de" content="">
     <meta name="keywords" lang="en" content="">
-    <meta name="author" content="Michael Duve, Felix Maulwurff">
+    <meta name="author" content="Michael Duve, Felix Maulwurf">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <meta name="format-detection" content="telephone=no">
     <meta name="robots" content="index,follow,noarchive">
@@ -17,7 +17,7 @@
     <main class="wrapper">
       <h1>Multimedia Processing Video<small>von Michael Duve &amp; Felix Maulwurf</small></h1>
       <article class="content-1">
-        <h2>Colorfilter Brightness</h2>
+        <h2 class="text-center">1. Colorfilter Brightness</h2>
         <section class="row">
           <div class="col-md-6">
             <video id="video1" loop="true" muted="true" autobuffer="true" controls="true">
@@ -29,7 +29,7 @@
           </div>
         </section>
         <section class="row">
-          <h3>controls</h3>
+          <h3 class="text-center">controls</h3>
           <div class="col-md-6">
             <div class="form-group">
               <label>Brightness (all channels)</label>
@@ -69,6 +69,45 @@
             </div>
           </div>
         </section>
+        <section class="row">
+          <h2 class="text-center">2. ChromaKey</h2>
+          <div class="row">
+            <div class="col-md-6">
+              <video id="video2" loop="true" muted="true" autobuffer="true" controls="true">
+                <source src="../assets/blue.mp4" type="video/mp4">
+              </video>
+            </div>
+            <div class="col-md-6">
+              <canvas id="canvas2"></canvas>
+            </div>
+          </div>
+          <div class="row">
+            <h3 class="text-center">backgrounds</h3>
+            <div class="col-xs-12">
+              <div class="col-xs-4 text-center">
+                <div class="radio">
+                  <label>
+                    <input type="radio" name="bg" value="2">Berlin
+                  </label>
+                </div>
+              </div>
+              <div class="col-xs-4">
+                <div class="radio">
+                  <label>
+                    <input type="radio" name="bg" value="1">Wolke
+                  </label>
+                </div>
+              </div>
+              <div class="col-xs-4">
+                <div class="radio">
+                  <label>
+                    <input type="radio" name="bg" value="0" checked="checked">None
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
       </article>
     </main>
     <script src="js/Helper.js"></script>
@@ -76,73 +115,6 @@
     <script>
       window.onload = () => {
           const _app = new Application();
-      
-          const elemBrightness = document.getElementById('brightness');
-      
-          let globalBrightness = elemBrightness.value;
-      
-          const elemRBrightness = document.getElementById('rbrightness');
-          const elemGBrightness = document.getElementById('gbrightness');
-          const elemBBrightness = document.getElementById('bbrightness');
-      
-          const elemInputFilter = document.querySelectorAll('input[name=filter]');
-      
-          elemInputFilter.forEach(elem => {
-              Helper.addListener(elem, 'change', updateFilter.bind(elem));
-          });
-      
-          Helper.addListener(elemBrightness, 'input', (e) => {
-              const intensity = parseInt(elemBrightness.value, 10);
-              const deltaIntensity = intensity - globalBrightness;
-              elemRBrightness.value = parseInt(elemRBrightness.value, 10) + deltaIntensity;
-              elemGBrightness.value = parseInt(elemGBrightness.value, 10) + deltaIntensity;
-              elemBBrightness.value = parseInt(elemBBrightness.value, 10) + deltaIntensity;
-              changeChannel();
-              globalBrightness = intensity;
-          });
-      
-          Helper.addListener(elemRBrightness, 'input change', changeChannel);
-          Helper.addListener(elemGBrightness, 'input change', changeChannel);
-          Helper.addListener(elemBBrightness, 'input change', changeChannel);
-      
-          function changeChannel() {
-              _app.colorFilter.frameUpdateRequired = true;
-              _app.colorFilter.setBrightness({
-                  r: parseInt(elemRBrightness.value, 10),
-                  g: parseInt(elemGBrightness.value, 10),
-                  b: parseInt(elemBBrightness.value, 10)
-              });
-              if (!_app.colorFilter.videoIsPlaying()) {
-                  setTimeout(() => {
-                      _app.colorFilter.frameUpdateRequired = false;
-                  }, 10);
-              }
-          }
-      
-          function updateFilter() {
-              _app.colorFilter.frameUpdateRequired = true;
-              const filterActive = parseInt(document.querySelector('input[name=filter]:checked').value, 10);
-              switch (filterActive) {
-                  case 1:
-                      _app.colorFilter.isGrayScale = false;
-                      _app.colorFilter.isSepia = true;
-                      break;
-                  case 2:
-                      _app.colorFilter.isGrayScale = true;
-                      _app.colorFilter.isSepia = false;
-                      break;
-                  default:
-                      _app.colorFilter.isGrayScale = false;
-                      _app.colorFilter.isSepia = false;
-                      break;
-              }
-              if (!_app.colorFilter.videoIsPlaying()) {
-                  setTimeout(() => {
-                      _app.colorFilter.frameUpdateRequired = false;
-                  }, 10);
-              }
-          }
-      
       };
     </script>
   </body>
