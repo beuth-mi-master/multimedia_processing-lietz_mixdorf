@@ -9,9 +9,21 @@ class ColorFilter {
         this.container = this.element.parentElement;
         this.ctx = this.element.getContext('2d');
         this.frameUpdateRequired = false;
+        this.isGrayScale = false;
+        this.isSepia = false;
         this.brightness = {
             r: 0,
             g: 0,
+            b: 0
+        };
+        this.greyScaleLuminosity = {
+            r: 0.2126,
+            g: 0.7152,
+            b: 0.0722
+        };
+        this.sepiaEffect = {
+            r: 100,
+            g: 50,
             b: 0
         };
         this.init();
@@ -31,6 +43,11 @@ class ColorFilter {
         Helper.addListener(this.video, "pause", this.pauseHandler.bind(this));
     }
 
+    videoIsPlaying() {
+        console.log(!this.video.paused);
+        return !this.video.paused;
+    }
+
     playHandler() {
         this.frameUpdateRequired = true;
     }
@@ -46,6 +63,7 @@ class ColorFilter {
     draw() {
         if (this.frameUpdateRequired) {
             this.renderVideoFrameToCanvas();
+            console.log("tada");
             let frame = this.getImageData();
             for (let i = 0; i < frame.data.length; i += 4) {
 
@@ -56,6 +74,18 @@ class ColorFilter {
                 frame.data[rChannel] += this.brightness.r;
                 frame.data[gChannel] += this.brightness.g;
                 frame.data[bChannel] += this.brightness.b;
+
+                if (this.isGrayScale || this.isSepia) {
+                    const average = frame.data[rChannel] * this.greyScaleLuminosity.r + frame.data[gChannel] * this.greyScaleLuminosity.g + frame.data[bChannel] * this.greyScaleLuminosity.b;
+                    frame.data[rChannel] = average;
+                    frame.data[gChannel] = average;
+                    frame.data[bChannel] = average;
+                    if (this.isSepia) {
+                        frame.data[rChannel] += this.sepiaEffect.r;
+                        frame.data[gChannel] += this.sepiaEffect.g;
+                        frame.data[bChannel] += this.sepiaEffect.b;
+                    }
+                }
 
             }
 

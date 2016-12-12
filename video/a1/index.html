@@ -30,21 +30,43 @@
         </section>
         <section class="row">
           <h3>controls</h3>
-          <div class="form-group">
-            <label>Brightness (all channels)</label>
-            <input class="form-control" id="brightness" type="range" min="0" max="255" step="1" value="0">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>Brightness (all channels)</label>
+              <input class="form-control" id="brightness" type="range" min="0" max="255" step="1" value="0">
+            </div>
+            <div class="form-group">
+              <h4>Filter</h4>
+              <div class="radio">
+                <label>
+                  <input type="radio" name="filter" value="2">Grayscale
+                </label>
+              </div>
+              <div class="radio">
+                <label>
+                  <input type="radio" name="filter" value="1">Sepia
+                </label>
+              </div>
+              <div class="radio">
+                <label>
+                  <input type="radio" name="filter" value="0" checked="checked">None
+                </label>
+              </div>
+            </div>
           </div>
-          <div class="form-group">
-            <label>Brightness (red channel)</label>
-            <input class="form-control" id="rbrightness" type="range" min="0" max="255" step="1" value="0">
-          </div>
-          <div class="form-group">
-            <label>Brightness (green channel)</label>
-            <input class="form-control" id="gbrightness" type="range" min="0" max="255" step="1" value="0">
-          </div>
-          <div class="form-group">
-            <label>Brightness (blue channel)</label>
-            <input class="form-control" id="bbrightness" type="range" min="0" max="255" step="1" value="0">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>Brightness (red channel)</label>
+              <input class="form-control" id="rbrightness" type="range" min="0" max="255" step="1" value="0">
+            </div>
+            <div class="form-group">
+              <label>Brightness (green channel)</label>
+              <input class="form-control" id="gbrightness" type="range" min="0" max="255" step="1" value="0">
+            </div>
+            <div class="form-group">
+              <label>Brightness (blue channel)</label>
+              <input class="form-control" id="bbrightness" type="range" min="0" max="255" step="1" value="0">
+            </div>
           </div>
         </section>
       </article>
@@ -63,6 +85,12 @@
           const elemGBrightness = document.getElementById('gbrightness');
           const elemBBrightness = document.getElementById('bbrightness');
       
+          const elemInputFilter = document.querySelectorAll('input[name=filter]');
+      
+          elemInputFilter.forEach(elem => {
+              Helper.addListener(elem, 'change', updateFilter.bind(elem));
+          });
+      
           Helper.addListener(elemBrightness, 'input', (e) => {
               const intensity = parseInt(elemBrightness.value, 10);
               const deltaIntensity = intensity - globalBrightness;
@@ -78,11 +106,41 @@
           Helper.addListener(elemBBrightness, 'input change', changeChannel);
       
           function changeChannel() {
+              _app.colorFilter.frameUpdateRequired = true;
               _app.colorFilter.setBrightness({
                   r: parseInt(elemRBrightness.value, 10),
                   g: parseInt(elemGBrightness.value, 10),
                   b: parseInt(elemBBrightness.value, 10)
               });
+              if (!_app.colorFilter.videoIsPlaying()) {
+                  setTimeout(() => {
+                      _app.colorFilter.frameUpdateRequired = false;
+                  }, 10);
+              }
+          }
+      
+          function updateFilter() {
+              _app.colorFilter.frameUpdateRequired = true;
+              const filterActive = parseInt(document.querySelector('input[name=filter]:checked').value, 10);
+              switch (filterActive) {
+                  case 1:
+                      _app.colorFilter.isGrayScale = false;
+                      _app.colorFilter.isSepia = true;
+                      break;
+                  case 2:
+                      _app.colorFilter.isGrayScale = true;
+                      _app.colorFilter.isSepia = false;
+                      break;
+                  default:
+                      _app.colorFilter.isGrayScale = false;
+                      _app.colorFilter.isSepia = false;
+                      break;
+              }
+              if (!_app.colorFilter.videoIsPlaying()) {
+                  setTimeout(() => {
+                      _app.colorFilter.frameUpdateRequired = false;
+                  }, 10);
+              }
           }
       
       };
