@@ -1,0 +1,57 @@
+@import "settings";
+
+body {
+    padding: $gutter * 2;
+    font:  {
+        family: map-get($font, "text");
+        weight: 400;
+        size: 17px;
+    }
+    line-height: 1.4;
+    margin: 0;
+    * {
+        box-sizing: border-box;
+    }
+}
+
+a,
+a:visited {
+    color: currentColor;
+}
+
+a:hover {
+    color: map-get($colors, highlight);
+}
+
+.nocontent {
+    position: absolute;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    border: 0;
+}
+
+.wrapper {
+    max-width: map-get($breakpoints, medium);
+    margin: 0 auto;
+}
+
+h1 {
+    display: block;
+    text-align: center;
+    small {
+        display: block;
+    }
+}
+
+video {
+    width: 100%;
+}
+
+::selection {
+    color: map-get($colors, lightest);
+    background: map-get($colors, highlight);
+}

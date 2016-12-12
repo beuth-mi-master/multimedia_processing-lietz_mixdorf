@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <title>Multimedia Processing Video</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="description" lang="de" content="">
+    <meta name="keywords" lang="en" content="">
+    <meta name="author" content="Michael Duve, Felix Maulwurff">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="robots" content="index,follow,noarchive">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+  </head>
+  <body>
+    <main class="wrapper">
+      <h1>Multimedia Processing Video<small>von Michael Duve &amp; Felix Maulwurf</small></h1>
+      <article class="content-1">
+        <h2>Colorfilter Brightness</h2>
+        <section class="row">
+          <div class="col-md-6">
+            <video id="video1" loop="true" muted="true" autobuffer="true" controls="true">
+              <source src="../assets/v2b.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="col-md-6">
+            <canvas id="canvas1"></canvas>
+          </div>
+        </section>
+        <section class="row">
+          <h3>controls</h3>
+          <div class="form-group">
+            <label>Brightness (all channels)</label>
+            <input class="form-control" id="brightness" type="range" min="0" max="255" step="1" value="0">
+          </div>
+          <div class="form-group">
+            <label>Brightness (red channel)</label>
+            <input class="form-control" id="rbrightness" type="range" min="0" max="255" step="1" value="0">
+          </div>
+          <div class="form-group">
+            <label>Brightness (green channel)</label>
+            <input class="form-control" id="gbrightness" type="range" min="0" max="255" step="1" value="0">
+          </div>
+          <div class="form-group">
+            <label>Brightness (blue channel)</label>
+            <input class="form-control" id="bbrightness" type="range" min="0" max="255" step="1" value="0">
+          </div>
+        </section>
+      </article>
+    </main>
+    <script src="js/Helper.js"></script>
+    <script src="js/app.js"></script>
+    <script>
+      window.onload = () => {
+          const _app = new Application();
+      
+          const elemBrightness = document.getElementById('brightness');
+      
+          let globalBrightness = elemBrightness.value;
+      
+          const elemRBrightness = document.getElementById('rbrightness');
+          const elemGBrightness = document.getElementById('gbrightness');
+          const elemBBrightness = document.getElementById('bbrightness');
+      
+          Helper.addListener(elemBrightness, 'input', (e) => {
+              const intensity = parseInt(elemBrightness.value, 10);
+              const deltaIntensity = intensity - globalBrightness;
+              elemRBrightness.value = parseInt(elemRBrightness.value, 10) + deltaIntensity;
+              elemGBrightness.value = parseInt(elemGBrightness.value, 10) + deltaIntensity;
+              elemBBrightness.value = parseInt(elemBBrightness.value, 10) + deltaIntensity;
+              changeChannel();
+              globalBrightness = intensity;
+          });
+      
+          Helper.addListener(elemRBrightness, 'input change', changeChannel);
+          Helper.addListener(elemGBrightness, 'input change', changeChannel);
+          Helper.addListener(elemBBrightness, 'input change', changeChannel);
+      
+          function changeChannel() {
+              _app.colorFilter.setBrightness({
+                  r: parseInt(elemRBrightness.value, 10),
+                  g: parseInt(elemGBrightness.value, 10),
+                  b: parseInt(elemBBrightness.value, 10)
+              });
+          }
+      
+      };
+    </script>
+  </body>
+</html>

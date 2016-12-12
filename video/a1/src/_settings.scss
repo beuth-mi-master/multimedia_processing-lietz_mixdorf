@@ -1,0 +1,16 @@
+$gutter: 10px;
+$font: (
+    "text": ("Open Sans", sans-serif),
+    "heading": ("Open Sans Condensed", sans-serif),
+    "size": 17px
+);
+$colors: (
+    "lightest": #fff,
+    "light": #e5e6e6,
+    "medium": #9f9f9f,
+    "dark": #404342,
+    "highlight": #14aa79
+);
+$breakpoints: (
+    "medium": 768px
+);
