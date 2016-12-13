@@ -19,6 +19,7 @@ html(lang='de')
             h1 Multimedia Processing Video
                 small von Michael Duve &amp; Felix Maulwurf
             article.content-1
+                p.alert.alert-warning Nur in neueren Chrome-Versionen getestet
                 h2.text-center 1 &amp; 2) Helligkeitsfilter
                 section.row
                     div.col-md-6
@@ -56,7 +57,16 @@ html(lang='de')
                         div.form-group
                             label Helligkeit (Blau)
                             input#bbrightness.form-control(type="range", min="0", max="255", step="1", value="0")
-
+                    p.
+                        Helligkeitsregler für RGB haben eine Gewichtung erhalten, weil das menschliche Auge Farbhelligkeiten unterschiedlich wahrnimmt. Die Gewichtungen sind:
+                    ul
+                        li Rot: 0.3
+                        li Grün: 0.59
+                        li Blau: 0.11
+                    p Quelle: &nbsp;
+                        a(href="http://www.tannerhelland.com/3643/grayscale-image-algorithm-vb6/", target="_blank") Grayscale Image Algorithms: Method 2 – Correcting for the human eye
+                    p.
+                        Für den Sepiaeffekt wird das Bild in S/W dargestellt und der rote Kanal mit 100 addiert und der grüne Kanal mit 50 (Erfahrungswerte).
                 section.row
                     h2.text-center 3) Farbbasierte Bildfreistellung
                     div.row

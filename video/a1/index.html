@@ -17,6 +17,7 @@
     <main class="wrapper">
       <h1>Multimedia Processing Video<small>von Michael Duve &amp; Felix Maulwurf</small></h1>
       <article class="content-1">
+        <p class="alert alert-warning">Nur in neueren Chrome-Versionen getestet</p>
         <h2 class="text-center">1 &amp; 2) Helligkeitsfilter</h2>
         <section class="row">
           <div class="col-md-6">
@@ -68,6 +69,14 @@
               <input class="form-control" id="bbrightness" type="range" min="0" max="255" step="1" value="0">
             </div>
           </div>
+          <p>Helligkeitsregler für RGB haben eine Gewichtung erhalten, weil das menschliche Auge Farbhelligkeiten unterschiedlich wahrnimmt. Die Gewichtungen sind:</p>
+          <ul>
+            <li>Rot: 0.3</li>
+            <li>Grün: 0.59</li>
+            <li>Blau: 0.11</li>
+          </ul>
+          <p>Quelle: &nbsp;<a href="http://www.tannerhelland.com/3643/grayscale-image-algorithm-vb6/" target="_blank">Grayscale Image Algorithms: Method 2 – Correcting for the human eye</a></p>
+          <p>Für den Sepiaeffekt wird das Bild in S/W dargestellt und der rote Kanal mit 100 addiert und der grüne Kanal mit 50 (Erfahrungswerte).</p>
         </section>
         <section class="row">
           <h2 class="text-center">3) Farbbasierte Bildfreistellung</h2>

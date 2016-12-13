@@ -20,9 +20,9 @@ class ColorFilter {
             b: 0
         };
         this.greyScaleLuminosity = {
-            r: 0.2126,
-            g: 0.7152,
-            b: 0.0722
+            r: 0.3,
+            g: 0.59,
+            b: 0.11
         };
         this.sepiaEffect = {
             r: 100,
