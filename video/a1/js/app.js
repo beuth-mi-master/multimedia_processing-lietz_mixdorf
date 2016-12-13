@@ -29,6 +29,11 @@ class ColorFilter {
             g: 50,
             b: 0
         };
+        this.chromakeyValues = {
+            r: [20, 68],
+            g: [35, 105],
+            b: [90, 190]
+        };
         this.init();
     }
 
@@ -44,6 +49,14 @@ class ColorFilter {
         Helper.addListener(window, "resize orientationchange", this.resize.bind(this));
         Helper.addListener(this.video, "play", this.playHandler.bind(this));
         Helper.addListener(this.video, "pause", this.pauseHandler.bind(this));
+        Helper.addListener(this.video, "canplay", () => {
+            this.frameUpdateRequired = true;
+            setTimeout(() => {
+                if (!this.videoIsPlaying) {
+                    this.frameUpdateRequired = false;
+                }
+            }, 100);
+        });
     }
 
     videoIsPlaying() {
@@ -96,7 +109,7 @@ class ColorFilter {
 class Application {
 
     constructor() {
-        this.colorFilter = new ColorFilter('canvas1', 'video1', 630, 576, (frame, _instance) => {
+        this.colorFilter = new ColorFilter('canvas1', 'video1', 480, 272, (frame, _instance) => {
             for (let i = 0; i < frame.data.length; i += 4) {
                 const rChannel = i + 0,
                     gChannel = i + 1,
@@ -135,14 +148,16 @@ class Application {
                     g = frame.data[gChannel],
                     b = frame.data[bChannel];
 
-                if ((r > 20 && r < 68) && (g > 35 && g < 105) && (b > 90 && b < 190)) {
+                if ((r > _instance.chromakeyValues.r[0] && r < _instance.chromakeyValues.r[1]) && (g > _instance.chromakeyValues.g[0] && g < _instance.chromakeyValues.g[1]) && (b > _instance.chromakeyValues.b[0] && b < _instance.chromakeyValues.b[1])) {
                     frame.data[aChannel] = 0;
                 }
             }
             return frame;
         });
 
-        this.exercise2(this);
+        this.exercise3(this);
+
+        this.exercise4(this);
 
     }
 
@@ -214,11 +229,41 @@ class Application {
         }
     }
 
-    exercise2(_app) {
+    exercise3(_app) {
         const elemBgFilter = document.querySelectorAll('input[name=bg]');
         elemBgFilter.forEach(elem => {
             Helper.addListener(elem, 'change', updateBg.bind(elem));
         });
+
+        const cRmin = document.getElementById('chromaRMin');
+        const cRmax = document.getElementById('chromaRMax');
+        const cGmin = document.getElementById('chromaGMin');
+        const cGmax = document.getElementById('chromaGMax');
+        const cBmin = document.getElementById('chromaBMin');
+        const cBmax = document.getElementById('chromaBMax');
+
+        const elemInputChroma = document.querySelectorAll('#chroma input');
+        elemInputChroma.forEach(elem => {
+            Helper.addListener(elem, 'input', updateChroma.bind(elem));
+        });
+
+        function updateChroma() {
+            const rmin = parseInt(cRmin.value, 10);
+            const rmax = parseInt(cRmax.value, 10);
+            const gmin = parseInt(cGmin.value, 10);
+            const gmax = parseInt(cGmax.value, 10);
+            const bmin = parseInt(cBmin.value, 10);
+            const bmax = parseInt(cBmax.value, 10);
+
+            _app.chromakey.chromakeyValues = {
+                r: [rmin, rmax],
+                g: [gmin, gmax],
+                b: [bmin, bmax]
+            };
+
+            redrawCanvas(_app.chromakey);
+
+        }
 
         function updateBg() {
             _app.chromakey.frameUpdateRequired = true;
@@ -230,6 +275,45 @@ class Application {
                 }, 50);
             }
         }
+    }
+
+    exercise4(_app) {
+        const cameraStartButton = document.getElementById('cameraStart');
+        const cameraStopButton = document.getElementById('cameraStop');
+
+        Helper.addListener(cameraStartButton, 'click', startCamera);
+
+        Helper.addListener(cameraStopButton, 'click', stopCamera);
+
+        function startCamera() {
+            navigator.getUserMedia({video: true, audio: true}, (localMediaStream) => {
+                var videos = document.querySelectorAll('video');
+                videos.forEach((video) => {
+                    video.src = window.URL.createObjectURL(localMediaStream);
+                });
+            }, (e) => {
+                console.error("Could not start video!", e);
+            });
+        }
+
+        function stopCamera() {
+            var videos = document.querySelectorAll('video');
+            videos.forEach((video) => {
+                video.src = video.getAttribute("data-src");
+                _app.chromakey.frameUpdateRequired = false;
+                _app.colorFilter.frameUpdateRequired = false;
+            });
+        }
+    }
+
+}
+
+function redrawCanvas(application) {
+    application.frameUpdateRequired = true;
+    if (!application.videoIsPlaying()) {
+        setTimeout(() => {
+            application.frameUpdateRequired = false;
+        }, 50);
     }
 }
 

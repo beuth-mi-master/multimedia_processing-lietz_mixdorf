@@ -19,25 +19,25 @@ html(lang='de')
             h1 Multimedia Processing Video
                 small von Michael Duve &amp; Felix Maulwurf
             article.content-1
-                h2.text-center 1. Colorfilter Brightness
+                h2.text-center 1 &amp; 2) Helligkeitsfilter
                 section.row
                     div.col-md-6
-                        video#video1(loop="true" muted="true", autobuffer="true", controls="true")
-                            source(src="../assets/v2b.mp4", type="video/mp4")
+                        video#video1(loop="true" muted="true", autobuffer="true", controls="true", data-src="../assets/tagesschau.mp4")
+                            source(src="../assets/tagesschau.mp4", type="video/mp4")
                     div.col-md-6
                         canvas#canvas1
                 section.row
                     h3.text-center controls
                     div.col-md-6
                         div.form-group
-                            label Brightness (all channels)
+                            label Helligkeit (alle Kanäle)
                             input#brightness.form-control(type="range", min="0", max="255", step="1", value="0")
                         div.form-group
                             h4 Filter
                             div.radio
                                 label
                                     input(type="radio", name="filter", value="2")
-                                    | Grayscale
+                                    | Graustufen
                             div.radio
                                 label
                                     input(type="radio", name="filter", value="1")
@@ -45,44 +45,73 @@ html(lang='de')
                             div.radio
                                 label
                                     input(type="radio", name="filter", value="0", checked="checked")
-                                    | None
+                                    | Keiner
                     div.col-md-6
                         div.form-group
-                            label Brightness (red channel)
+                            label Helligkeit (Rot)
                             input#rbrightness.form-control(type="range", min="0", max="255", step="1", value="0")
                         div.form-group
-                            label Brightness (green channel)
+                            label Helligkeit (Grün)
                             input#gbrightness.form-control(type="range", min="0", max="255", step="1", value="0")
                         div.form-group
-                            label Brightness (blue channel)
+                            label Helligkeit (Blau)
                             input#bbrightness.form-control(type="range", min="0", max="255", step="1", value="0")
 
                 section.row
-                    h2.text-center 2. ChromaKey
+                    h2.text-center 3) Farbbasierte Bildfreistellung
                     div.row
                         div.col-md-6
-                            video#video2(loop="true" muted="true", autobuffer="true", controls="true")
+                            video#video2(loop="true" muted="true", autobuffer="true", controls="true", data-src="../assets/blue.mp4")
                                 source(src="../assets/blue.mp4", type="video/mp4")
                         div.col-md-6
                             canvas#canvas2
                     div.row
-                        h3.text-center backgrounds
+                        h3.text-center Hintergrund
                         div.col-xs-12
-                            div.col-xs-4.text-center
+                            div.col-xs-2.text-center.col-xs-offset-3
                                 div.radio
                                     label
                                         input(type="radio", name="bg", value="2")
                                         | Berlin
-                            div.col-xs-4
+                            div.col-xs-2
                                 div.radio
                                     label
                                         input(type="radio", name="bg", value="1")
                                         | Wolke
-                            div.col-xs-4
+                            div.col-xs-2
                                 div.radio
                                     label
                                         input(type="radio", name="bg", value="0", checked="checked")
                                         | None
+                    div.row#chroma
+                        h3.text-center ChromaKey Einstellungen
+                        div.col-md-3.col-md-offset-3
+                            div.form-group
+                                label Minimum Rot
+                                input#chromaRMin.form-control(type="number", value="20", min="0", max="255")
+                            div.form-group
+                                label Minimum Grün
+                                input#chromaGMin.form-control(type="number", value="35", min="0", max="255")
+                            div.form-group
+                                label Minimum Blau
+                                input#chromaBMin.form-control(type="number", value="90", min="0", max="255")
+                        div.col-md-3
+                            div.form-group
+                                label Maximum Rot
+                                input#chromaRMax.form-control(type="number", value="68", min="0", max="255")
+                            div.form-group
+                                label Maximum Grün
+                                input#chromaGMax.form-control(type="number", value="105", min="0", max="255")
+                            div.form-group
+                                label Maximum Blau
+                                input#chromaBMax.form-control(type="number", value="190", min="0", max="255")
+
+                section.row.text-center
+                    h2.text-center 4) Nutzung der Kamera
+                    div.row
+                        button#cameraStart.btn.btn-success Starte Kamera
+                        button#cameraStop.btn.btn-danger Stoppe Kamera
+
 
         script(src="js/Helper.js")
         script(src="js/app.js")
