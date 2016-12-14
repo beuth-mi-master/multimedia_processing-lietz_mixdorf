@@ -32,7 +32,7 @@ html(lang='de')
                     div.col-md-6
                         div.form-group
                             label Helligkeit (alle Kanäle)
-                            input#brightness.form-control(type="range", min="0", max="255", step="1", value="0")
+                            input#brightness.form-control(type="range", min="-255", max="255", step="1", value="0")
                         div.form-group
                             h4 Filter
                             div.radio
@@ -50,13 +50,13 @@ html(lang='de')
                     div.col-md-6
                         div.form-group
                             label Helligkeit (Rot)
-                            input#rbrightness.form-control(type="range", min="0", max="255", step="1", value="0")
+                            input#rbrightness.form-control(type="range", min="-255", max="255", step="1", value="0")
                         div.form-group
                             label Helligkeit (Grün)
-                            input#gbrightness.form-control(type="range", min="0", max="255", step="1", value="0")
+                            input#gbrightness.form-control(type="range", min="-255", max="255", step="1", value="0")
                         div.form-group
                             label Helligkeit (Blau)
-                            input#bbrightness.form-control(type="range", min="0", max="255", step="1", value="0")
+                            input#bbrightness.form-control(type="range", min="-255", max="255", step="1", value="0")
                     p.
                         Helligkeitsregler für RGB haben eine Gewichtung erhalten, weil das menschliche Auge Farbhelligkeiten unterschiedlich wahrnimmt. Die Gewichtungen sind:
                     ul
