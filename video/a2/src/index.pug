@@ -1,0 +1,37 @@
+doctype html
+html(lang='de')
+    head
+        title Multimedia Processing Video
+        meta(charset='utf-8')
+        meta(http-equiv='X-UA-Compatible', content='IE=Edge')
+        meta(name='description', lang='de', content='')
+        meta(name='keywords', lang='en', content='')
+        meta(name='author', content='Michael Duve, Felix Maulwurf')
+        meta(name='viewport', content='width=device-width, initial-scale=1.0, user-scalable=yes')
+        meta(name='format-detection', content='telephone=no')
+        meta(name='robots', content='index,follow,noarchive')
+
+        link(rel="stylesheet", href="css/main.css")
+        link(rel="stylesheet", href="css/bootstrap.min.css")
+
+    body
+        p.alert.alert-warning Nur in neueren Chrome-Versionen getestet
+        main.wrapper
+            h1 Multimedia Processing Video
+                small von Michael Duve &amp; Felix Maulwurf
+            article.content-1
+                h2.text-center ImageFilter
+                section.row
+                    div.col-md-6
+                        img#image1(data-src="../assets/berlin.png")
+                    div.col-md-6
+                        canvas#canvas2
+                section.row
+                    div.col-md-6
+                        video#video1(loop="true" muted="true", autobuffer="true", controls="true", data-src="../assets/tagesschau.mp4")
+                    div.col-md-6
+                        canvas#canvas1
+
+
+        script(src="js/Helper.js")
+        script(src="js/app.js")
