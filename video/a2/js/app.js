@@ -98,41 +98,48 @@ Filter.NORMAL = (frame) => {
 };
 
 Filter.BLUR = (frame, weights = [0, 0, 0, 0, 1, 0, 0, 0, 0]) => {
+    const sumOfWeigths = weights.reduce((a, b) => {
+        return a + b;
+    }, 0);
     for (let i = 0; i < frame.data.length; i += 4) {
         const rChannel = i + 0,
             gChannel = i + 1,
             bChannel = i + 2;
 
+        // get all neighboors
         const aggregatedPixels = Helper.getSurroundingPixels(i, frame);
 
+        // add weigths to channels
         const addedWeigths = aggregatedPixels.map((color, i) => {
-            return color.map((colorChannel) => {
-                return colorChannel * weights[i];
-            });
+            const currentWeight = weights[i];
+            return [color[0] * currentWeight, color[1] * currentWeight, color[2] * currentWeight];
         });
 
+        // sum up all weighted colors
         const mixedColor = addedWeigths.reduce((a, b) => {
             return [a[0] + b[0], a[1] + b[1], a[2] + b[2]];
         }, [0, 0, 0]);
 
-        frame.data[rChannel] = mixedColor[0];
-        frame.data[gChannel] = mixedColor[1];
-        frame.data[bChannel] = mixedColor[2];
+        // divide by sum of weigths to normalize
+        frame.data[rChannel] = mixedColor[0] / sumOfWeigths;
+        frame.data[gChannel] = mixedColor[1] / sumOfWeigths;
+        frame.data[bChannel] = mixedColor[2] / sumOfWeigths;
     }
     return frame;
 };
 
+
 this.drawImage = new DrawElement('canvas2', 'image1', (frame) => {
-    const filteredFrame = new Filter(frame, Filter.BLUR, [1 / 9, 1 / 9, 1 / 9, 1 / 9, 1 / 9, 1 / 9, 1 / 9, 1 / 9, 1 / 9], "t");
+    const filteredFrame = new Filter(frame, Filter.BLUR, [5, 5, 5, 5, 1, 5, 5, 5, 5]);
     return filteredFrame.data;
 });
 
-
+/*
 this.drawVideo = new DrawElement('canvas1', 'video1', (frame) => {
-    const filteredFrame = new Filter(frame, Filter.BLUR, [1 / 9, 1 / 9, 1 / 9, 1 / 9, 1 / 9, 1 / 9, 1 / 9, 1 / 9, 1 / 9], "t");
+    const filteredFrame = new Filter(frame, Filter.BLUR, [1 / 9, 1 / 9, 1 / 9, 1 / 9, 1 / 9, 1 / 9, 1 / 9, 1 / 9, 1 / 9]);
     return filteredFrame.data;
 });
-
+*/
 
 window.requestAnimFrame = (function() {
     return window.requestAnimationFrame ||
