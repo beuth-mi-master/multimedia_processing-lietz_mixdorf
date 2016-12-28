@@ -21,14 +21,22 @@ html(lang='de')
                 small von Michael Duve &amp; Felix Maulwurf
             article.content-1
                 h2.text-center ImageFilter
+                div.form-group
+                    label.col-sm-2.control-label Filter:
+                    div.col-sm-10
+                        select#filter.form-control
+                            option None
+                            option Blur
+                            option Gauss
+                            option Prewitt
                 section.row
                     div.col-md-6
-                        img#image1(data-src="../assets/berlin.png")
+                        img#image1(data-src="../assets/blue_small.jpg")
                     div.col-md-6
                         canvas#canvas2
                 section.row
                     div.col-md-6
-                        video#video1(loop="true" muted="true", autobuffer="true", controls="true", data-src="../assets/tagesschau.mp4")
+                        video#video1(loop="true" muted="true", autobuffer="true", controls="true", data-src="../assets/blue_small.mp4")
                     div.col-md-6
                         canvas#canvas1
 
