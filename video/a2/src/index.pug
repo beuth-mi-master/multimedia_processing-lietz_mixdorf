@@ -20,25 +20,46 @@ html(lang='de')
             h1 Multimedia Processing Video
                 small von Michael Duve &amp; Felix Maulwurf
             article.content-1
-                h2.text-center ImageFilter
-                div.form-group
-                    label.col-sm-2.control-label Filter:
-                    div.col-sm-10
-                        select#filter.form-control
-                            option None
-                            option Blur
-                            option Gauss
-                            option Prewitt
+                h2.text-center Bild Filter
                 section.row
-                    div.col-md-6
-                        img#image1(data-src="../assets/blue_small.jpg")
-                    div.col-md-6
-                        canvas#canvas2
-                section.row
-                    div.col-md-6
-                        video#video1(loop="true" muted="true", autobuffer="true", controls="true", data-src="../assets/blue_small.mp4")
-                    div.col-md-6
+                    div.col-sm-6.form-group
+                        label.col-sm-2.control-label Quelle:
+                        div.col-sm-10
+                            select#input.form-control
+                                option Bild
+                                option Video
+                                option Kamera
+                    div.col-sm-6.form-group
+                        label.col-sm-2.control-label Filter:
+                        div.col-sm-10
+                            select#filter.form-control
+                                option Keiner
+                                option Graustufen
+                                option Sepia
+                                option Weichzeichnung (Mittelwert)
+                                option Weichzeichnung (Gauss)
+                                option Kantendetektion (Prewitt)
+                section#image.row
+                    div.col-sm-6
+                        h3 Original
+                        img#imageElement(data-src="../assets/blue_small.jpg")
+                    div.col-sm-6
+                        h3 Filter
                         canvas#canvas1
+                section#video.row(style="display: none;")
+                    div.col-sm-6
+                        h3 Original
+                        video#videoElement(loop="true" muted="true", controls="true", data-src="../assets/blue_small.mp4")
+                    div.col-sm-6
+                        h3 Filter
+                        canvas#canvas2
+                section#camera.row(style="display: none;")
+                    div.col-sm-6
+                        h3 Original
+                        video#cameraElement(loop="true" muted="true", controls="true", data-src="camera")
+                    div.col-sm-6
+                        h3 Filter
+                        canvas#canvas3
 
 
         script(src="js/Helper.js")
