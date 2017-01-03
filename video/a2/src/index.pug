@@ -60,7 +60,44 @@ html(lang='de')
                     div.col-sm-6
                         h3 Filter
                         canvas#canvas3
-
-
+                section#text
+                    h3 Allgemein
+                    p Die Performance der Filter ist stark unterschiedlich. Die Blurfilter sind Farbfilter und benötigen wesentlich mehr Rechenzeit, als die Kantendetektion.
+                    h3.text-center a) Mittelwert-Filter
+                    p Der Mittelwert-Filter wurde mit folgender 3x3-Matrix umgesetzt:
+                    pre(style="display: inline-block;").
+                        1/9 1/9 1/9
+                        1/9 1/9 1/9
+                        1/9 1/9 1/9
+                    p Jedes angrenzende Pixel wird gleichgewichtet.
+                    p
+                        em Die Funktionalität des Filters ist in der Funktion "Filter.BLUR" zu finden
+                    h3.text-center b) Gauss-Filter
+                    p Der Gauss-Filter wurde mit folgender 3x3-Matrix umgesetzt:
+                    pre(style="display: inline-block;").
+                        0.077847 0.123317 0.077847
+                        0.123317 0.195346 0.123317
+                        0.077847 0.123317 0.077847
+                    p
+                        | Der 3x3 Filterkern wurde mit Hilfe von
+                        a(href="http://dev.theomader.com/gaussian-kernel-calculator/", target="_blank") http://dev.theomader.com/gaussian-kernel-calculator/ &nbsp;
+                        | umgesetzt.
+                    p
+                        em Die Funktionalität des Filters ist in der Funktion "Filter.BLUR" zu finden
+                    h3.text-center c) Kantendetektion mit Prewitt-Operator
+                    p Der Prewitt-Operator hat zwei 3x3 Filterkerne (1x vertikal &amp; 1x horizontal):
+                    pre(style="display: inline-block;").
+                        -1 0 1      -1 -1 -1
+                        -1 0 1       0  0  0
+                        -1 0 1       1  1  1
+                    p Bevor der Filter angewendet werden kann, muss das Bild in Graustufen vorliegen. Es wird durch den Graustufen-Filter gejagt. Hiernach kann der Filter sich in einen Zwei-Pass-Filter zerlegen lassen, sodass die Geschwindigkeit stark optimiert werden kann. Hierzu wird das originale Bild erst vertikal und dann horizontal mit dem jeweiligen Filterkern multipliziert. Anschließend werden die Differenzen mit folgender Formel berechnet:
+                    pre(style="display: inline-block;").
+                        Math.sqrt(vertical * vertical + horizontal * horizontal)
+                    p
+                        em Die Funktionalität des Filters ist in der Funktion "Filter.PREWITT" zu finden
+                    h3.text-center d) Nutzung von WebGL und Shadern
+                    p Eindeutig zu aufwendig. Nicht umgesetzt.
+                    h3.text-center e) Einbinden des Videos und der Kamera
+                    p Siehe Dropdown oben
         script(src="js/Helper.js")
         script(src="js/app.js")

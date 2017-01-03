@@ -73,6 +73,36 @@
             <canvas id="canvas3"></canvas>
           </div>
         </section>
+        <section id="text">
+          <h3>Allgemein</h3>
+          <p>Die Performance der Filter ist stark unterschiedlich. Die Blurfilter sind Farbfilter und benötigen wesentlich mehr Rechenzeit, als die Kantendetektion.</p>
+          <h3 class="text-center">a) Mittelwert-Filter</h3>
+          <p>Der Mittelwert-Filter wurde mit folgender 3x3-Matrix umgesetzt:</p>
+          <pre style="display: inline-block">1/9 1/9 1/9
+1/9 1/9 1/9
+1/9 1/9 1/9</pre>
+          <p>Jedes angrenzende Pixel wird gleichgewichtet.</p>
+          <p><em>Die Funktionalität des Filters ist in der Funktion "Filter.BLUR" zu finden</em></p>
+          <h3 class="text-center">b) Gauss-Filter</h3>
+          <p>Der Gauss-Filter wurde mit folgender 3x3-Matrix umgesetzt:</p>
+          <pre style="display: inline-block">0.077847 0.123317 0.077847
+0.123317 0.195346 0.123317
+0.077847 0.123317 0.077847</pre>
+          <p>Der 3x3 Filterkern wurde mit Hilfe von<a href="http://dev.theomader.com/gaussian-kernel-calculator/" target="_blank">http://dev.theomader.com/gaussian-kernel-calculator/ &nbsp;</a>umgesetzt.</p>
+          <p><em>Die Funktionalität des Filters ist in der Funktion "Filter.BLUR" zu finden</em></p>
+          <h3 class="text-center">c) Kantendetektion mit Prewitt-Operator</h3>
+          <p>Der Prewitt-Operator hat zwei 3x3 Filterkerne (1x vertikal &amp; 1x horizontal):</p>
+          <pre style="display: inline-block">-1 0 1      -1 -1 -1
+-1 0 1       0  0  0
+-1 0 1       1  1  1</pre>
+          <p>Bevor der Filter angewendet werden kann, muss das Bild in Graustufen vorliegen. Es wird durch den Graustufen-Filter gejagt. Hiernach kann der Filter sich in einen Zwei-Pass-Filter zerlegen lassen, sodass die Geschwindigkeit stark optimiert werden kann. Hierzu wird das originale Bild erst vertikal und dann horizontal mit dem jeweiligen Filterkern multipliziert. Anschließend werden die Differenzen mit folgender Formel berechnet:</p>
+          <pre style="display: inline-block">Math.sqrt(vertical * vertical + horizontal * horizontal)</pre>
+          <p><em>Die Funktionalität des Filters ist in der Funktion "Filter.PREWITT" zu finden</em></p>
+          <h3 class="text-center">d) Nutzung von WebGL und Shadern</h3>
+          <p>Eindeutig zu aufwendig. Nicht umgesetzt.</p>
+          <h3 class="text-center">e) Einbinden des Videos und der Kamera</h3>
+          <p>Siehe Dropdown oben</p>
+        </section>
       </article>
     </main>
     <script src="js/Helper.js"></script>

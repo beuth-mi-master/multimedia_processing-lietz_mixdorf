@@ -6,7 +6,11 @@ class DrawElement {
         return this.endTime - this.startTime;
     }
 
-    constructor(canvasId, elemId, timeupdateInterval = 0, isActive = false, cb) {
+    get fps() {
+        return this.fillWithZeros(~~(1000 / this.timePassed));
+    }
+
+    constructor(canvasId, elemId, isActive = false, cb) {
         this.canvas = document.getElementById(canvasId);
         this.element = document.getElementById(elemId);
         this.isVideo = this.element instanceof HTMLVideoElement;
@@ -18,7 +22,6 @@ class DrawElement {
         this.frameUpdateRequired = false;
         this.isActive = isActive;
         this.cb = cb;
-        this.timeupdateInterval = timeupdateInterval;
         this.resizeTimeout = null;
         this.init();
     }
@@ -32,12 +35,13 @@ class DrawElement {
                 _element.src = window.URL.createObjectURL(stream);
             }
             function errorCameraVideo(e) {
-                console.log(e);
+                console.error(e);
             }
             navigator.getUserMedia({video: true}, handleCameraVideo, errorCameraVideo);
         } else {
             this.element.src = src;
         }
+        this.startDebugInteral();
     }
 
     start() {
@@ -78,30 +82,33 @@ class DrawElement {
 
     draw() {
         if (this.frameUpdateRequired && this.isActive) {
-            this.start();
             this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
             if (!this.isVideo || this.videoIsNotPlaying()) {
                 this.frameUpdateRequired = false;
             }
             this.renderVideoFrameToCanvas();
+            this.start();
             const frame = this.cb(this.getImageData());
-            this.putImageData(frame);
             this.stop();
-            this.debugContainer.innerHTML = `rendered in ${this.timePassed} ms`;
+            this.ctx.putImageData(frame, 0, 0);
         }
-        if (this.timeupdateInterval === 0) {
-            window.requestAnimFrame(() => this.draw());
-        } else {
-            window.setTimeout(() => this.draw(), this.timeupdateInterval);
-        }
+        window.requestAnimFrame(this.draw.bind(this));
+    }
+
+    startDebugInteral() {
+        setInterval(this.updateFps.bind(this), 500);
+    }
+
+    updateFps() {
+        this.debugContainer.innerHTML = `${this.fillWithZeros(this.timePassed)} ms | ${this.fps} FPS`;
+    }
+
+    fillWithZeros(num) {
+        return ("0000" + num).substr(-4, 4);
     }
 
     getImageData() {
         return this.ctx.getImageData(0, 0, this.canvas.width, this.canvas.height);
-    }
-
-    putImageData(frame) {
-        return this.ctx.putImageData(frame, 0, 0);
     }
 
     renderVideoFrameToCanvas() {
@@ -136,82 +143,20 @@ class Filter {
         return this.filter.apply(null, this.args);
     }
 
-    static getPixelColor(index, frame, offset, indices) {
-        const [offsetX, offsetY] = offset;
-        const x = (index % (frame.width * 4)) + (offsetX * 4);
-        const y = Math.floor(index / (frame.width * 4)) + offsetY;
-        if (x < 0 || y < 0 || x > (frame.width * 4) || y > frame.height) {
-            return null;
-        } else {
-            const pos = y * frame.width * 4 + x;
-            const data = [];
-            for (let i = 0; i < indices.length; i++) {
-                data[i] = frame.data[pos + indices[i]];
-            }
-            return data;
+    static getColor(x, y, frame, offsetX, offsetY, channel = 0) {
+        const xIndex = x + offsetX * 4,
+            yIndex = y + offsetY,
+            rowSize = frame.width * 4,
+            colSize = frame.height * 4;
+        if (xIndex < 0 || yIndex < 0 || xIndex > rowSize || yIndex > colSize) {
+            return 0;
         }
-    }
-
-    static getSurroundingPixels(i, frame, indices = [0, 1, 2, 3]) {
-        return [
-            Filter.getPixelColor(i, frame, [-1, -1], indices),
-            Filter.getPixelColor(i, frame, [0, -1], indices),
-            Filter.getPixelColor(i, frame, [1, -1], indices),
-            Filter.getPixelColor(i, frame, [-1, 0], indices),
-            Filter.getPixelColor(i, frame, [0, 0], indices),
-            Filter.getPixelColor(i, frame, [1, 0], indices),
-            Filter.getPixelColor(i, frame, [-1, 1], indices),
-            Filter.getPixelColor(i, frame, [0, 1], indices),
-            Filter.getPixelColor(i, frame, [1, 1], indices)
-        ];
+        const index = yIndex * rowSize + xIndex;
+        return frame.data[index + channel];
     }
 
     static normalizeGray(r, g, b) {
         return r * 0.3 + g * 0.59 + b * 0.11;
-    }
-
-    static sum(data) {
-        return data.reduce((a, b) => {
-            return a + b;
-        }, 0);
-    }
-
-    static sumColor(data) {
-        return data.reduce((a, b) => {
-            return [a[0] + b[0], a[1] + b[1], a[2] + b[2], a[3] + b[3]];
-        }, [0, 0, 0, 0]);
-    }
-
-    static addWeightToChannel(data, weights) {
-        return data.map((color, j) => {
-            const currentWeight = weights[j];
-            if (!color || currentWeight === 0) {
-                return 0;
-            }
-            return color[0] * currentWeight;
-        });
-    }
-
-    static addWeightToColor(data, weights) {
-        return data.map((color, j) => {
-            const currentWeight = weights[j];
-            if (!color || currentWeight === 0) {
-                return [0, 0, 0, 0];
-            }
-            return [color[0] * currentWeight, color[1] * currentWeight, color[2] * currentWeight, color[3] * currentWeight];
-        });
-    }
-
-    static combinePrewitt(vertical, horizontal) {
-        const prewitt = new ImageData(vertical.width, vertical.height);
-        for (let i = 0; i < prewitt.data.length; i += 4) {
-            const color = Math.ceil(Math.sqrt(vertical.data[i] * vertical.data[i] + horizontal.data[i] * horizontal.data[i]));
-            prewitt.data[i + 0] = color;
-            prewitt.data[i + 1] = color;
-            prewitt.data[i + 2] = color;
-            prewitt.data[i + 3] = 255;
-        }
-        return prewitt;
     }
 
 }
@@ -224,100 +169,86 @@ Filter.NORMAL = (frame) => {
 Filter.GRAYSCALE = (frame) => {
     const newFrame = new ImageData(frame.width, frame.height);
     for (let i = 0; i < frame.data.length; i += 4) {
-        const rChannel = i + 0,
-            gChannel = i + 1,
-            bChannel = i + 2,
-            aChannel = i + 3;
-
-        const average = Filter.normalizeGray(frame.data[rChannel], frame.data[gChannel], frame.data[bChannel]);
-
-        newFrame.data[rChannel] = average;
-        newFrame.data[gChannel] = average;
-        newFrame.data[bChannel] = average;
-        newFrame.data[aChannel] = frame.data[aChannel];
-
+        const average = Filter.normalizeGray(frame.data[i], frame.data[i + 1], frame.data[i + 2]);
+        newFrame.data[i] = newFrame.data[i + 1] = newFrame.data[i + 2] = average;
+        newFrame.data[i + 3] = frame.data[i + 3];
     }
     return newFrame;
 };
 
+
+
 Filter.SEPIA = (frame) => {
     const newFrame = new ImageData(frame.width, frame.height);
     for (let i = 0; i < frame.data.length; i += 4) {
-        const rChannel = i + 0,
-            gChannel = i + 1,
-            bChannel = i + 2,
-            aChannel = i + 3;
-
-        const average = Filter.normalizeGray(frame.data[rChannel], frame.data[gChannel], frame.data[bChannel]);
-
-        newFrame.data[rChannel] = average + 100;
-        newFrame.data[gChannel] = average + 50;
-        newFrame.data[bChannel] = average;
-        newFrame.data[aChannel] = frame.data[aChannel];
-
+        const average = Filter.normalizeGray(frame.data[i], frame.data[i + 1], frame.data[i + 2]);
+        newFrame.data[i] = average + 50;
+        newFrame.data[i + 1] = average + 25;
+        newFrame.data[i + 2] = average;
+        newFrame.data[i + 3] = frame.data[i + 3];
     }
     return newFrame;
 };
 
 Filter.BLUR = (frame, weights = [0, 0, 0, 0, 1, 0, 0, 0, 0]) => {
     const newFrame = new ImageData(frame.width, frame.height);
-    const sumOfWeigths = Filter.sum(weights);
-    for (let i = 0; i < frame.data.length; i += 4) {
-        const rChannel = i + 0,
-            gChannel = i + 1,
-            bChannel = i + 2,
-            aChannel = i + 3;
+    for (let y = 0; y < frame.height; y++) {
+        for (let x = 0; x < frame.width; x++) {
 
-        // get all neighboors
-        const aggregatedPixels = Filter.getSurroundingPixels(i, frame, [0, 1, 2, 3]);
+            const xIndex = x * 4;
 
-        // add weigths to channels
-        const addedWeigths = Filter.addWeightToColor(aggregatedPixels, weights);
+            const i = y * frame.width * 4 + xIndex;
 
-        // sum up all weighted colors
-        const mixedColor = Filter.sumColor(addedWeigths);
+            for (let c = 0; c < 3; c++) {
+                newFrame.data[i + c] = (Filter.getColor(xIndex, y, frame, -1, -1, c) * weights[0] + Filter.getColor(xIndex, y, frame, 0, -1, c) * weights[1] + Filter.getColor(xIndex, y, frame, 1, -1, c) * weights[2] +
+                                       Filter.getColor(xIndex, y, frame, -1, 0, c) * weights[3] + Filter.getColor(xIndex, y, frame, 0, 0, c) * weights[4] + Filter.getColor(xIndex, y, frame, 1, 0, c) * weights[5] +
+                                       Filter.getColor(xIndex, y, frame, -1, 1, c) * weights[6] + Filter.getColor(xIndex, y, frame, 0, 1, c) * weights[7] + Filter.getColor(xIndex, y, frame, 1, 1, c) * weights[8]);
+            }
 
-        // divide by sum of weigths to normalize
-        newFrame.data[rChannel] = mixedColor[0] / sumOfWeigths;
-        newFrame.data[gChannel] = mixedColor[1] / sumOfWeigths;
-        newFrame.data[bChannel] = mixedColor[2] / sumOfWeigths;
-        newFrame.data[aChannel] = mixedColor[3] / sumOfWeigths;
+            newFrame.data[i + 3] = frame.data[i + 3];
+        }
     }
     return newFrame;
 };
 
-Filter.PREWITT = (frame, weights = [0, 0, 0, 0, 1, 0, 0, 0, 0]) => {
+Filter.PREWITT = (frame) => {
     const newFrame = new ImageData(frame.width, frame.height);
-    for (let i = 0; i < frame.data.length; i += 4) {
-        const rChannel = i + 0,
-            gChannel = i + 1,
-            bChannel = i + 2,
-            aChannel = i + 3;
+    for (let y = 0; y < frame.height; y++) {
+        for (let x = 0; x < frame.width; x++) {
 
-        const indices = [0];
+            const xIndex = x * 4;
 
-        // get all neighboors
-        const aggregatedPixels = Filter.getSurroundingPixels(i, frame, indices);
+            const i = y * frame.width * 4 + xIndex;
 
-        // add weigths to channels
-        const addedWeigths = Filter.addWeightToChannel(aggregatedPixels, weights);
+            let topLeft = Filter.getColor(xIndex, y, frame, -1, -1);
+            const topMid = Filter.getColor(xIndex, y, frame, 0, -1);
+            const topRight = Filter.getColor(xIndex, y, frame, 1, -1);
 
-        // sum up all weighted colors
-        const mixedColor = Filter.sum(addedWeigths);
+            const midLeft = Filter.getColor(xIndex, y, frame, -1, 0);
+            const midRight = Filter.getColor(xIndex, y, frame, 1, 0);
 
-        newFrame.data[rChannel] = mixedColor;
-        newFrame.data[gChannel] = mixedColor;
-        newFrame.data[bChannel] = mixedColor;
-        newFrame.data[aChannel] = 255;
+            const bottomLeft = Filter.getColor(xIndex, y, frame, -1, 1);
+            const bottomMid = Filter.getColor(xIndex, y, frame, 0, 1);
+            const bottomRight = Filter.getColor(xIndex, y, frame, 1, 1);
 
+            topLeft *= -1;
+
+            const sumLR = topLeft + topRight + midLeft * -1 + midRight + bottomLeft * -1 + bottomRight;
+            const sumTB = topLeft + bottomLeft + topMid * -1 + bottomMid + topRight * -1 + bottomRight;
+
+            const sum = Math.sqrt(sumLR * sumLR + sumTB * sumTB);
+
+            newFrame.data[i + 0] = newFrame.data[i + 1] = newFrame.data[i + 2] = sum;
+            newFrame.data[i + 3] = 255;
+        }
     }
     return newFrame;
 };
 
 let drawItems = [
-    new DrawElement('canvas1', 'imageElement', 0, true, normal),
-    new DrawElement('canvas2', 'videoElement', 0, false, normal),
-    new DrawElement('canvas3', 'cameraElement', 0, false, normal)
+    new DrawElement('canvas1', 'imageElement', true, normal),
+    new DrawElement('canvas2', 'videoElement', false, normal),
+    new DrawElement('canvas3', 'cameraElement', false, normal)
 ];
 
 let currentFilter = normal;
@@ -325,24 +256,21 @@ let currentSource = drawItems[0];
 
 const _GRAYSCALE_FILTER = new Filter(Filter.GRAYSCALE);
 const _SEPIA_FILTER = new Filter(Filter.SEPIA);
-const _BLUR_FILTER = new Filter(Filter.BLUR, [5, 5, 5, 5, 1, 5, 5, 5, 5]);
-const _GAUSS_FILTER = new Filter(Filter.BLUR, [1, 2, 1, 2, 4, 2, 1, 2, 1]);
-const _PREWITT_VERTICAL = new Filter(Filter.PREWITT, [-1, 0, 1, -1, 0, 1, -1, 0, 1]);
-const _PREWITT_HORIZONTAL = new Filter(Filter.PREWITT, [-1, -1, -1, 0, 0, 0, 1, 1, 1]);
+const _MEAN_FILTER = new Filter(Filter.BLUR, [1 / 9, 1 / 9, 1 / 9, 1 / 9, 1 / 9, 1 / 9, 1 / 9, 1 / 9, 1 / 9]);
+const _PREWITT_FILTER = new Filter(Filter.PREWITT);
+const _GAUSS_FILTER = new Filter(Filter.BLUR, [0.077847, 0.123317, 0.077847, 0.123317, 0.195346, 0.123317, 0.077847, 0.123317, 0.077847]);
 
 function prewitt(frame) {
     const greyscale = _GRAYSCALE_FILTER.filterImage(frame);
-    const prewittVertical = _PREWITT_VERTICAL.filterImage(greyscale);
-    const prewittHorizontal = _PREWITT_HORIZONTAL.filterImage(greyscale);
-    return Filter.combinePrewitt(prewittVertical, prewittHorizontal);
+    return _PREWITT_FILTER.filterImage(greyscale);
 }
 
 function grayscale(frame) {
     return _GRAYSCALE_FILTER.filterImage(frame);
 }
 
-function blur(frame) {
-    return _BLUR_FILTER.filterImage(frame);
+function mean(frame) {
+    return _MEAN_FILTER.filterImage(frame);
 }
 
 function sepia(frame) {
@@ -372,7 +300,7 @@ Helper.addListener(filterDropdown, "change", () => {
             currentFilter = sepia;
             break;
         case "Weichzeichnung (Mittelwert)":
-            currentFilter = blur;
+            currentFilter = mean;
             break;
         case "Weichzeichnung (Gauss)":
             currentFilter = gauss;
