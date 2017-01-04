@@ -1,0 +1,79 @@
+@import "settings";
+
+body {
+    font:  {
+        family: map-get($font, "text");
+        weight: 400;
+        size: 17px;
+    }
+    line-height: 1.4;
+    margin: 0;
+    padding: $gutter * 2;
+    * {
+        box-sizing: border-box;
+    }
+}
+
+.debug {
+    font-family: monospace;
+}
+.range-slider {
+    display: flex;
+    flex: 1 0 auto;
+    input[type=range] {
+        display: flex;
+        width: auto;
+        flex: 1 0 auto;
+        align-self: center;
+        justify-content: flex-start;
+    }
+    label {
+        display: flex;
+        flex: 0 0 auto;
+        align-self: center;
+        justify-content: flex-end;
+        margin: 0 0 0 10px;
+    }
+}
+.nocontent {
+    position: absolute;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    border: 0;
+}
+
+.wrapper {
+    max-width: map-get($breakpoints, medium);
+    margin: 0 auto;
+}
+
+h1 {
+    display: block;
+    text-align: center;
+    small {
+        display: block;
+    }
+}
+
+img {
+    width: 100%;
+}
+
+video {
+    width: 100%;
+}
+
+#canvas2 {
+    background-repeat: no-repeat;
+    background-position: top center;
+    background-size: contain;
+}
+
+::selection {
+    color: map-get($colors, lightest);
+    background: map-get($colors, highlight);
+}

@@ -1,0 +1,50 @@
+doctype html
+html(lang='de')
+    head
+        title Multimedia Processing Video
+        meta(charset='utf-8')
+        meta(http-equiv='X-UA-Compatible', content='IE=Edge')
+        meta(name='description', lang='de', content='')
+        meta(name='keywords', lang='en', content='')
+        meta(name='author', content='Michael Duve, Felix Maulwurf')
+        meta(name='viewport', content='width=device-width, initial-scale=1.0, user-scalable=yes')
+        meta(name='format-detection', content='telephone=no')
+        meta(name='robots', content='index,follow,noarchive')
+
+        link(rel="stylesheet", href="css/main.css")
+        link(rel="stylesheet", href="css/bootstrap.min.css")
+
+    body
+        p.alert.alert-warning Nur in neueren Chrome-Versionen getestet
+        main.wrapper
+            h1 Multimedia Processing Video
+                small von Michael Duve &amp; Felix Maulwurf
+            article.content-1
+                h2.text-center Differenzbilder / Schnitterkennung
+                section#video.row
+                    div.col-sm-12
+                        h3 Video
+                        video#video1(loop="true" muted="true", control="false", data-src="../assets/contraries.mp4")
+                        .form-inline
+                            .form-group
+                                label Toleranz
+                                input.form-control#tolerance1(type="number", min="0", max="255", value="64")
+                            .form-group
+                                label Offset in ms
+                                input.form-control#offset1(type="number", min="0", value="1000")
+                        .form-group.range-slider#timeslider1
+                            input(type="range", min="0", max="1", step="0.00001", value="0")
+                            label 00:00
+                    div.col-sm-6
+                        h3 Frame 1
+                        canvas#canvas1
+                    div.col-sm-6
+                        h3 Frame 2
+                        canvas#canvas2
+                    div.col-sm-6.col-sm-offset-3
+                        h3 Differenz
+                        canvas#canvas3
+
+
+        script(src="js/Helper.js")
+        script(src="js/app.js")

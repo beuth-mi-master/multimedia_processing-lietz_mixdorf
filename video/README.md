@@ -7,3 +7,4 @@
 ## Exercises
 * [Exercise 1](./a1/)
 * [Exercise 2](./a2/)
+* [Exercise 3](./a3/)
