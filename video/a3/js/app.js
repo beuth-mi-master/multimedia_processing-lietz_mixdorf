@@ -137,13 +137,19 @@ class DifferenceImage {
                 this.processNextFrame();
                 this.drawPlot(this.frameProcessed);
             } else {
-                this.cutCb = null;
-                this.cutButton.classList.remove("working");
+                this.cutDetectionDone();
             }
         } else {
             this.frameUpdateRequired = true;
         }
         this.seeked1 = this.seeked2 = false;
+    }
+
+    cutDetectionDone() {
+        this.cutButton.classList.remove("working");
+        this.cutCb = null;
+        this.offsetInput.disabled = '';
+        this.rangeSlider.disabled = '';
     }
 
     bindEvents() {
@@ -158,10 +164,7 @@ class DifferenceImage {
 
         Helper.addListener(this.cutButton, "click", () => {
             if (this.cutButton.classList.contains("working")) {
-                this.cutButton.classList.remove("working");
-                this.cutCb = null;
-                this.offsetInput.disabled = '';
-                this.rangeSlider.disabled = '';
+                this.cutDetectionDone();
             } else {
                 this.cutButton.classList.add("working");
                 this.offsetInput.disabled = 'disabled';
@@ -256,7 +259,7 @@ class DifferenceImage {
 
                 const diff = grayBefore - grayAfter;
                 score += Math.abs(diff);
-                diffFrame.data[i + 0] = diffFrame.data[i + 1] = diffFrame.data[i + 2] = diff / 2 + 128;
+                diffFrame.data[i + 0] = diffFrame.data[i + 1] = diffFrame.data[i + 2] = ~~(diff / 2 + 128);
                 diffFrame.data[i + 3] = 255;
             }
         }
@@ -307,8 +310,28 @@ let videoInstance1 = new DifferenceImage(
     'canvas3',
     'timeslider1',
     'offset1',
-    'cut',
+    'cut1',
     'plot1');
+
+let videoInstance2 = new DifferenceImage(
+    'canvas4',
+    'canvas5',
+    'video2',
+    'canvas6',
+    'timeslider2',
+    'offset2',
+    'cut2',
+    'plot2');
+
+let videoInstance3 = new DifferenceImage(
+    'canvas7',
+    'canvas8',
+    'video3',
+    'canvas9',
+    'timeslider3',
+    'offset3',
+    'cut3',
+    'plot3');
 
 window.requestAnimFrame = (function() {
     return window.requestAnimationFrame ||

@@ -16,21 +16,44 @@
   <body>
     <p class="alert alert-warning">Nur in neueren Chrome-Versionen getestet</p>
     <main class="wrapper">
-      <h1>Multimedia Processing Video<small>von Michael Duve &amp; Felix Maulwurf</small></h1>
-      <article class="content-1">
-        <h2 class="text-center">Differenzbilder / Schnitterkennung</h2>
-        <section class="row" id="video">
+      <div class="page-header">
+        <h1>Multimedia Processing Video<small>von Michael Duve &amp; Felix Maulwurf</small></h1>
+      </div>
+      <h3 class="text-center">Differenzbilder / Schnitterkennung</h3>
+      <article>
+        <p>Drei Beispiele sind unten zu finden.</p>
+        <dl>
+          <dt>Teilaufgabe 1:</dt>
+          <dd>
+            <p>Mit dem Schieberegler unterhalb von "Steuerung" kann das Video durchsucht werden. Im Feld "Abstand der Frames in ms" kann bestimmt werden, wie groß der Abstand zwischen Frame 1 und Frame 2 sein soll. Der momentane Inhalt der beiden Frames ist jeweils in den untenstehenden Abschnitten "Frame 1" und "Frame 2" zu sehen. Die Differenz der beiden Frames wird unterhalb von "Differenzbild" dargestellt.</p>
+            <p>Bevor die Differenz der beiden Frames berechnet wird, wird der Frame in ein Graustufenbild umgewandelt (Luminanzverfahren, mit der Gewichtung: r = 0.3, g = 0.59, b = 0.11). Da das Differenzbild bei nichtbewegten Bildern einen mittleren Grauwert (Wert: 128) anzeigen sollte, wurde zur Berechnung der Differenz von der Standardformel abgewichen:</p>
+            <pre style="display: inline-block">d = Math.floor((frame1 - frame2) / 2 + 128)</pre>
+            <p>Hierbei ergibt sich für die größte Farbdifferenz (frame1 = 0, frame2 = 255) dann ein Wert von 0.</p>
+            <pre style="display: inline-block">d = Math.floor((0 - 255) / 2 + 128)
+d = Math.floor(-255 / 2 + 128)
+d = Math.floor(-127.5 + 128)
+d = Math.floor(0.5)
+d = 0
+</pre>
+          </dd>
+        </dl>
+      </article>
+      <article class="content-1 panel panel-default">
+        <div class="panel-heading">
+          <h2 class="panel-title">Beispiel 1</h2>
+        </div>
+        <section class="panel-body" id="video">
           <div class="col-sm-12">
-            <h3>Video</h3>
+            <h6>Video</h6>
             <video id="video1" loop="true" muted="true" preload="auto" control="false" data-src="../assets/contraries.mp4"></video>
-            <h3>Steuerung</h3>
+            <h6>Steuerung</h6>
             <div class="form-inline">
               <div class="form-group">
                 <label>Abstand der Frames in ms</label>
                 <input class="form-control" id="offset1" type="number" min="0" value="50">
               </div>
               <div class="form-group cut-button">
-                <button class="btn" id="cut"><span class="start">Schnitterkennung starten</span><span class="stop">Schnitterkennung stoppen</span></button>
+                <button class="btn" id="cut1"><span class="start">Schnitterkennung starten</span><span class="stop">Schnitterkennung stoppen</span></button>
               </div>
             </div>
             <div class="form-group range-slider" id="timeslider1">
@@ -39,20 +62,102 @@
             </div>
           </div>
           <div class="col-sm-6">
-            <h3>Frame 1</h3>
+            <h6>Frame 1</h6>
             <canvas id="canvas1"></canvas>
           </div>
           <div class="col-sm-6">
-            <h3>Frame 2</h3>
+            <h6>Frame 2</h6>
             <canvas id="canvas2"></canvas>
           </div>
           <div class="col-sm-6">
-            <h3>Differenz</h3>
+            <h6>Differenz</h6>
             <canvas id="canvas3"></canvas>
           </div>
           <div class="col-sm-6">
-            <h3>Differenzverlauf</h3>
+            <h6>Differenzverlauf</h6>
             <canvas id="plot1"></canvas>
+          </div>
+        </section>
+      </article>
+      <article class="content-2 panel panel-default">
+        <div class="panel-heading">
+          <h2 class="panel-title">Beispiel 2</h2>
+        </div>
+        <section class="panel-body" id="video">
+          <div class="col-sm-12">
+            <h6>Video</h6>
+            <video id="video2" loop="true" muted="true" preload="auto" control="false" data-src="../assets/tagesschau.mp4"></video>
+            <h6>Steuerung</h6>
+            <div class="form-inline">
+              <div class="form-group">
+                <label>Abstand der Frames in ms</label>
+                <input class="form-control" id="offset2" type="number" min="0" value="50">
+              </div>
+              <div class="form-group cut-button">
+                <button class="btn" id="cut2"><span class="start">Schnitterkennung starten</span><span class="stop">Schnitterkennung stoppen</span></button>
+              </div>
+            </div>
+            <div class="form-group range-slider" id="timeslider2">
+              <input type="range" min="0" max="1" step="0.00025" value="0">
+              <label>00:00</label>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <h6>Frame 1</h6>
+            <canvas id="canvas4"></canvas>
+          </div>
+          <div class="col-sm-6">
+            <h6>Frame 2</h6>
+            <canvas id="canvas5"></canvas>
+          </div>
+          <div class="col-sm-6">
+            <h6>Differenz</h6>
+            <canvas id="canvas6"></canvas>
+          </div>
+          <div class="col-sm-6">
+            <h6>Differenzverlauf</h6>
+            <canvas id="plot2"></canvas>
+          </div>
+        </section>
+      </article>
+      <article class="content-3 panel panel-default">
+        <div class="panel-heading">
+          <h2 class="panel-title">Beispiel 3</h2>
+        </div>
+        <section class="panel-body" id="video">
+          <div class="col-sm-12">
+            <h6>Video</h6>
+            <video id="video3" loop="true" muted="true" preload="auto" control="false" data-src="../assets/blue_small.mp4"></video>
+            <h6>Steuerung</h6>
+            <div class="form-inline">
+              <div class="form-group">
+                <label>Abstand der Frames in ms</label>
+                <input class="form-control" id="offset3" type="number" min="0" value="50">
+              </div>
+              <div class="form-group cut-button">
+                <button class="btn" id="cut3"><span class="start">Schnitterkennung starten</span><span class="stop">Schnitterkennung stoppen</span></button>
+              </div>
+            </div>
+            <div class="form-group range-slider" id="timeslider3">
+              <input type="range" min="0" max="1" step="0.00025" value="0">
+              <label>00:00</label>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <h6>Frame 1</h6>
+            <canvas id="canvas7"></canvas>
+          </div>
+          <div class="col-sm-6">
+            <h6>Frame 2</h6>
+            <canvas id="canvas8"></canvas>
+          </div>
+          <div class="col-sm-6">
+            <h6>Differenz</h6>
+            <canvas id="canvas9"></canvas>
+          </div>
+          <div class="col-sm-6">
+            <h6>Differenzverlauf</h6>
+            <canvas id="plot3"></canvas>
           </div>
         </section>
       </article>

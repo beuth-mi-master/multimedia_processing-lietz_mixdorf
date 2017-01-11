@@ -17,38 +17,121 @@ html(lang='de')
     body
         p.alert.alert-warning Nur in neueren Chrome-Versionen getestet
         main.wrapper
-            h1 Multimedia Processing Video
-                small von Michael Duve &amp; Felix Maulwurf
-            article.content-1
-                h2.text-center Differenzbilder / Schnitterkennung
-                section#video.row
+            .page-header
+                h1 Multimedia Processing Video
+                    small von Michael Duve &amp; Felix Maulwurf
+
+            h3.text-center Differenzbilder / Schnitterkennung
+            article
+                p Drei Beispiele sind unten zu finden.
+                dl
+                    dt Teilaufgabe 1:
+                    dd
+                        p Mit dem Schieberegler unterhalb von "Steuerung" kann das Video durchsucht werden. Im Feld "Abstand der Frames in ms" kann bestimmt werden, wie groß der Abstand zwischen Frame 1 und Frame 2 sein soll. Der momentane Inhalt der beiden Frames ist jeweils in den untenstehenden Abschnitten "Frame 1" und "Frame 2" zu sehen. Die Differenz der beiden Frames wird unterhalb von "Differenzbild" dargestellt.
+                        p Bevor die Differenz der beiden Frames berechnet wird, wird der Frame in ein Graustufenbild umgewandelt (Luminanzverfahren, mit der Gewichtung: r = 0.3, g = 0.59, b = 0.11). Da das Differenzbild bei nichtbewegten Bildern einen mittleren Grauwert (Wert: 128) anzeigen sollte, wurde zur Berechnung der Differenz von der Standardformel abgewichen:
+                        pre(style="display: inline-block;").
+                            d = Math.floor((frame1 - frame2) / 2 + 128)
+                        p Hierbei ergibt sich für die größte Farbdifferenz (frame1 = 0, frame2 = 255) dann ein Wert von 0.
+                        pre(style="display: inline-block;").
+                            d = Math.floor((0 - 255) / 2 + 128)
+                            d = Math.floor(-255 / 2 + 128)
+                            d = Math.floor(-127.5 + 128)
+                            d = Math.floor(0.5)
+                            d = 0
+
+            article.content-1.panel.panel-default
+                .panel-heading
+                    h2.panel-title Beispiel 1
+                section#video.panel-body
                     div.col-sm-12
-                        h3 Video
+                        h6 Video
                         video#video1(loop="true" muted="true", preload="auto", control="false", data-src="../assets/contraries.mp4")
-                        h3 Steuerung
+                        h6 Steuerung
                         .form-inline
                             .form-group
                                 label Abstand der Frames in ms
                                 input.form-control#offset1(type="number", min="0", value="50")
                             .form-group.cut-button
-                                button#cut.btn
+                                button#cut1.btn
                                     span.start Schnitterkennung starten
                                     span.stop Schnitterkennung stoppen
                         .form-group.range-slider#timeslider1
                             input(type="range", min="0", max="1", step="0.00025", value="0")
                             label 00:00
                     div.col-sm-6
-                        h3 Frame 1
+                        h6 Frame 1
                         canvas#canvas1
                     div.col-sm-6
-                        h3 Frame 2
+                        h6 Frame 2
                         canvas#canvas2
                     div.col-sm-6
-                        h3 Differenz
+                        h6 Differenz
                         canvas#canvas3
                     div.col-sm-6
-                        h3 Differenzverlauf
+                        h6 Differenzverlauf
                         canvas#plot1
+            article.content-2.panel.panel-default
+                .panel-heading
+                    h2.panel-title Beispiel 2
+                section#video.panel-body
+                    div.col-sm-12
+                        h6 Video
+                        video#video2(loop="true" muted="true", preload="auto", control="false", data-src="../assets/tagesschau.mp4")
+                        h6 Steuerung
+                        .form-inline
+                            .form-group
+                                label Abstand der Frames in ms
+                                input.form-control#offset2(type="number", min="0", value="50")
+                            .form-group.cut-button
+                                button#cut2.btn
+                                    span.start Schnitterkennung starten
+                                    span.stop Schnitterkennung stoppen
+                        .form-group.range-slider#timeslider2
+                            input(type="range", min="0", max="1", step="0.00025", value="0")
+                            label 00:00
+                    div.col-sm-6
+                        h6 Frame 1
+                        canvas#canvas4
+                    div.col-sm-6
+                        h6 Frame 2
+                        canvas#canvas5
+                    div.col-sm-6
+                        h6 Differenz
+                        canvas#canvas6
+                    div.col-sm-6
+                        h6 Differenzverlauf
+                        canvas#plot2
+            article.content-3.panel.panel-default
+                .panel-heading
+                    h2.panel-title Beispiel 3
+                section#video.panel-body
+                    div.col-sm-12
+                        h6 Video
+                        video#video3(loop="true" muted="true", preload="auto", control="false", data-src="../assets/blue_small.mp4")
+                        h6 Steuerung
+                        .form-inline
+                            .form-group
+                                label Abstand der Frames in ms
+                                input.form-control#offset3(type="number", min="0", value="50")
+                            .form-group.cut-button
+                                button#cut3.btn
+                                    span.start Schnitterkennung starten
+                                    span.stop Schnitterkennung stoppen
+                        .form-group.range-slider#timeslider3
+                            input(type="range", min="0", max="1", step="0.00025", value="0")
+                            label 00:00
+                    div.col-sm-6
+                        h6 Frame 1
+                        canvas#canvas7
+                    div.col-sm-6
+                        h6 Frame 2
+                        canvas#canvas8
+                    div.col-sm-6
+                        h6 Differenz
+                        canvas#canvas9
+                    div.col-sm-6
+                        h6 Differenzverlauf
+                        canvas#plot3
 
         script(src="js/Helper.js")
         script(src="js/app.js")
