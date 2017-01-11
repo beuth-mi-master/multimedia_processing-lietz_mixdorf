@@ -46,6 +46,8 @@ class DifferenceImage {
         this.debugContainer = document.createElement("p");
         this.debugContainer.classList.add("debug", "col-sm-12", "text-center");
         this.video.parentElement.appendChild(this.debugContainer);
+
+        this.ctxPlot = this.plot.getContext('2d');
         this.ctxBefore = this.canvasBefore.getContext('2d');
         this.ctxAfter = this.canvasAfter.getContext('2d');
         this.ctxDifference = this.canvasDifference.getContext('2d');
@@ -92,19 +94,39 @@ class DifferenceImage {
         this.video2.currentTime = this.secondFrame;
     }
 
-    createPoint(x, y) {
-        const w = this.plot.clientWidth / (this.duration / this.offset);
-        return `<circle cx="${x * w}" cy="${Math.abs(y - this.plot.clientHeight)}" r="0.1" fill="black" />`;
+    drawPlot(frames) {
+        this.ctxPlot.clearRect(0, 0, this.ctxPlot.width, this.ctxPlot.height);
+
+        this.lastX = 0;
+        this.lastY = this.plot.clientHeight;
+
+        for (let i = 0; i < frames; i++) {
+            const w = this.plot.clientWidth / (this.duration / this.offset);
+            const x2 = i * w;
+            const y2 = Math.abs(this.storage[i][0] - this.plot.clientHeight);
+
+            this.ctxPlot.beginPath();
+            this.ctxPlot.strokeStyle = "black";
+            this.ctxPlot.moveTo(this.lastX, this.lastY);
+            this.ctxPlot.lineTo(x2, y2);
+            this.ctxPlot.stroke();
+            this.ctxPlot.closePath();
+
+            this.lastX = x2;
+            this.lastY = y2;
+        }
+
+        let time = this.plot.clientWidth * (this.chosenTime / this.duration);
+        this.drawLine(time);
     }
 
-    createLine(x, y) {
-        const w = this.plot.clientWidth / (this.duration / this.offset);
-        const x2 = x * w;
-        const y2 = Math.abs(y - this.plot.clientHeight);
-        const line = `<line id="line" x1="${this.lastX}" y1="${this.lastY}" x2="${x2}" y2="${y2}" stroke="black" stroke-width="0.5" />`;
-        this.lastX = x2;
-        this.lastY = y2;
-        return line;
+    drawLine(time) {
+        this.ctxPlot.beginPath();
+        this.ctxPlot.strokeStyle = "red";
+        this.ctxPlot.moveTo(time, 0);
+        this.ctxPlot.lineTo(time, this.ctxPlot.height);
+        this.ctxPlot.stroke();
+        this.ctxPlot.closePath();
     }
 
     seekDone() {
@@ -113,7 +135,7 @@ class DifferenceImage {
             this.cutCb(diff, this.firstFrame, this.secondFrame);
             if (this.chosenTime <= this.duration) {
                 this.processNextFrame();
-                this.plot.innerHTML += this.createLine(this.frameProcessed, diff);
+                this.drawPlot(this.frameProcessed);
             } else {
                 this.cutCb = null;
                 this.cutButton.classList.remove("working");
@@ -121,7 +143,6 @@ class DifferenceImage {
         } else {
             this.frameUpdateRequired = true;
         }
-        this.movePlotLine(this.chosenTime / this.duration);
         this.seeked1 = this.seeked2 = false;
     }
 
@@ -139,10 +160,14 @@ class DifferenceImage {
             if (this.cutButton.classList.contains("working")) {
                 this.cutButton.classList.remove("working");
                 this.cutCb = null;
+                this.offsetInput.disabled = '';
+                this.rangeSlider.disabled = '';
             } else {
                 this.cutButton.classList.add("working");
+                this.offsetInput.disabled = 'disabled';
+                this.rangeSlider.disabled = 'disabled';
                 this.lastX = this.lastY = 0;
-                this.plot.innerHTML = `<line id="line" x1="0" y1="0" x2="0" y2="${this.plot.clientHeight}" stroke="red" stroke-width="0.5" />`;
+                this.ctxPlot.clearRect(0, 0, this.ctxPlot.width, this.ctxPlot.height);
                 this.chosenTime = 0;
                 this.frameProcessed = 0;
                 this.storage = this.createDiffStorage();
@@ -179,22 +204,13 @@ class DifferenceImage {
             this.changeTimeStamp(this.timeSlider, e.target.value);
             this.video.currentTime = this.firstFrame;
             this.video2.currentTime = this.secondFrame;
-            this.movePlotLine(e.target.value);
+            this.drawPlot(this.frameProcessed);
         });
 
         Helper.addListener(this.offsetInput, "change", () => {
             this.video2.currentTime = this.secondFrame;
         });
 
-    }
-
-    movePlotLine(p) {
-        let line = Helper.find("#line", this.plot);
-        if (line) {
-            const time = this.plot.clientWidth * p;
-            line.setAttribute("x1", time);
-            line.setAttribute("x2", time);
-        }
     }
 
     changeTimeStamp(element, percentage) {
@@ -274,18 +290,8 @@ class DifferenceImage {
         let w = parseInt(style.width, 10) - parseInt(style.paddingLeft, 10) - parseInt(style.paddingRight, 10);
         let h = parseInt((w / this.video.clientWidth) * this.video.clientHeight, 10);
 
-        this.canvasDifference.width = this.canvasBefore.width = this.canvasAfter.width = this.ctxBefore.width = this.ctxAfter.width = w;
-        this.canvasDifference.height = this.canvasBefore.height = this.canvasAfter.height = this.ctxBefore.height = this.ctxAfter.height = h;
-
-        this.plot.setAttribute("viewBox", `0 0 ${w} ${h}`);
-        this.plot.style.width = `${w}px`;
-        this.plot.style.height = `${h}px`;
-
-        let plotText = Helper.find("#text", this.plot);
-        if (plotText) {
-            plotText.setAttribute("x", this.plot.clientWidth / 2);
-            plotText.setAttribute("y", this.plot.clientHeight / 2);
-        }
+        this.plot.width = this.ctxPlot.width = this.canvasDifference.width = this.canvasBefore.width = this.canvasAfter.width = this.ctxBefore.width = this.ctxAfter.width = w;
+        this.plot.height = this.ctxPlot.height = this.canvasDifference.height = this.canvasBefore.height = this.canvasAfter.height = this.ctxBefore.height = this.ctxAfter.height = h;
     }
 
     static normalizeGray(r, g, b) {
