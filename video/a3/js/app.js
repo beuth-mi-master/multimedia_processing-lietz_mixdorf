@@ -97,13 +97,23 @@ class DifferenceImage {
         return `<circle cx="${x * w}" cy="${Math.abs(y - this.plot.clientHeight)}" r="0.1" fill="black" />`;
     }
 
+    createLine(x, y) {
+        const w = this.plot.clientWidth / (this.duration / this.offset);
+        const x2 = x * w;
+        const y2 = Math.abs(y - this.plot.clientHeight);
+        const line = `<line id="line" x1="${this.lastX}" y1="${this.lastY}" x2="${x2}" y2="${y2}" stroke="black" stroke-width="0.5" />`;
+        this.lastX = x2;
+        this.lastY = y2;
+        return line;
+    }
+
     seekDone() {
         if (this.cutCb) {
             const diff = this.calculateDifference();
             this.cutCb(diff, this.firstFrame, this.secondFrame);
             if (this.chosenTime <= this.duration) {
                 this.processNextFrame();
-                this.plot.innerHTML += this.createPoint(this.frameProcessed, diff);
+                this.plot.innerHTML += this.createLine(this.frameProcessed, diff);
             } else {
                 this.cutCb = null;
                 this.cutButton.classList.remove("working");
@@ -131,6 +141,7 @@ class DifferenceImage {
                 this.cutCb = null;
             } else {
                 this.cutButton.classList.add("working");
+                this.lastX = this.lastY = 0;
                 this.plot.innerHTML = `<line id="line" x1="0" y1="0" x2="0" y2="${this.plot.clientHeight}" stroke="red" stroke-width="0.5" />`;
                 this.chosenTime = 0;
                 this.frameProcessed = 0;
