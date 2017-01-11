@@ -26,7 +26,7 @@ class DifferenceImage {
         return parseInt(this.offsetInput.value, 10);
     }
 
-    constructor(canvasBefore, canvasAfter, videoId, canvasDifference, timeSlider, offsetId, cutId, plotId, cb = () => {}) {
+    constructor(canvasBefore, canvasAfter, videoId, canvasDifference, timeSlider, offsetId, cutId, plotId) {
 
         this.offsetInput = document.getElementById(offsetId);
         this.cutButton = document.getElementById(cutId);
@@ -45,20 +45,18 @@ class DifferenceImage {
         this.container = this.canvasBefore.parentElement.parentElement;
         this.debugContainer = document.createElement("p");
         this.debugContainer.classList.add("debug", "col-sm-12", "text-center");
-        this.container.parentElement.appendChild(this.debugContainer);
+        this.video.parentElement.appendChild(this.debugContainer);
         this.ctxBefore = this.canvasBefore.getContext('2d');
         this.ctxAfter = this.canvasAfter.getContext('2d');
         this.ctxDifference = this.canvasDifference.getContext('2d');
 
         this.frameUpdateRequired = false;
-
         this.chosenTime = 0;
-
         this.resizeTimeout = null;
-
-        this.cb = cb;
-
         this.cutCb = null;
+
+        this.seeked1 = false;
+        this.seeked2 = false;
 
         this.init(this.video.getAttribute("data-src"));
     }
@@ -94,6 +92,29 @@ class DifferenceImage {
         this.video2.currentTime = this.secondFrame;
     }
 
+    createPoint(x, y) {
+        const w = this.plot.clientWidth / (this.duration / this.offset);
+        return `<circle cx="${x * w}" cy="${Math.abs(y - this.plot.clientHeight)}" r="0.1" fill="black" />`;
+    }
+
+    seekDone() {
+        if (this.cutCb) {
+            const diff = this.calculateDifference();
+            this.cutCb(diff, this.firstFrame, this.secondFrame);
+            if (this.chosenTime <= this.duration) {
+                this.processNextFrame();
+                this.plot.innerHTML += this.createPoint(this.frameProcessed, diff);
+            } else {
+                this.cutCb = null;
+                this.cutButton.classList.remove("working");
+            }
+        } else {
+            this.frameUpdateRequired = true;
+        }
+        this.movePlotLine(this.chosenTime / this.duration);
+        this.seeked1 = this.seeked2 = false;
+    }
+
     bindEvents() {
         Helper.addListener(window, "resize orientationchange", () => {
             clearTimeout(this.resizeTimeout);
@@ -105,11 +126,18 @@ class DifferenceImage {
         });
 
         Helper.addListener(this.cutButton, "click", () => {
-            this.chosenTime = 0;
-            this.frameProcessed = 0;
-            this.storage = this.createDiffStorage();
-            this.cutCb = this.findCuts;
-            this.processNextFrame();
+            if (this.cutButton.classList.contains("working")) {
+                this.cutButton.classList.remove("working");
+                this.cutCb = null;
+            } else {
+                this.cutButton.classList.add("working");
+                this.plot.innerHTML = `<line id="line" x1="0" y1="0" x2="0" y2="${this.plot.clientHeight}" stroke="red" stroke-width="0.5" />`;
+                this.chosenTime = 0;
+                this.frameProcessed = 0;
+                this.storage = this.createDiffStorage();
+                this.cutCb = this.findCuts;
+                this.processNextFrame();
+            }
         });
 
         Helper.addListener(this.video, "loadeddata", () => {
@@ -122,31 +150,17 @@ class DifferenceImage {
 
         Helper.addListener(this.video, "seeked", () => {
             this.renderVideoFramesToCanvas(this.ctxBefore, this.video);
+            this.seeked1 = true;
+            if (this.seeked1 && this.seeked2) {
+                this.seekDone();
+            }
         });
 
         Helper.addListener(this.video2, "seeked", () => {
             this.renderVideoFramesToCanvas(this.ctxAfter, this.video2);
-            if (this.cutCb) {
-                const diff = this.calculateDifference();
-                this.cutCb(diff, this.firstFrame, this.secondFrame);
-                if (this.chosenTime <= this.duration) {
-                    this.processNextFrame();
-                } else {
-                    const w = this.plot.clientWidth / this.storage.length;
-                    const h = this.plot.clientHeight;
-                    let polyline = '<polyline points="';
-                    for (let i = 0; i < this.storage.length; i++) {
-                        polyline += `${i * w},${Math.abs(this.storage[i][0] - h)} `;
-                    }
-                    polyline += '" style="fill:none;stroke:#000;stroke-width:1" />';
-                    polyline += `<line id="line" x1="0" y1="0" x2="0" y2="${this.plot.clientHeight}" style="stroke:red; stroke-width:2px;" />`;
-                    this.plot.innerHTML = polyline.trim();
-
-                    this.cb(this.storage);
-                    this.cutCb = null;
-                }
-            } else {
-                this.frameUpdateRequired = true;
+            this.seeked2 = true;
+            if (this.seeked1 && this.seeked2) {
+                this.seekDone();
             }
         });
 
@@ -154,18 +168,22 @@ class DifferenceImage {
             this.changeTimeStamp(this.timeSlider, e.target.value);
             this.video.currentTime = this.firstFrame;
             this.video2.currentTime = this.secondFrame;
-            let line = Helper.find("#line", this.plot);
-            if (line) {
-                const time = this.plot.clientWidth * e.target.value;
-                line.setAttribute("x1", time);
-                line.setAttribute("x2", time);
-            }
+            this.movePlotLine(e.target.value);
         });
 
         Helper.addListener(this.offsetInput, "change", () => {
             this.video2.currentTime = this.secondFrame;
         });
 
+    }
+
+    movePlotLine(p) {
+        let line = Helper.find("#line", this.plot);
+        if (line) {
+            const time = this.plot.clientWidth * p;
+            line.setAttribute("x1", time);
+            line.setAttribute("x2", time);
+        }
     }
 
     changeTimeStamp(element, percentage) {
@@ -183,16 +201,15 @@ class DifferenceImage {
 
     draw() {
         if (this.frameUpdateRequired) {
-            this.start();
-            const difference = this.calculateDifference();
-            this.stop();
-            this.cb(difference);
+            this.calculateDifference();
         }
         this.frameUpdateRequired = false;
         window.requestAnimFrame(this.draw.bind(this));
     }
 
     calculateDifference() {
+
+        this.start();
 
         let score = 0;
 
@@ -210,7 +227,7 @@ class DifferenceImage {
                 const grayBefore = DifferenceImage.normalizeGray(before.data[i], before.data[i + 1], before.data[i + 2]);
                 const grayAfter = DifferenceImage.normalizeGray(after.data[i], after.data[i + 1], after.data[i + 2]);
 
-                const diff = ~~(grayBefore - grayAfter);
+                const diff = grayBefore - grayAfter;
                 score += Math.abs(diff);
                 diffFrame.data[i + 0] = diffFrame.data[i + 1] = diffFrame.data[i + 2] = diff / 2 + 128;
                 diffFrame.data[i + 3] = 255;
@@ -219,7 +236,9 @@ class DifferenceImage {
 
         this.ctxDifference.putImageData(diffFrame, 0, 0);
 
-        return ~~(score / (diffFrame.height * diffFrame.width));
+        this.stop();
+
+        return score / (diffFrame.height * diffFrame.width);
     }
 
     startDebugInterval() {
@@ -250,6 +269,12 @@ class DifferenceImage {
         this.plot.setAttribute("viewBox", `0 0 ${w} ${h}`);
         this.plot.style.width = `${w}px`;
         this.plot.style.height = `${h}px`;
+
+        let plotText = Helper.find("#text", this.plot);
+        if (plotText) {
+            plotText.setAttribute("x", this.plot.clientWidth / 2);
+            plotText.setAttribute("y", this.plot.clientHeight / 2);
+        }
     }
 
     static normalizeGray(r, g, b) {
@@ -258,9 +283,15 @@ class DifferenceImage {
 
 }
 
-let videoInstance1 = new DifferenceImage('canvas1', 'canvas2', 'video1', 'canvas3', 'timeslider1', 'offset1', 'cut', 'plot1', (difference) => {
-    console.log(difference);
-});
+let videoInstance1 = new DifferenceImage(
+    'canvas1',
+    'canvas2',
+    'video1',
+    'canvas3',
+    'timeslider1',
+    'offset1',
+    'cut',
+    'plot1');
 
 window.requestAnimFrame = (function() {
     return window.requestAnimationFrame ||

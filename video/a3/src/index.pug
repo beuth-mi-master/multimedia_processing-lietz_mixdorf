@@ -25,14 +25,17 @@ html(lang='de')
                     div.col-sm-12
                         h3 Video
                         video#video1(loop="true" muted="true", preload="auto", control="false", data-src="../assets/contraries.mp4")
+                        h3 Steuerung
                         .form-inline
                             .form-group
                                 label Abstand der Frames in ms
-                                input.form-control#offset1(type="number", min="0", value="1000")
-                            .form-group
-                                button#cut.btn.btn-primary Schnitterkennung
+                                input.form-control#offset1(type="number", min="0", value="50")
+                            .form-group.cut-button
+                                button#cut.btn
+                                    span.start Schnitterkennung starten
+                                    span.stop Schnitterkennung stoppen
                         .form-group.range-slider#timeslider1
-                            input(type="range", min="0", max="1", step="0.00001", value="0")
+                            input(type="range", min="0", max="1", step="0.00025", value="0")
                             label 00:00
                     div.col-sm-6
                         h3 Frame 1
@@ -44,9 +47,9 @@ html(lang='de')
                         h3 Differenz
                         canvas#canvas3
                     div.col-sm-6
-                        h3 Plot
+                        h3 Differenzverlauf
                         svg#plot1(viewBox="0 0 0 0", preserveAspectRatio="xMaxYMax meet", width="100%", height="100%")
-
+                            text#text(x="0", y="35", font-family="Verdana", font-size="18", text-anchor="middle") Bisher keine Daten
 
         script(src="js/Helper.js")
         script(src="js/app.js")

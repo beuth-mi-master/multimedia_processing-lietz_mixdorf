@@ -1,79 +1,138 @@
-@import "settings";
+@import 'settings';
 
-body {
-    font:  {
-        family: map-get($font, "text");
+body
+{
+    font:
+    {
+        family: map-get($font, 'text');
         weight: 400;
         size: 17px;
     }
     line-height: 1.4;
+
     margin: 0;
     padding: $gutter * 2;
-    * {
+    *
+    {
         box-sizing: border-box;
     }
 }
 
-.debug {
+.cut-button
+{
+    float: right;
+    button
+    {
+        color: #fff;
+        border-color: #2e6da4;
+        background-color: #337ab7;
+        &.working
+        {
+            border-color: #d43f3a;
+            background-color: #d9534f;
+            .stop
+            {
+                display: block;
+            }
+            .start
+            {
+                display: none;
+            }
+        }
+        .stop
+        {
+            display: none;
+        }
+        .start
+        {
+            display: block;
+        }
+    }
+}
+
+.debug
+{
     font-family: monospace;
 }
-.range-slider {
+.range-slider
+{
     display: flex;
+
+    margin: 10px auto;
+
     flex: 1 0 auto;
-    input[type=range] {
+    input[type=range]
+    {
         display: flex;
+
         width: auto;
+
         flex: 1 0 auto;
         align-self: center;
         justify-content: flex-start;
     }
-    label {
+    label
+    {
         display: flex;
+
+        margin: 0 0 0 10px;
+
         flex: 0 0 auto;
         align-self: center;
         justify-content: flex-end;
-        margin: 0 0 0 10px;
     }
 }
-.nocontent {
+.nocontent
+{
     position: absolute;
+
     overflow: hidden;
     clip: rect(0 0 0 0);
+
     width: 1px;
     height: 1px;
     margin: -1px;
     padding: 0;
+
     border: 0;
 }
 
-.wrapper {
+.wrapper
+{
     max-width: map-get($breakpoints, medium);
     margin: 0 auto;
 }
 
-h1 {
+h1
+{
     display: block;
+
     text-align: center;
-    small {
+    small
+    {
         display: block;
     }
 }
 
-img {
+img
+{
     width: 100%;
 }
 
-video {
+video
+{
     width: 100%;
 }
 
-#canvas2 {
+#canvas2
+{
     background-repeat: no-repeat;
     background-position: top center;
     background-size: contain;
 }
 
-::selection {
+::selection
+{
     color: map-get($colors, lightest);
     background: map-get($colors, highlight);
 }
