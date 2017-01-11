@@ -22,15 +22,14 @@
         <section class="row" id="video">
           <div class="col-sm-12">
             <h3>Video</h3>
-            <video id="video1" loop="true" muted="true" control="false" data-src="../assets/contraries.mp4"></video>
+            <video id="video1" loop="true" muted="true" preload="auto" control="false" data-src="../assets/contraries.mp4"></video>
             <div class="form-inline">
               <div class="form-group">
-                <label>Toleranz</label>
-                <input class="form-control" id="tolerance1" type="number" min="0" max="255" value="64">
+                <label>Abstand der Frames in ms</label>
+                <input class="form-control" id="offset1" type="number" min="0" value="1000">
               </div>
               <div class="form-group">
-                <label>Offset in ms</label>
-                <input class="form-control" id="offset1" type="number" min="0" value="1000">
+                <button class="btn btn-primary" id="cut">Schnitterkennung</button>
               </div>
             </div>
             <div class="form-group range-slider" id="timeslider1">
@@ -46,9 +45,13 @@
             <h3>Frame 2</h3>
             <canvas id="canvas2"></canvas>
           </div>
-          <div class="col-sm-6 col-sm-offset-3">
+          <div class="col-sm-6">
             <h3>Differenz</h3>
             <canvas id="canvas3"></canvas>
+          </div>
+          <div class="col-sm-6">
+            <h3>Plot</h3>
+            <svg id="plot1" viewBox="0 0 0 0" preserveAspectRatio="xMaxYMax meet" width="100%" height="100%"></svg>
           </div>
         </section>
       </article>

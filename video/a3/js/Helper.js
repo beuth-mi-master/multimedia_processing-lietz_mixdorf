@@ -1,9 +1,9 @@
 const Helper = {
-    find(elementString = "*", element = null) {
-        return (element || document).querySelector(elementString);
+    find(elementString = "*", element = document) {
+        return element.querySelector(elementString);
     },
-    findAll(elementString = "*", element = null) {
-        return (element || document).querySelectorAll(elementString);
+    findAll(elementString = "*", element = document) {
+        return element.querySelectorAll(elementString);
     },
     show(elem) {
         elem.style.display = "";
