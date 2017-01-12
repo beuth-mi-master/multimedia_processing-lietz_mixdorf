@@ -31,22 +31,43 @@ html(lang='de')
                         p Bevor die Differenz der beiden Frames berechnet wird, wird der Frame in ein Graustufenbild umgewandelt (Luminanzverfahren, mit der Gewichtung: r = 0.3, g = 0.59, b = 0.11). Da das Differenzbild bei nichtbewegten Bildern einen mittleren Grauwert (Wert: 128) anzeigen sollte, wurde zur Berechnung der Differenz von der Standardformel abgewichen:
                         pre(style="display: inline-block;").
                             d = Math.floor((frame1 - frame2) / 2 + 128)
-                        p Hierbei ergibt sich für die größte Farbdifferenz (frame1 = 0, frame2 = 255) dann ein Wert von 0.
+                        p Hierbei ergibt sich für die größte negative Farbdifferenz (frame1 = 0, frame2 = 255) dann ein Wert von 0.
                         pre(style="display: inline-block;").
                             d = Math.floor((0 - 255) / 2 + 128)
                             d = Math.floor(-255 / 2 + 128)
                             d = Math.floor(-127.5 + 128)
                             d = Math.floor(0.5)
                             d = 0
+                        p Für die kleinste Farbdifferenz (frame1 = 255, frame2 = 255) ergibt sich ein Differenzwert von 128.
+                        pre(style="display: inline-block;").
+                            d = Math.floor((255 - 255) / 2 + 128)
+                            d = Math.floor(0 / 2 + 128)
+                            d = Math.floor(0 + 128)
+                            d = Math.floor(128)
+                            d = 128
+                        p Für die größte positive Farbdifferenz (frame1 = 255, frame2 = 0) ergibt sich ein Differenzwert von 255.
+                        pre(style="display: inline-block;").
+                            d = Math.floor((255 - 0) / 2 + 128)
+                            d = Math.floor(255 / 2 + 128)
+                            d = Math.floor(127.5 + 128)
+                            d = Math.floor(255.5)
+                            d = 255
+                        p Alle Differenzwerte dazwischen liegen im Bereich [0, 255].
+                    dt Teilaufgabe 2:
+                    dd
+                        p Generell kann man zwischen zwei Typen von Schnitten unterscheiden: Harte und weiche Schnitte.
+                        p Insgesamt gibt es drei sehr bekannte Verfahren, um eine Schnittbewertung durchführen zu können: Summe der absoluten Differenzen, Histogramm-Differenz und die Edge Change Ratio.
+                        p Es wird die Summe der absoluten Differenzen benutzt, um Unterschiede zwischen den einzelnen Frames bewerten zu können, da der Algorithmus einfach zu implementieren ist und harte Schnitte sehr gut erkennen kann. Nachteile des Verfahrens sind, dass bei stark bewegten Bildern falsche Schnitte erkannt werden können. Hier kann man mit der Berechnung eines dynamischen Schwellwertes gegensteuern.
+                        p Grundsätzlich funktioniert das Verfahren so, dass die Differenz d = | frame1 - frame2 | ist und diese über die Länge des analysierten Materials aufsummiert wird.
 
             article.content-1.panel.panel-default
                 .panel-heading
                     h2.panel-title Beispiel 1
                 section#video.panel-body
                     div.col-sm-12
-                        h6 Video
+                        h5 Video
                         video#video1(loop="true" muted="true", preload="auto", control="false", data-src="../assets/contraries.mp4")
-                        h6 Steuerung
+                        h5 Steuerung
                         .form-inline
                             .form-group
                                 label Abstand der Frames in ms
@@ -59,25 +80,29 @@ html(lang='de')
                             input(type="range", min="0", max="1", step="0.00025", value="0")
                             label 00:00
                     div.col-sm-6
-                        h6 Frame 1
+                        h5 Frame 1
                         canvas#canvas1
                     div.col-sm-6
-                        h6 Frame 2
+                        h5 Frame 2
                         canvas#canvas2
                     div.col-sm-6
-                        h6 Differenz
+                        h5 Differenz
                         canvas#canvas3
                     div.col-sm-6
-                        h6 Differenzverlauf
+                        h5 Differenzverlauf
                         canvas#plot1
+                    div.col-sm-12
+                        h5 Liste der Schnittmarken
+                        ul#chapters1
+                            li Schnitte erst sichtbar, nachdem die Schnitterkennung durchgelaufen ist
             article.content-2.panel.panel-default
                 .panel-heading
                     h2.panel-title Beispiel 2
                 section#video.panel-body
                     div.col-sm-12
-                        h6 Video
+                        h5 Video
                         video#video2(loop="true" muted="true", preload="auto", control="false", data-src="../assets/tagesschau.mp4")
-                        h6 Steuerung
+                        h5 Steuerung
                         .form-inline
                             .form-group
                                 label Abstand der Frames in ms
@@ -90,25 +115,29 @@ html(lang='de')
                             input(type="range", min="0", max="1", step="0.00025", value="0")
                             label 00:00
                     div.col-sm-6
-                        h6 Frame 1
+                        h5 Frame 1
                         canvas#canvas4
                     div.col-sm-6
-                        h6 Frame 2
+                        h5 Frame 2
                         canvas#canvas5
                     div.col-sm-6
-                        h6 Differenz
+                        h5 Differenz
                         canvas#canvas6
                     div.col-sm-6
-                        h6 Differenzverlauf
+                        h5 Differenzverlauf
                         canvas#plot2
+                    div.col-sm-12
+                        h5 Liste der Schnittmarken
+                        ul#chapters2
+                            li Schnitte erst sichtbar, nachdem die Schnitterkennung durchgelaufen ist
             article.content-3.panel.panel-default
                 .panel-heading
                     h2.panel-title Beispiel 3
                 section#video.panel-body
                     div.col-sm-12
-                        h6 Video
+                        h5 Video
                         video#video3(loop="true" muted="true", preload="auto", control="false", data-src="../assets/blue_small.mp4")
-                        h6 Steuerung
+                        h5 Steuerung
                         .form-inline
                             .form-group
                                 label Abstand der Frames in ms
@@ -121,17 +150,21 @@ html(lang='de')
                             input(type="range", min="0", max="1", step="0.00025", value="0")
                             label 00:00
                     div.col-sm-6
-                        h6 Frame 1
+                        h5 Frame 1
                         canvas#canvas7
                     div.col-sm-6
-                        h6 Frame 2
+                        h5 Frame 2
                         canvas#canvas8
                     div.col-sm-6
-                        h6 Differenz
+                        h5 Differenz
                         canvas#canvas9
                     div.col-sm-6
-                        h6 Differenzverlauf
+                        h5 Differenzverlauf
                         canvas#plot3
+                    div.col-sm-12
+                        h5 Liste der Schnittmarken
+                        ul#chapters3
+                            li Schnitte erst sichtbar, nachdem die Schnitterkennung durchgelaufen ist
 
         script(src="js/Helper.js")
         script(src="js/app.js")

@@ -26,10 +26,12 @@ class DifferenceImage {
         return parseInt(this.offsetInput.value, 10);
     }
 
-    constructor(canvasBefore, canvasAfter, videoId, canvasDifference, timeSlider, offsetId, cutId, plotId) {
+    constructor(canvasBefore, canvasAfter, videoId, canvasDifference, timeSlider, offsetId, cutId, plotId, chapterId) {
 
         this.offsetInput = document.getElementById(offsetId);
         this.cutButton = document.getElementById(cutId);
+
+        this.chapters = document.getElementById(chapterId);
 
         this.plot = document.getElementById(plotId);
 
@@ -80,11 +82,11 @@ class DifferenceImage {
 
     createDiffStorage() {
         const size = Math.ceil(this.duration / this.offset);
-        return new Array(size);
+        return new Uint8Array(size);
     }
 
-    findCuts(diff, firstFrame, secondFrame) {
-        this.storage[this.frameProcessed] = [diff, firstFrame, secondFrame];
+    findCuts(diff) {
+        this.storage[this.frameProcessed] = diff;
         this.frameProcessed++;
     }
 
@@ -103,7 +105,7 @@ class DifferenceImage {
         for (let i = 0; i < frames; i++) {
             const w = this.plot.clientWidth / (this.duration / this.offset);
             const x2 = i * w;
-            const y2 = Math.abs(this.storage[i][0] - this.plot.clientHeight);
+            const y2 = Math.abs(this.storage[i] - this.plot.clientHeight);
 
             this.ctxPlot.beginPath();
             this.ctxPlot.strokeStyle = "black";
@@ -132,7 +134,7 @@ class DifferenceImage {
     seekDone() {
         if (this.cutCb) {
             const diff = this.calculateDifference();
-            this.cutCb(diff, this.firstFrame, this.secondFrame);
+            this.cutCb(diff);
             if (this.chosenTime <= this.duration) {
                 this.processNextFrame();
                 this.drawPlot(this.frameProcessed);
@@ -311,7 +313,9 @@ let videoInstance1 = new DifferenceImage(
     'timeslider1',
     'offset1',
     'cut1',
-    'plot1');
+    'plot1',
+    'chapters1'
+);
 
 let videoInstance2 = new DifferenceImage(
     'canvas4',
@@ -321,7 +325,9 @@ let videoInstance2 = new DifferenceImage(
     'timeslider2',
     'offset2',
     'cut2',
-    'plot2');
+    'plot2',
+    'chapters2'
+);
 
 let videoInstance3 = new DifferenceImage(
     'canvas7',
@@ -331,7 +337,9 @@ let videoInstance3 = new DifferenceImage(
     'timeslider3',
     'offset3',
     'cut3',
-    'plot3');
+    'plot3',
+    'chapters3'
+);
 
 window.requestAnimFrame = (function() {
     return window.requestAnimationFrame ||
