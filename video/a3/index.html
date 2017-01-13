@@ -21,7 +21,7 @@
       </div>
       <h3 class="text-center">Differenzbilder / Schnitterkennung</h3>
       <article>
-        <p>Drei Beispiele sind unten zu finden.</p>
+        <p>Drei Beispiele sind unten zu finden. Bitte den Slider benutzen oder mit dem Button zur Schnitterkennung interagieren.</p>
         <dl>
           <dt>Teilaufgabe 1:</dt>
           <dd>
@@ -53,7 +53,12 @@ d = 255</pre>
             <p>Generell kann man zwischen zwei Typen von Schnitten unterscheiden: Harte und weiche Schnitte.</p>
             <p>Insgesamt gibt es drei sehr bekannte Verfahren, um eine Schnittbewertung durchführen zu können: Summe der absoluten Differenzen, Histogramm-Differenz und die Edge Change Ratio.</p>
             <p>Es wird die Summe der absoluten Differenzen benutzt, um Unterschiede zwischen den einzelnen Frames bewerten zu können, da der Algorithmus einfach zu implementieren ist und harte Schnitte sehr gut erkennen kann. Nachteile des Verfahrens sind, dass bei stark bewegten Bildern falsche Schnitte erkannt werden können. Hier kann man mit der Berechnung eines dynamischen Schwellwertes gegensteuern.</p>
-            <p>Grundsätzlich funktioniert das Verfahren so, dass die Differenz d = | frame1 - frame2 | ist und diese über die Länge des analysierten Materials aufsummiert wird.</p>
+            <p>Grundsätzlich funktioniert das Verfahren so, dass die Differenz</p>
+            <pre style="display: inline-block">d = | frame1 - frame2 | / (breite * höhe)</pre>
+            <p>ist und diese pro Frame persistiert wird.</p>
+            <p>Nach der Abspeicherung der Differenzen der Frames wird mittels dynamischer Mittelwertbestimmung beobachtet, wie der Wert sich im Verlauf des Videos verändert.</p>
+            <p>Angenommen, Frame 50 mit einer absoluten Pixeldifferenz von 153 wird betrachtet. Nun wird der Mittelwert der Differenzen der letzten n Frames (wobei n in diesem Fall 10 ist) betrachtet. Sollte diese Differenz über einen Schwellwert t (in diesem Fall 10) kommen, wird dies als Schnitt erkannt. Da mehrere Frames hintereinander gleich hohe Werte haben können, wird die Liste der Schnitte anschließend auf Nachbarschaften überprüft und reduziert.</p>
+            <p>Hierdurch können starke und schwache Kontraste als Schnitte erkannt werden. Um die Erkennung zu verbessern, wäre es möglich noch die Edge Change Ratio und/oder die Histogramm-Differenz zusätzlich zu berechnen.</p>
           </dd>
         </dl>
       </article>
@@ -64,12 +69,12 @@ d = 255</pre>
         <section class="panel-body" id="video">
           <div class="col-sm-12">
             <h5>Video</h5>
-            <video id="video1" loop="true" muted="true" preload="auto" control="false" data-src="../assets/contraries.mp4"></video>
+            <video id="video1" loop="true" muted="true" preload="auto" control="false" data-src="../assets/testszene.mp4"></video>
             <h5>Steuerung</h5>
             <div class="form-inline">
               <div class="form-group">
                 <label>Abstand der Frames in ms</label>
-                <input class="form-control" id="offset1" type="number" min="0" value="50">
+                <input class="form-control" id="offset1" type="number" min="0" value="25">
               </div>
               <div class="form-group cut-button">
                 <button class="btn" id="cut1"><span class="start">Schnitterkennung starten</span><span class="stop">Schnitterkennung stoppen</span></button>
@@ -111,12 +116,12 @@ d = 255</pre>
         <section class="panel-body" id="video">
           <div class="col-sm-12">
             <h5>Video</h5>
-            <video id="video2" loop="true" muted="true" preload="auto" control="false" data-src="../assets/tagesschau.mp4"></video>
+            <video id="video2" loop="true" muted="true" preload="auto" control="false" data-src="../assets/contraries.mp4"></video>
             <h5>Steuerung</h5>
             <div class="form-inline">
               <div class="form-group">
                 <label>Abstand der Frames in ms</label>
-                <input class="form-control" id="offset2" type="number" min="0" value="50">
+                <input class="form-control" id="offset2" type="number" min="0" value="25">
               </div>
               <div class="form-group cut-button">
                 <button class="btn" id="cut2"><span class="start">Schnitterkennung starten</span><span class="stop">Schnitterkennung stoppen</span></button>
@@ -158,12 +163,12 @@ d = 255</pre>
         <section class="panel-body" id="video">
           <div class="col-sm-12">
             <h5>Video</h5>
-            <video id="video3" loop="true" muted="true" preload="auto" control="false" data-src="../assets/blue_small.mp4"></video>
+            <video id="video3" loop="true" muted="true" preload="auto" control="false" data-src="../assets/tagesschau.mp4"></video>
             <h5>Steuerung</h5>
             <div class="form-inline">
               <div class="form-group">
                 <label>Abstand der Frames in ms</label>
-                <input class="form-control" id="offset3" type="number" min="0" value="50">
+                <input class="form-control" id="offset3" type="number" min="0" value="25">
               </div>
               <div class="form-group cut-button">
                 <button class="btn" id="cut3"><span class="start">Schnitterkennung starten</span><span class="stop">Schnitterkennung stoppen</span></button>
@@ -193,6 +198,53 @@ d = 255</pre>
           <div class="col-sm-12">
             <h5>Liste der Schnittmarken</h5>
             <ul id="chapters3">
+              <li>Schnitte erst sichtbar, nachdem die Schnitterkennung durchgelaufen ist</li>
+            </ul>
+          </div>
+        </section>
+      </article>
+      <article class="content-4 panel panel-default">
+        <div class="panel-heading">
+          <h2 class="panel-title">Beispiel 4</h2>
+        </div>
+        <section class="panel-body" id="video">
+          <div class="col-sm-12">
+            <h5>Video</h5>
+            <video id="video4" loop="true" muted="true" preload="auto" control="false" data-src="../assets/blue_small.mp4"></video>
+            <h5>Steuerung</h5>
+            <div class="form-inline">
+              <div class="form-group">
+                <label>Abstand der Frames in ms</label>
+                <input class="form-control" id="offset4" type="number" min="0" value="25">
+              </div>
+              <div class="form-group cut-button">
+                <button class="btn" id="cut4"><span class="start">Schnitterkennung starten</span><span class="stop">Schnitterkennung stoppen</span></button>
+              </div>
+            </div>
+            <div class="form-group range-slider" id="timeslider4">
+              <input type="range" min="0" max="1" step="0.00025" value="0">
+              <label>00:00</label>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <h5>Frame 1</h5>
+            <canvas id="canvas10"></canvas>
+          </div>
+          <div class="col-sm-6">
+            <h5>Frame 2</h5>
+            <canvas id="canvas11"></canvas>
+          </div>
+          <div class="col-sm-6">
+            <h5>Differenz</h5>
+            <canvas id="canvas12"></canvas>
+          </div>
+          <div class="col-sm-6">
+            <h5>Differenzverlauf</h5>
+            <canvas id="plot4"></canvas>
+          </div>
+          <div class="col-sm-12">
+            <h5>Liste der Schnittmarken</h5>
+            <ul id="chapters4">
               <li>Schnitte erst sichtbar, nachdem die Schnitterkennung durchgelaufen ist</li>
             </ul>
           </div>

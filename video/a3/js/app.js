@@ -122,6 +122,48 @@ class DifferenceImage {
         this.drawLine(time);
     }
 
+    getChapters() {
+        let chapters = [];
+        let averages = new Uint8Array(this.storage.length);
+        let limit = 10;
+        for (let i = 0; i < this.storage.length; i++) {
+            const curr = this.storage[i];
+            let avg = 0;
+            let samples = 10;
+            let partials = samples;
+            for (let j = i - (~~(samples / 2)); j < i + ~~(samples / 2); j++) {
+                if (!this.storage[j]) {
+                    partials--;
+                }
+                avg += this.storage[j] || 0;
+            }
+            avg /= partials;
+            averages[i] = avg;
+            if (Math.abs(curr - avg) > limit) {
+                chapters.push(i * this.offset);
+            }
+        }
+        console.warn(chapters);
+        const newChapters = [];
+        for (let i = 0; i < chapters.length - 1; i++) {
+            const curr = chapters[i];
+            const next = chapters[i + 1];
+            let sum = 0;
+            let items = 1;
+            const distance = next - curr;
+            if (distance <= this.offset * 4 && i !== chapters.length - 2) {
+                sum += curr;
+                items++;
+            } else {
+                sum += curr;
+                newChapters.push(sum / items);
+                sum = 0;
+                items = 0;
+            }
+        }
+        return newChapters;
+    }
+
     drawLine(time) {
         this.ctxPlot.beginPath();
         this.ctxPlot.strokeStyle = "red";
@@ -135,7 +177,7 @@ class DifferenceImage {
         if (this.cutCb) {
             const diff = this.calculateDifference();
             this.cutCb(diff);
-            if (this.chosenTime <= this.duration) {
+            if (this.chosenTime <= this.duration - this.offset) {
                 this.processNextFrame();
                 this.drawPlot(this.frameProcessed);
             } else {
@@ -152,6 +194,13 @@ class DifferenceImage {
         this.cutCb = null;
         this.offsetInput.disabled = '';
         this.rangeSlider.disabled = '';
+        const chapters = this.getChapters();
+        this.chapters.innerHTML = `<li>${this.frameProcessed * this.offset}/${this.duration} ms analysiert (${(((this.frameProcessed * this.offset) / this.duration) * 100).toFixed(2)}%)</li>`;
+        for (let v of chapters) {
+            const listItem = document.createElement("li");
+            listItem.innerHTML = this.generateTimecode(v);
+            this.chapters.appendChild(listItem);
+        }
     }
 
     bindEvents() {
@@ -224,11 +273,19 @@ class DifferenceImage {
         element.innerHTML = this.formatTime(this.chosenTime);
     }
 
-    formatTime(seconds) {
-        const time = new Date(seconds);
+    formatTime(ms) {
+        const time = new Date(ms);
         const m = this.fillWithZeros(time.getMinutes(), 2);
         const s = this.fillWithZeros(time.getSeconds(), 2);
         return `${m}:${s}`;
+    }
+
+    generateTimecode(ms) {
+        const time = new Date(ms);
+        const m = this.fillWithZeros(time.getMinutes(), 2);
+        const s = this.fillWithZeros(time.getSeconds(), 2);
+        const milli = this.fillWithZeros(time.getMilliseconds(), 3);
+        return `${m}:${s}:${milli}`;
     }
 
     draw() {
@@ -339,6 +396,18 @@ let videoInstance3 = new DifferenceImage(
     'cut3',
     'plot3',
     'chapters3'
+);
+
+let videoInstance4 = new DifferenceImage(
+    'canvas10',
+    'canvas11',
+    'video4',
+    'canvas12',
+    'timeslider4',
+    'offset4',
+    'cut4',
+    'plot4',
+    'chapters4'
 );
 
 window.requestAnimFrame = (function() {

@@ -23,7 +23,7 @@ html(lang='de')
 
             h3.text-center Differenzbilder / Schnitterkennung
             article
-                p Drei Beispiele sind unten zu finden.
+                p Drei Beispiele sind unten zu finden. Bitte den Slider benutzen oder mit dem Button zur Schnitterkennung interagieren.
                 dl
                     dt Teilaufgabe 1:
                     dd
@@ -58,7 +58,13 @@ html(lang='de')
                         p Generell kann man zwischen zwei Typen von Schnitten unterscheiden: Harte und weiche Schnitte.
                         p Insgesamt gibt es drei sehr bekannte Verfahren, um eine Schnittbewertung durchführen zu können: Summe der absoluten Differenzen, Histogramm-Differenz und die Edge Change Ratio.
                         p Es wird die Summe der absoluten Differenzen benutzt, um Unterschiede zwischen den einzelnen Frames bewerten zu können, da der Algorithmus einfach zu implementieren ist und harte Schnitte sehr gut erkennen kann. Nachteile des Verfahrens sind, dass bei stark bewegten Bildern falsche Schnitte erkannt werden können. Hier kann man mit der Berechnung eines dynamischen Schwellwertes gegensteuern.
-                        p Grundsätzlich funktioniert das Verfahren so, dass die Differenz d = | frame1 - frame2 | ist und diese über die Länge des analysierten Materials aufsummiert wird.
+                        p Grundsätzlich funktioniert das Verfahren so, dass die Differenz
+                        pre(style="display: inline-block;").
+                            d = | frame1 - frame2 | / (breite * höhe)
+                        p ist und diese pro Frame persistiert wird.
+                        p Nach der Abspeicherung der Differenzen der Frames wird mittels dynamischer Mittelwertbestimmung beobachtet, wie der Wert sich im Verlauf des Videos verändert.
+                        p Angenommen, Frame 50 mit einer absoluten Pixeldifferenz von 153 wird betrachtet. Nun wird der Mittelwert der Differenzen der letzten n Frames (wobei n in diesem Fall 10 ist) betrachtet. Sollte diese Differenz über einen Schwellwert t (in diesem Fall 10) kommen, wird dies als Schnitt erkannt. Da mehrere Frames hintereinander gleich hohe Werte haben können, wird die Liste der Schnitte anschließend auf Nachbarschaften überprüft und reduziert.
+                        p Hierdurch können starke und schwache Kontraste als Schnitte erkannt werden. Um die Erkennung zu verbessern, wäre es möglich noch die Edge Change Ratio und/oder die Histogramm-Differenz zusätzlich zu berechnen.
 
             article.content-1.panel.panel-default
                 .panel-heading
@@ -66,12 +72,12 @@ html(lang='de')
                 section#video.panel-body
                     div.col-sm-12
                         h5 Video
-                        video#video1(loop="true" muted="true", preload="auto", control="false", data-src="../assets/contraries.mp4")
+                        video#video1(loop="true" muted="true", preload="auto", control="false", data-src="../assets/testszene.mp4")
                         h5 Steuerung
                         .form-inline
                             .form-group
                                 label Abstand der Frames in ms
-                                input.form-control#offset1(type="number", min="0", value="50")
+                                input.form-control#offset1(type="number", min="0", value="25")
                             .form-group.cut-button
                                 button#cut1.btn
                                     span.start Schnitterkennung starten
@@ -101,12 +107,12 @@ html(lang='de')
                 section#video.panel-body
                     div.col-sm-12
                         h5 Video
-                        video#video2(loop="true" muted="true", preload="auto", control="false", data-src="../assets/tagesschau.mp4")
+                        video#video2(loop="true" muted="true", preload="auto", control="false", data-src="../assets/contraries.mp4")
                         h5 Steuerung
                         .form-inline
                             .form-group
                                 label Abstand der Frames in ms
-                                input.form-control#offset2(type="number", min="0", value="50")
+                                input.form-control#offset2(type="number", min="0", value="25")
                             .form-group.cut-button
                                 button#cut2.btn
                                     span.start Schnitterkennung starten
@@ -136,12 +142,12 @@ html(lang='de')
                 section#video.panel-body
                     div.col-sm-12
                         h5 Video
-                        video#video3(loop="true" muted="true", preload="auto", control="false", data-src="../assets/blue_small.mp4")
+                        video#video3(loop="true" muted="true", preload="auto", control="false", data-src="../assets/tagesschau.mp4")
                         h5 Steuerung
                         .form-inline
                             .form-group
                                 label Abstand der Frames in ms
-                                input.form-control#offset3(type="number", min="0", value="50")
+                                input.form-control#offset3(type="number", min="0", value="25")
                             .form-group.cut-button
                                 button#cut3.btn
                                     span.start Schnitterkennung starten
@@ -164,6 +170,41 @@ html(lang='de')
                     div.col-sm-12
                         h5 Liste der Schnittmarken
                         ul#chapters3
+                            li Schnitte erst sichtbar, nachdem die Schnitterkennung durchgelaufen ist
+            article.content-4.panel.panel-default
+                .panel-heading
+                    h2.panel-title Beispiel 4
+                section#video.panel-body
+                    div.col-sm-12
+                        h5 Video
+                        video#video4(loop="true" muted="true", preload="auto", control="false", data-src="../assets/blue_small.mp4")
+                        h5 Steuerung
+                        .form-inline
+                            .form-group
+                                label Abstand der Frames in ms
+                                input.form-control#offset4(type="number", min="0", value="25")
+                            .form-group.cut-button
+                                button#cut4.btn
+                                    span.start Schnitterkennung starten
+                                    span.stop Schnitterkennung stoppen
+                        .form-group.range-slider#timeslider4
+                            input(type="range", min="0", max="1", step="0.00025", value="0")
+                            label 00:00
+                    div.col-sm-6
+                        h5 Frame 1
+                        canvas#canvas10
+                    div.col-sm-6
+                        h5 Frame 2
+                        canvas#canvas11
+                    div.col-sm-6
+                        h5 Differenz
+                        canvas#canvas12
+                    div.col-sm-6
+                        h5 Differenzverlauf
+                        canvas#plot4
+                    div.col-sm-12
+                        h5 Liste der Schnittmarken
+                        ul#chapters4
                             li Schnitte erst sichtbar, nachdem die Schnitterkennung durchgelaufen ist
 
         script(src="js/Helper.js")
