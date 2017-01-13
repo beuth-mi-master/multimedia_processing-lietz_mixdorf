@@ -143,7 +143,6 @@ class DifferenceImage {
                 chapters.push(i * this.offset);
             }
         }
-        console.warn(chapters);
         const newChapters = [];
         for (let i = 0; i < chapters.length - 1; i++) {
             const curr = chapters[i];
