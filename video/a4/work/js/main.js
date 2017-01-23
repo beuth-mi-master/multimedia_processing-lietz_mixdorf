@@ -1,25 +1,32 @@
 'use strict';
 
-navigator.getUserMedia = navigator.getUserMedia ||
-    navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+var isInitiator;
 
-var constraints = {
-  audio: false,
-  video: true
-};
-var video = document.querySelector('video');
+window.room = window.location.pathname.split("/")[1];
 
-function successCallback(stream) {
-  window.stream = stream; // stream available to console
-  if (window.URL) {
-    video.src = window.URL.createObjectURL(stream);
-  } else {
-    video.src = stream;
-  }
+var socket = io.connect();
+
+if (room !== "") {
+  console.log('Message from client: Asking to join room ' + room);
+  socket.emit('create or join', room);
 }
 
-function errorCallback(error) {
-  console.log('navigator.getUserMedia error: ', error);
-}
+socket.on('created', function(room, clientId) {
+  isInitiator = true;
+});
 
-navigator.getUserMedia(constraints, successCallback, errorCallback);
+socket.on('full', function(room) {
+  console.log('Message from client: Room ' + room + ' is full :^(');
+});
+
+socket.on('ipaddr', function(ipaddr) {
+  console.log('Message from client: Server IP address is ' + ipaddr);
+});
+
+socket.on('joined', function(room, clientId) {
+  isInitiator = false;
+});
+
+socket.on('log', function(array) {
+  console.log.apply(console, array);
+});

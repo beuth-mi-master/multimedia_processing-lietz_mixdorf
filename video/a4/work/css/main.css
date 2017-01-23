@@ -2,7 +2,39 @@ body {
   font-family: sans-serif;
 }
 
-video {
-  max-width: 100%;
-  width: 320px;
+* {
+	box-sizing: border-box;
+}
+
+.wrapper {
+	display: flex;
+	flex: 1 1 auto;
+	align-items: center;
+    justify-content: center;
+}
+.wrapper textarea {
+	width: 46%;
+	margin: 0 2%;
+	height: 100px;
+}
+#buttons {
+	display: flex;
+	flex-direction: column;
+	flex: 1 1 auto;
+	align-items: center;
+	justify-content: center;
+
+}
+#buttons button {
+	width: 100%;
+	font-size: 18px;
+	margin: 5px 10px;
+}
+@media screen and (min-width: 400px) {
+	#buttons {
+		flex-direction: row;
+	}
+	#buttons button {
+		width: 120px;
+	}
 }
