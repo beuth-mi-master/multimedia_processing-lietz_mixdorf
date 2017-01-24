@@ -6,14 +6,36 @@ body {
 	box-sizing: border-box;
 }
 
-#videos {
+#videoCanvas {
 	display: flex;
 	flex: 1 1 auto;
 	align-items: center;
     justify-content: center;
 }
-#videos video {
+#videoCanvas canvas,
+#videoCanvas video {
 	width: 46%;
 	margin: 0 2%;
-	height: 100px;
+	height: 100%;
+}
+#buttons {
+	display: flex;
+	flex-direction: column;
+	flex: 1 1 auto;
+	align-items: center;
+	justify-content: center;
+
+}
+#buttons button {
+	width: 100%;
+	font-size: 18px;
+	margin: 5px 10px;
+}
+@media screen and (min-width: 400px) {
+	#buttons {
+		flex-direction: row;
+	}
+	#buttons button {
+		width: 120px;
+	}
 }

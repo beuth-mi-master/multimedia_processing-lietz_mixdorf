@@ -24,3 +24,5 @@
 2. Entweder man benutzt wie in der vorherigen Aufgabe einen Eingabedialog, wo der Nutzer den Raum selber angeben kann, oder man macht es auch wie in der vorherigen Aufgabe und splitted die Url beim obersten Ordner und nutzt diesen als Raumnamen.
 3. Screenshot: step-5-part1 und step-5-part2
 4. Die Frage ist nicht verständlich formuliert. Man kann alles mit der App machen. Falls gemeint ist, was es für Ideen gäbe, die App zu verbessern, so würde ich das Layout anpassen und das ganze mit einem Chat kombinieren.
+## Step 6 - Bonus
+1. Generell sollte es möglich sein, die Daten müssen nur beim Sender Encodiert werden und die maximale Paketgröße muss eingehalten werden. Der Empfänger muss diese dann wieder dekodieren.
